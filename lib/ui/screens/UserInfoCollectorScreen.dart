@@ -1,6 +1,7 @@
 import 'package:corona_trace/APIRepository.dart';
 import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/ui/BaseState.dart';
+import 'package:corona_trace/ui/widgets/CTTestingInformation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -131,63 +132,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   }
 
   Widget testingInformationCardContent() {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          decoration: new BoxDecoration(
-              color: Colors.transparent,
-              border: Border.all(color: Colors.indigo),
-              borderRadius: new BorderRadius.all(const Radius.circular(8.0))),
-          child: ListTile(
-            onTap: () {
-              AppConstants.launchUrl(AppConstants.TESTED_URL);
-            },
-            trailing: Icon(Icons.navigate_next, color: Colors.indigo),
-            title: Padding(
-              child: Text(
-                "How to get tested",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              padding: EdgeInsets.all(5),
-            ),
-            subtitle: Padding(
-              child: Text("COVID-19 Testing Resources"),
-              padding: EdgeInsets.all(5),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          decoration: new BoxDecoration(
-              color: Colors.transparent,
-              border: Border.all(color: Colors.indigo),
-              borderRadius: new BorderRadius.all(const Radius.circular(8.0))),
-          child: ListTile(
-            onTap: () {
-              AppConstants.launchUrl(AppConstants.TESTED_URL);
-            },
-            trailing: Icon(Icons.navigate_next, color: Colors.indigo),
-            title: Padding(
-              child: Text("How to get documentation",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              padding: EdgeInsets.all(5),
-            ),
-            subtitle: Padding(
-              child: Text("COVID-19 Testing Documentation Resources"),
-              padding: EdgeInsets.all(5),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 120,
-        ),
-      ],
-    );
+    return CTTestingInformation();
   }
 
   void dialogOnResponse(screen) {
