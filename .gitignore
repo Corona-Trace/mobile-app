@@ -41,3 +41,22 @@ app.*.map.json
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+# Android Studio
+.idea/
+.gradle
+local.properties
+/*/out
+build
+*.iml
+*.iws
+*.ipr
+*.swp
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+keystore/
+google-services.json
