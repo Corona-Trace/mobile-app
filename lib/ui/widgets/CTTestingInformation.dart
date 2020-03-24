@@ -12,13 +12,13 @@ class CTTestingInformation extends StatelessWidget {
         Container(
           decoration: new BoxDecoration(
               color: Colors.transparent,
-              border: Border.all(color: Colors.indigo),
+              border: Border.all(color: Colors.indigo.shade400),
               borderRadius: new BorderRadius.all(const Radius.circular(8.0))),
           child: ListTile(
             onTap: () {
               AppConstants.launchUrl(AppConstants.TESTED_URL);
             },
-            trailing: Icon(Icons.navigate_next, color: Colors.indigo),
+            trailing: Icon(Icons.arrow_forward, color: Colors.indigo),
             title: Padding(
               child: Text(
                 "How to get tested",
@@ -38,13 +38,13 @@ class CTTestingInformation extends StatelessWidget {
         Container(
           decoration: new BoxDecoration(
               color: Colors.transparent,
-              border: Border.all(color: Colors.indigo),
+              border: Border.all(color: Colors.indigo.shade400),
               borderRadius: new BorderRadius.all(const Radius.circular(8.0))),
           child: ListTile(
             onTap: () {
               AppConstants.launchUrl(AppConstants.TESTED_URL);
             },
-            trailing: Icon(Icons.navigate_next, color: Colors.indigo),
+            trailing: Icon(Icons.arrow_forward, color: Colors.indigo),
             title: Padding(
               child: Text("How to get documentation",
                   style: TextStyle(fontWeight: FontWeight.bold)),
