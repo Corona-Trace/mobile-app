@@ -60,3 +60,6 @@ bin/
 gen/
 keystore/
 google-services.json
+
+#iOS related
+GoogleService-Info.plist

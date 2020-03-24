@@ -4,6 +4,8 @@ import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
 
+import 'AppConstants.dart';
+
 class LocationUpdates {
   static scheduleBGTask() async {
     // Step 1:  Configure BackgroundFetch as usual.
@@ -57,7 +59,7 @@ class LocationUpdates {
     // 2.  Configure the plugin
     //
     var displacement = await FirestoreRepository.getRemoteConfigValue(
-        DISTANCE_DISPLACEMENT_FACTOR);
+        AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
     await bg.BackgroundGeolocation.ready(bg.Config(
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
             distanceFilter: double.parse(displacement),
