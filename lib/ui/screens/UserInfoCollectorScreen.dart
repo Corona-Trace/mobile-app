@@ -41,7 +41,9 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
       children: <Widget>[
         Stack(
           children: <Widget>[
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,9 +56,14 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
               margin: EdgeInsets.only(top: 50, bottom: 20),
             ),
             Align(
-              child: Padding(
-                child: Image.asset("assets/combined_shape.png"),
-                padding: EdgeInsets.only(top: 20, bottom: 50),
+              child: Container(
+                margin: EdgeInsets.only(top: 120),
+                transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                child: Image.asset(
+                  "assets/combined_shape.png",
+                  height: 150,
+                  width: 150,
+                ),
               ),
               alignment: Alignment.topRight,
             ),
@@ -88,7 +95,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
       margin: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+              topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       child: Padding(
         padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 50),
         child: currentScreen,
