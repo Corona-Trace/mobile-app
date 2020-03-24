@@ -37,45 +37,50 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   }
 
   Widget safeAreaContainer() {
-    return Column(children: <Widget>[
-      Stack(
-        children: <Widget>[
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                backIcon(),
-                CTHeaderTile(),
-                testingInformation()
-              ],
+    return Column(
+      children: <Widget>[
+        Stack(
+          children: <Widget>[
+            SizedBox(
+              height: 10,
             ),
-            margin: EdgeInsets.only(top: 50, bottom: 20),
-          ),
-          Align(
-            child: Container(
-              margin: EdgeInsets.only(top: 120),
-              transform: Matrix4.translationValues(20.0, 0.0, 0.0),
-              child: Image.asset(
-                "assets/combined_shape.png",
-                height: 150,
-                width: 150,
+            Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  backIcon(),
+                  CTHeaderTile(),
+                  testingInformation()
+                ],
               ),
+              margin: EdgeInsets.only(top: 50, bottom: 20),
             ),
-            alignment: Alignment.topRight,
-          ),
-          SizedBox(
-            height: 30,
-          ),
-        ],
-      ),
-      SizedBox(
-        height: 40,
-      ),
-      Expanded(child:  getCardBodySeverity(),flex: 1,)
-    ],);
+            Align(
+              child: Container(
+                margin: EdgeInsets.only(top: 120),
+                transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                child: Image.asset(
+                  "assets/combined_shape.png",
+                  height: 150,
+                  width: 150,
+                ),
+              ),
+              alignment: Alignment.topRight,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Expanded(
+          child: getCardBodySeverity(),
+          flex: 1,
+        )
+      ],
+    );
   }
 
   Card getCardBodySeverity() {
@@ -86,7 +91,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
               topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       child: Padding(
         padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 50),
-        child: getCurrentScreen(),
+        child: SingleChildScrollView(child: getCurrentScreen(),),
       ),
     );
   }
