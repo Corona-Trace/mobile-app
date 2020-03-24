@@ -23,6 +23,7 @@ class CTQuestionPair extends StatelessWidget {
             height: 50,
             child: MaterialButton(
               color: Colors.red,
+              elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(8.0),
               ),
@@ -37,7 +38,7 @@ class CTQuestionPair extends StatelessWidget {
           alignment: Alignment.center,
         ),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         Align(
           child: SizedBox(
@@ -45,6 +46,7 @@ class CTQuestionPair extends StatelessWidget {
             child: MaterialButton(
               color: Colors.green,
               height: 50,
+              elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(8.0),
               ),
