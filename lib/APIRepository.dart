@@ -90,7 +90,7 @@ class FirestoreRepository {
           await Geolocator().distanceBetween(lat, lng, cacheLat, cacheLng);
       //less than 100 metres return !
       var displacement =
-          await getRemoteConfigValue(DISTANCE_DISPLACEMENT_FACTOR);
+          await getRemoteConfigValue(AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
       if (displacement != null && distance < double.parse(displacement)) {
         // dont do anythinh
       } else {
