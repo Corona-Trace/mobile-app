@@ -5,9 +5,9 @@ import 'CTTermsAndConditions.dart';
 class CTBottomSheetWidget extends StatelessWidget {
   const CTBottomSheetWidget(
       {this.mainQuestionText,
-      this.subSectionDescription,
-      this.questionPairWidget,
-      this.onTermsConditionsClick});
+        this.subSectionDescription,
+        this.questionPairWidget,
+        this.onTermsConditionsClick});
 
   final String mainQuestionText;
   final String subSectionDescription;
@@ -16,32 +16,46 @@ class CTBottomSheetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          mainQuestionText,
-          style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+    return LayoutBuilder(builder: (context, constraints) {
+      return SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+              minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                mainQuestionText,
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                subSectionDescription,
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(
+                height: 60,
+              ),
+              questionPairWidget,
+              SizedBox(
+                height: 20,
+              ),
+              TermsAndConditions(
+                  onTermsConditionsClick: onTermsConditionsClick),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          subSectionDescription,
-          style: TextStyle(fontSize: 16),
-        ),
-        SizedBox(
-          height: 80,
-        ),
-        questionPairWidget,
-        SizedBox(
-          height: 20,
-        ),
-        TermsAndConditions(onTermsConditionsClick: onTermsConditionsClick),
-        SizedBox(
-          height: 20,
-        ),
-      ],
-    );
+      );
+    });
   }
 }
