@@ -32,46 +32,50 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         bottom: false,
         child: safeAreaContainer(),
       ),
-      bottomSheet: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[getCardBodySeverity()],
-        ),
-      ),
       backgroundColor: Color.fromRGBO(43, 54, 181, 1),
     );
   }
 
   Widget safeAreaContainer() {
-    return Stack(
-      children: <Widget>[
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              backIcon(),
-              CTHeaderTile(),
-              testingInformation()
-            ],
+    return Column(children: <Widget>[
+      Stack(
+        children: <Widget>[
+          SizedBox(
+            height: 10,
           ),
-          margin: EdgeInsets.only(top: 50, bottom: 20),
-        ),
-        Align(
-          child: Container(
-            margin: EdgeInsets.only(top: 120),
-            transform: Matrix4.translationValues(20.0, 0.0, 0.0),
-            child: Image.asset(
-              "assets/combined_shape.png",
-              height: 150,
-              width: 150,
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                backIcon(),
+                CTHeaderTile(),
+                testingInformation()
+              ],
             ),
+            margin: EdgeInsets.only(top: 50, bottom: 20),
           ),
-          alignment: Alignment.topRight,
-        ),
-      ],
-    );
+          Align(
+            child: Container(
+              margin: EdgeInsets.only(top: 120),
+              transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+              child: Image.asset(
+                "assets/combined_shape.png",
+                height: 150,
+                width: 150,
+              ),
+            ),
+            alignment: Alignment.topRight,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+        ],
+      ),
+      SizedBox(
+        height: 40,
+      ),
+      Expanded(child:  getCardBodySeverity(),flex: 1,)
+    ],);
   }
 
   Card getCardBodySeverity() {
