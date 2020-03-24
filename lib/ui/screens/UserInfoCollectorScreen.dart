@@ -90,8 +90,8 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       child: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 50),
-        child: SingleChildScrollView(child: getCurrentScreen(),),
+        padding: EdgeInsets.only(left: 20, right: 20),
+        child: getCurrentScreen(),
       ),
     );
   }
@@ -112,7 +112,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     return CTBottomSheetWidget(
         mainQuestionText: "Q. How are you feeling today?",
         subSectionDescription:
-            "Don't worry. No personal information will be stored. Your location will be tracked, but all data will be anonymous.",
+        "Don't worry. No personal information will be stored. Your location will be tracked, but all data will be anonymous.",
         questionPairWidget: questionPair,
         onTermsConditionsClick: (String key) async {
           showLoadingDialog(tapDismiss: false);
@@ -144,37 +144,37 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   testingInformation() {
     return _currentScreen != SCREEN_TESTING_INFORMATION
         ? Container(
-            child: FlatButton(
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(8.0),
-                  side: BorderSide(color: Colors.indigo.shade300)),
-              color: Colors.transparent,
-              textColor: Colors.indigo,
-              padding: EdgeInsets.all(8.0),
-              onPressed: () {
-                dialogOnResponse(SCREEN_TESTING_INFORMATION);
-              },
-              child: Text(
-                "Testing Information",
-                style: TextStyle(fontSize: 14.0, color: Colors.white),
-              ),
-            ),
-            margin: EdgeInsets.only(left: 20),
-          )
+      child: FlatButton(
+        shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(8.0),
+            side: BorderSide(color: Colors.indigo.shade300)),
+        color: Colors.transparent,
+        textColor: Colors.indigo,
+        padding: EdgeInsets.all(8.0),
+        onPressed: () {
+          dialogOnResponse(SCREEN_TESTING_INFORMATION);
+        },
+        child: Text(
+          "Testing Information",
+          style: TextStyle(fontSize: 14.0, color: Colors.white),
+        ),
+      ),
+      margin: EdgeInsets.only(left: 20),
+    )
         : Container();
   }
 
   backIcon() {
     return _currentScreen == SCREEN_TESTING_INFORMATION
         ? IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              dialogOnResponse(SCREEN_FEELING_TODAY);
-            },
-          )
+      icon: Icon(
+        Icons.arrow_back,
+        color: Colors.white,
+      ),
+      onPressed: () {
+        dialogOnResponse(SCREEN_FEELING_TODAY);
+      },
+    )
         : Container();
   }
 
