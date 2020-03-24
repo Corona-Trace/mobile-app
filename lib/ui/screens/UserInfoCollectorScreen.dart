@@ -32,65 +32,49 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         bottom: false,
         child: safeAreaContainer(),
       ),
+      bottomSheet: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[getCardBodySeverity()],
+        ),
+      ),
       backgroundColor: Color.fromRGBO(43, 54, 181, 1),
     );
   }
 
   Widget safeAreaContainer() {
-    return Column(
+    return Stack(
       children: <Widget>[
-        Stack(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  backIcon(),
-                  CTHeaderTile(),
-                  testingInformation()
-                ],
-              ),
-              margin: EdgeInsets.only(top: 50, bottom: 20),
-            ),
-            Align(
-              child: Container(
-                margin: EdgeInsets.only(top: 120),
-                transform: Matrix4.translationValues(20.0, 0.0, 0.0),
-                child: Image.asset(
-                  "assets/combined_shape.png",
-                  height: 150,
-                  width: 150,
-                ),
-              ),
-              alignment: Alignment.topRight,
-            ),
-          ],
+        SizedBox(
+          height: 10,
         ),
-        Expanded(
-          flex: 1,
-          child: Align(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 200,
-                  ),
-                  getCardBodySeverity()
-                ],
-              ),
-            ),
-            alignment: Alignment.bottomCenter,
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              backIcon(),
+              CTHeaderTile(),
+              testingInformation()
+            ],
           ),
-        )
+          margin: EdgeInsets.only(top: 50, bottom: 20),
+        ),
+        Align(
+          child: Container(
+            margin: EdgeInsets.only(top: 120),
+            transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+            child: Image.asset(
+              "assets/combined_shape.png",
+              height: 150,
+              width: 150,
+            ),
+          ),
+          alignment: Alignment.topRight,
+        ),
       ],
     );
   }
 
   Card getCardBodySeverity() {
-    Widget currentScreen = getCurrentScreen();
     return Card(
       margin: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
@@ -98,7 +82,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
               topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       child: Padding(
         padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 50),
-        child: currentScreen,
+        child: getCurrentScreen(),
       ),
     );
   }
