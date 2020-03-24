@@ -1,5 +1,6 @@
 import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
 import 'package:flutter/material.dart';
+
 import 'CTTermsAndConditions.dart';
 
 class CTBottomSheetWidget extends StatelessWidget {
@@ -31,7 +32,7 @@ class CTBottomSheetWidget extends StatelessWidget {
           style: TextStyle(fontSize: 16),
         ),
         SizedBox(
-          height: 80,
+          height: 40,
         ),
         questionPairWidget,
         SizedBox(

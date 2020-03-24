@@ -57,7 +57,7 @@ class CTTestingInformation extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 120,
+          height: 150,
         ),
       ],
     );
