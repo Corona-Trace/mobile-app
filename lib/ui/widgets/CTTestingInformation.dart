@@ -30,9 +30,6 @@ class CTTestingInformation extends StatelessWidget {
             AppConstants.launchUrl(AppConstants.TESTED_URL);
           },
         ),
-        SizedBox(
-          height: 120,
-        ),
       ],
     );
   }
