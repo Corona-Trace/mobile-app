@@ -40,46 +40,49 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   Widget safeAreaContainer() {
     return Column(
       children: <Widget>[
-        Stack(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  backIcon(),
-                  CTHeaderTile(),
-                  testingInformation()
-                ],
+        Expanded(
+          child: Stack(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
               ),
-              margin: EdgeInsets.only(top: 50, bottom: 20),
-            ),
-            Align(
-              child: Container(
-                margin: EdgeInsets.only(top: 80),
-                transform: Matrix4.translationValues(20.0, 0.0, 0.0),
-                child: Image.asset(
-                  "assets/combined_shape.png",
-                  height: 150,
-                  width: 150,
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    backIcon(),
+                    CTHeaderTile(),
+                    testingInformation()
+                  ],
                 ),
+                margin: EdgeInsets.only(top: 50, bottom: 20),
               ),
-              alignment: Alignment.topRight,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 10,
+              Align(
+                child: Container(
+                  margin: EdgeInsets.only(top: 80),
+                  transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                  child: Image.asset(
+                    "assets/combined_shape.png",
+                    height: 150,
+                    width: 150,
+                  ),
+                ),
+                alignment: Alignment.topRight,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
+          flex: 1,
         ),
         Expanded(
           child: SingleChildScrollView(
             controller: _scrollController,
-            child: getCardBodySeverity(),
+            child: Container(
+              child: getCardBodySeverity(),
+              height: MediaQuery.of(context).size.height / 2,
+            ),
           ),
           flex: 1,
         )
@@ -163,7 +166,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
               },
               child: Text(
                 "Testing Information",
-                style: TextStyle(fontSize: 14.0, color: Colors.white),
+                style: TextStyle(fontSize: 16.0, color: Colors.white),
               ),
             ),
             margin: EdgeInsets.only(left: 20),
