@@ -1,14 +1,13 @@
 import 'package:corona_trace/APIRepository.dart';
 import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/ui/BaseState.dart';
-import 'package:corona_trace/ui/widgets/CTTestingInformation.dart';
-import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:corona_trace/ui/widgets/CTBottomSheetWidget.dart';
-import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
-import 'package:corona_trace/ui/widgets/CTThankYouDialog.dart';
 import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
+import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
+import 'package:corona_trace/ui/widgets/CTTestingInformation.dart';
+import 'package:corona_trace/ui/widgets/CTThankYouDialog.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class UserInfoCollectorScreen extends StatefulWidget {
   @override
@@ -24,6 +23,8 @@ const SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS = 5;
 
 class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   int _currentScreen = SCREEN_FEELING_TODAY;
+
+  var _scrollController = ScrollController();
 
   @override
   Widget prepareWidget(BuildContext context) {
@@ -41,44 +42,50 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   Widget safeAreaContainer() {
     return Column(
       children: <Widget>[
-        Stack(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  backIcon(),
-                  CTHeaderTile(),
-                  testingInformation()
-                ],
+        Expanded(
+          child: Stack(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
               ),
-              margin: EdgeInsets.only(top: 50, bottom: 20),
-            ),
-            Align(
-              child: Container(
-                margin: EdgeInsets.only(top: 120),
-                transform: Matrix4.translationValues(20.0, 0.0, 0.0),
-                child: Image.asset(
-                  "assets/combined_shape.png",
-                  height: 150,
-                  width: 150,
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    backIcon(),
+                    CTHeaderTile(),
+                    testingInformation()
+                  ],
                 ),
+                margin: EdgeInsets.only(top: 50, bottom: 20),
               ),
-              alignment: Alignment.topRight,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 10,
+              Align(
+                child: Container(
+                  margin: EdgeInsets.only(top: 80),
+                  transform: Matrix4.translationValues(20.0, 0.0, 0.0),
+                  child: Image.asset(
+                    "assets/combined_shape.png",
+                    height: 150,
+                    width: 150,
+                  ),
+                ),
+                alignment: Alignment.topRight,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
+          flex: 1,
         ),
         Expanded(
-          child: getCardBodySeverity(),
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Container(
+              child: getCardBodySeverity(),
+              height: MediaQuery.of(context).size.height / 2,
+            ),
+          ),
           flex: 1,
         )
       ],
@@ -176,6 +183,9 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     setState(() {
       _currentScreen = screen;
     });
+    // needed for small screens
+    _scrollController.animateTo(0,
+        duration: Duration(milliseconds: 200), curve: Curves.linear);
   }
 
   testingInformation() {
@@ -193,7 +203,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
               },
               child: Text(
                 "Testing Information",
-                style: TextStyle(fontSize: 14.0, color: Colors.white),
+                style: TextStyle(fontSize: 16.0, color: Colors.white),
               ),
             ),
             margin: EdgeInsets.only(left: 20),
