@@ -18,6 +18,8 @@ class UserInfoCollectorScreen extends StatefulWidget {
 const SCREEN_FEELING_TODAY = 1;
 const SCREEN_ACKNOWLEDGEMENT = 2;
 const SCREEN_TESTING_INFORMATION = 3;
+const SCREEN_CONFIRM_TESTED_POSITIVE = 4;
+const SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS = 5;
 
 class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   int _currentScreen = SCREEN_FEELING_TODAY;
@@ -97,7 +99,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(15), topRight: Radius.circular(15))),
       child: Padding(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 50),
+        padding: EdgeInsets.only(left: 20, right: 20),
         child: getCurrentScreen(),
       ),
     );
@@ -105,32 +107,67 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   Widget firstCardContent() {
     Widget questionPair = CTQuestionPair(
-        positiveQuestionText: "I am not infected with Coronavirus",
-        negativeQuestionText: "I am infected with Coronavirus",
-        onNegativeQuestionClick: () async {
+        topQuestionText: "YES",
+        topQuestionSubtitleText: "I tested positive for COVID-19",
+        bottomQuestionText: "NO",
+        bottomQuestionSubtitleText: "I do not have any symptoms",
+        showArrows: true,
+        onBottomQuestionClick: () async {
+          dialogOnResponse(SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS);
+        },
+        onTopQuestionClick: () async {
+          dialogOnResponse(SCREEN_CONFIRM_TESTED_POSITIVE);
+        });
+
+    return getBottomSheetWidget(
+        headerText: "Have you tested positive for COVID-19?",
+        subHeaderText:
+            "Select an answer to proceed.\n\nYour answer is completely anonymous and no personal information will ever be stored.",
+        questionPair: questionPair);
+  }
+
+  Widget confirmTestedPositiveCardContent() {
+    Widget questionPair = CTQuestionPair(
+        topQuestionText: "CANCEL",
+        bottomQuestionText: "YES",
+        bottomQuestionSubtitleText:
+            "I tested positive for COVID-19, use my location anonymously",
+        showBottomAsRed: true,
+        onBottomQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
           FirestoreRepository.setUserSeverity(1);
         },
-        onPositiveQuestionClick: () async {
+        onTopQuestionClick: () async {
+          dialogOnResponse(SCREEN_FEELING_TODAY);
+        });
+
+    return getBottomSheetWidget(
+        headerText: "Please confirm your answer to continue.",
+        subHeaderText:
+            "Confirm your answer and CoronaTrace will timestamp and use your location anonymously to help stop the spread of COVID-19.",
+        questionPair: questionPair);
+  }
+
+  Widget confirmDoNotHaveSymptomsCardContent() {
+    Widget questionPair = CTQuestionPair(
+        bottomQuestionText: "I DO NOT HAVE ANY SYMPTOMS",
+        topQuestionText: "CANCEL",
+        onTopQuestionClick: () async {
+          dialogOnResponse(SCREEN_FEELING_TODAY);
+        },
+        onBottomQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
           FirestoreRepository.setUserSeverity(0);
         });
 
-    return CTBottomSheetWidget(
-        mainQuestionText: "Q. How are you feeling today?",
-        subSectionDescription:
-            "Don't worry. No personal information will be stored. Your location will be tracked, but all data will be anonymous.",
-        questionPairWidget: questionPair,
-        onTermsConditionsClick: (String key) async {
-          showLoadingDialog(tapDismiss: false);
-          String url = await FirestoreRepository.getRemoteConfigValue(key);
-          print(url);
-          hideLoadingDialog();
-          AppConstants.launchUrl(url);
-        });
+    return getBottomSheetWidget(
+        headerText: "Please confirm your answer to continue.",
+        subHeaderText:
+            "Confirm your answer and CoronaTrace will timestamp and use your location anonymously to help stop the spread of COVID-19.",
+        questionPair: questionPair);
   }
 
-  Widget secondCardContent() {
+  Widget thankYouCardContent() {
     return CTThankYouDialog(
       onButtonClick: () {
         dialogOnResponse(SCREEN_FEELING_TODAY);
@@ -188,6 +225,21 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         : Container();
   }
 
+  CTBottomSheetWidget getBottomSheetWidget(
+      {CTQuestionPair questionPair, String headerText, String subHeaderText}) {
+    return CTBottomSheetWidget(
+        mainQuestionText: headerText,
+        subSectionDescription: subHeaderText,
+        questionPairWidget: questionPair,
+        onTermsConditionsClick: (String key) async {
+          showLoadingDialog(tapDismiss: false);
+          String url = await FirestoreRepository.getRemoteConfigValue(key);
+          print(url);
+          hideLoadingDialog();
+          AppConstants.launchUrl(url);
+        });
+  }
+
   Widget getCurrentScreen() {
     switch (_currentScreen) {
       case SCREEN_TESTING_INFORMATION:
@@ -202,7 +254,17 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         break;
       case SCREEN_ACKNOWLEDGEMENT:
         {
-          return secondCardContent();
+          return thankYouCardContent();
+        }
+        break;
+      case SCREEN_CONFIRM_TESTED_POSITIVE:
+        {
+          return confirmTestedPositiveCardContent();
+        }
+        break;
+      case SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS:
+        {
+          return confirmDoNotHaveSymptomsCardContent();
         }
         break;
     }
