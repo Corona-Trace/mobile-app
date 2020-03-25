@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
 
+import 'CTQuestion.dart';
+
 class CTQuestionPair extends StatelessWidget {
   const CTQuestionPair(
-      {this.positiveQuestionText,
-      this.negativeQuestionText,
-      this.onPositiveQuestionClick,
-      this.onNegativeQuestionClick});
+      {this.topQuestionText,
+      this.bottomQuestionText,
+      this.bottomQuestionSubtitleText = "",
+      this.topQuestionSubtitleText = "",
+      this.showBottomAsRed = false,
+      this.showArrows = false,
+      this.onTopQuestionClick,
+      this.onBottomQuestionClick});
 
-  final String positiveQuestionText;
-  final String negativeQuestionText;
+  final String topQuestionText;
+  final String bottomQuestionText;
 
-  final Function onPositiveQuestionClick;
-  final Function onNegativeQuestionClick;
+  final String topQuestionSubtitleText;
+  final String bottomQuestionSubtitleText;
+
+  final Function onTopQuestionClick;
+  final Function onBottomQuestionClick;
+
+  final bool showBottomAsRed;
+  final bool showArrows;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Align(
-          child: SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: MaterialButton(
-              color: Colors.red,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(8.0),
-              ),
-              onPressed: onNegativeQuestionClick,
-              child: Text(
-                negativeQuestionText,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
+          child: CTQuestion(
+            headerText: topQuestionText,
+            subtitleText: topQuestionSubtitleText,
+            onClick: onTopQuestionClick,
+            showArrows: showArrows,
           ),
           alignment: Alignment.center,
         ),
@@ -41,22 +42,12 @@ class CTQuestionPair extends StatelessWidget {
           height: 20,
         ),
         Align(
-          child: SizedBox(
-            width: double.infinity,
-            child: MaterialButton(
-              color: Colors.green,
-              height: 50,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(8.0),
-              ),
-              onPressed: onPositiveQuestionClick,
-              child: Text(
-                positiveQuestionText,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-            ),
+          child: CTQuestion(
+            headerText: bottomQuestionText,
+            subtitleText: bottomQuestionSubtitleText,
+            onClick: onBottomQuestionClick,
+            showAsRed: showBottomAsRed,
+            showArrows: showArrows,
           ),
           alignment: Alignment.center,
         ),

@@ -19,6 +19,8 @@ class UserInfoCollectorScreen extends StatefulWidget {
 const SCREEN_FEELING_TODAY = 1;
 const SCREEN_ACKNOWLEDGEMENT = 2;
 const SCREEN_TESTING_INFORMATION = 3;
+const SCREEN_CONFIRM_TESTED_POSITIVE = 4;
+const SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS = 5;
 
 class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   int _currentScreen = SCREEN_FEELING_TODAY;
@@ -98,32 +100,67 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   Widget firstCardContent() {
     Widget questionPair = CTQuestionPair(
-        positiveQuestionText: "I am not infected with Coronavirus",
-        negativeQuestionText: "I am infected with Coronavirus",
-        onNegativeQuestionClick: () async {
+        topQuestionText: "YES",
+        topQuestionSubtitleText: "I tested positive for COVID-19",
+        bottomQuestionText: "NO",
+        bottomQuestionSubtitleText: "I do not have any symptoms",
+        showArrows: true,
+        onBottomQuestionClick: () async {
+          dialogOnResponse(SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS);
+        },
+        onTopQuestionClick: () async {
+          dialogOnResponse(SCREEN_CONFIRM_TESTED_POSITIVE);
+        });
+
+    return getBottomSheetWidget(
+        headerText: "Have you tested positive for COVID-19?",
+        subHeaderText:
+            "Select an answer to proceed.\n\nYour answer is completely anonymous and no personal information will ever be stored.",
+        questionPair: questionPair);
+  }
+
+  Widget confirmTestedPositiveCardContent() {
+    Widget questionPair = CTQuestionPair(
+        topQuestionText: "CANCEL",
+        bottomQuestionText: "YES",
+        bottomQuestionSubtitleText:
+            "I tested positive for COVID-19, use my location anonymously",
+        showBottomAsRed: true,
+        onBottomQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
           FirestoreRepository.setUserSeverity(1);
         },
-        onPositiveQuestionClick: () async {
+        onTopQuestionClick: () async {
+          dialogOnResponse(SCREEN_FEELING_TODAY);
+        });
+
+    return getBottomSheetWidget(
+        headerText: "Please confirm your answer to continue.",
+        subHeaderText:
+            "Confirm your answer and CoronaTrace will timestamp and use your location anonymously to help stop the spread of COVID-19.",
+        questionPair: questionPair);
+  }
+
+  Widget confirmDoNotHaveSymptomsCardContent() {
+    Widget questionPair = CTQuestionPair(
+        bottomQuestionText: "I DO NOT HAVE ANY SYMPTOMS",
+        topQuestionText: "CANCEL",
+        onTopQuestionClick: () async {
+          dialogOnResponse(SCREEN_FEELING_TODAY);
+        },
+        onBottomQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
           FirestoreRepository.setUserSeverity(0);
         });
 
-    return CTBottomSheetWidget(
-        mainQuestionText: "Q. How are you feeling today?",
-        subSectionDescription:
-        "Don't worry. No personal information will be stored. Your location will be tracked, but all data will be anonymous.",
-        questionPairWidget: questionPair,
-        onTermsConditionsClick: (String key) async {
-          showLoadingDialog(tapDismiss: false);
-          String url = await FirestoreRepository.getRemoteConfigValue(key);
-          print(url);
-          hideLoadingDialog();
-          AppConstants.launchUrl(url);
-        });
+    return getBottomSheetWidget(
+        headerText: "Please confirm your answer to continue.",
+        subHeaderText:
+            "Confirm your answer and CoronaTrace will timestamp and use your location anonymously to help stop the spread of COVID-19.",
+        questionPair: questionPair);
   }
 
-  Widget secondCardContent() {
+  Widget thankYouCardContent() {
     return CTThankYouDialog(
       onButtonClick: () {
         dialogOnResponse(SCREEN_FEELING_TODAY);
@@ -144,38 +181,53 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   testingInformation() {
     return _currentScreen != SCREEN_TESTING_INFORMATION
         ? Container(
-      child: FlatButton(
-        shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(8.0),
-            side: BorderSide(color: Colors.indigo.shade300)),
-        color: Colors.transparent,
-        textColor: Colors.indigo,
-        padding: EdgeInsets.all(8.0),
-        onPressed: () {
-          dialogOnResponse(SCREEN_TESTING_INFORMATION);
-        },
-        child: Text(
-          "Testing Information",
-          style: TextStyle(fontSize: 14.0, color: Colors.white),
-        ),
-      ),
-      margin: EdgeInsets.only(left: 20),
-    )
+            child: FlatButton(
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(8.0),
+                  side: BorderSide(color: Colors.indigo.shade300)),
+              color: Colors.transparent,
+              textColor: Colors.indigo,
+              padding: EdgeInsets.all(8.0),
+              onPressed: () {
+                dialogOnResponse(SCREEN_TESTING_INFORMATION);
+              },
+              child: Text(
+                "Testing Information",
+                style: TextStyle(fontSize: 14.0, color: Colors.white),
+              ),
+            ),
+            margin: EdgeInsets.only(left: 20),
+          )
         : Container();
   }
 
   backIcon() {
     return _currentScreen == SCREEN_TESTING_INFORMATION
         ? IconButton(
-      icon: Icon(
-        Icons.arrow_back,
-        color: Colors.white,
-      ),
-      onPressed: () {
-        dialogOnResponse(SCREEN_FEELING_TODAY);
-      },
-    )
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              dialogOnResponse(SCREEN_FEELING_TODAY);
+            },
+          )
         : Container();
+  }
+
+  CTBottomSheetWidget getBottomSheetWidget(
+      {CTQuestionPair questionPair, String headerText, String subHeaderText}) {
+    return CTBottomSheetWidget(
+        mainQuestionText: headerText,
+        subSectionDescription: subHeaderText,
+        questionPairWidget: questionPair,
+        onTermsConditionsClick: (String key) async {
+          showLoadingDialog(tapDismiss: false);
+          String url = await FirestoreRepository.getRemoteConfigValue(key);
+          print(url);
+          hideLoadingDialog();
+          AppConstants.launchUrl(url);
+        });
   }
 
   Widget getCurrentScreen() {
@@ -192,7 +244,17 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         break;
       case SCREEN_ACKNOWLEDGEMENT:
         {
-          return secondCardContent();
+          return thankYouCardContent();
+        }
+        break;
+      case SCREEN_CONFIRM_TESTED_POSITIVE:
+        {
+          return confirmTestedPositiveCardContent();
+        }
+        break;
+      case SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS:
+        {
+          return confirmDoNotHaveSymptomsCardContent();
         }
         break;
     }
