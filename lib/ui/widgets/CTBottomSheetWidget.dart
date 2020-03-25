@@ -41,7 +41,7 @@ class CTBottomSheetWidget extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(
-                height: 60,
+                height: 25,
               ),
               questionPairWidget,
               SizedBox(
