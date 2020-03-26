@@ -134,7 +134,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         negativeQuestionSubtitleText:
             "I tested positive for COVID-19, use my location anonymously",
         hasCustomColor: true,
-        customColor: Colors.red,
+        customColor: Color.fromRGBO(219, 102, 81, 1),
         onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
           ApiRepository.setUserSeverity(1);
