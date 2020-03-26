@@ -40,7 +40,7 @@ In order to generate a `google-services.json` configuration file follow these st
 - Login with your Google account.
 - Create a new project (name doesn't matter).
 - Select "_Add Firebase to your Android app_".
-- Provide package name:  `com.boardgamegeek`.
+- Provide package name:  `org.coronatrace.mobile`.
 - Register app.
 - Download `google-services.json` file.
 - Follow instructions to add file to project.
