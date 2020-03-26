@@ -1,6 +1,9 @@
+import 'package:corona_trace/LocationUpdates.dart';
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/AppConstants.dart';
+import 'package:corona_trace/network/ResponseNotifications.dart';
+import 'package:corona_trace/push_notifications/push_notifications.dart';
 import 'package:corona_trace/ui/BaseState.dart';
 import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
@@ -11,6 +14,7 @@ import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
 import 'package:corona_trace/ui/widgets/CTTestingInformation.dart';
 import 'package:corona_trace/ui/widgets/CTThankYouDialog.dart';
 import 'package:corona_trace/utils/Stack.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +34,6 @@ const SCREEN_CONFIRM_DO_HAVE_SYMPTOMS = 6;
 class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   int _currentScreen = SCREEN_FEELING_TODAY;
   var stack = StackCollect();
-
   @override
   void initState() {
     super.initState();

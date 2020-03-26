@@ -19,16 +19,20 @@ class CTNotificationMapDetail extends StatefulWidget {
 
 class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
   Completer<GoogleMapController> _controller = Completer();
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
+  CameraPosition inititalCameraPosition;
+  Set<Marker> _markers = {};
   double offset = 100;
 
   @override
   void initState() {
     super.initState();
+    inititalCameraPosition = CameraPosition(
+      target: LatLng(widget.notification.lat, widget.notification.lng),
+      zoom: 16,
+    );
+    _markers.add(Marker(
+        markerId: MarkerId(widget.notification.Id.toString()),
+        position: LatLng(widget.notification.lat, widget.notification.lng)));
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
         offset = MediaQuery.of(context).size.height * 0.85;
@@ -45,6 +49,7 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
       body: Stack(
         children: <Widget>[
           flutterMap(),
+          Container(width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height,color: Colors.black12,),
           Align(
             child: notificationContainer(),
             alignment: Alignment.bottomCenter,
@@ -73,8 +78,9 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
   flutterMap() {
     return GoogleMap(
       mapType: MapType.normal,
+      markers: _markers,
       padding: EdgeInsets.only(bottom: offset, left: 15),
-      initialCameraPosition: _kGooglePlex,
+      initialCameraPosition: inititalCameraPosition,
       onMapCreated: (GoogleMapController controller) {
         _controller.complete(controller);
       },

@@ -58,12 +58,12 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
               var item = snapshot.data[index];
               return InkWell(
                 child: CTNotificationItem(
-                    crossedPaths: index % 2 == 0, notification: item),
+                    crossedPaths: true, notification: item),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (BuildContext context) {
                     return CTNotificationMapDetail(
-                        crossedPaths:  index % 2 == 0, notification: item);
+                        crossedPaths:  true, notification: item);
                   }));
                 },
               );

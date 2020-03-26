@@ -8,6 +8,7 @@ class AppConstants {
 
   static const String TESTED_URL =
       "https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/testing.html";
+  static var FIREBASE_SERVER_KEY = "AAAAg8A-kLw:APA91bEAggSw3ljnjVAYkjjAT5K0bON9Uxv4d0NImb1GgAThiXLdRBU1jTkVHFlIqjvwVh7-jYyBsQSA_wDagd3HVZvzn58zUYWlY2ygWkBSTRBHoqIs7iEUsoV1GYjqpOxQW0quo42U";
 
   static const String DOCUMENTATION_URL = "";
 
