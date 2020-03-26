@@ -1,6 +1,8 @@
+import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/ui/BaseState.dart';
+import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
 import 'package:corona_trace/ui/notifications/NotificationsListScreen.dart';
 import 'package:corona_trace/ui/widgets/CTBottomSheetWidget.dart';
@@ -37,59 +39,16 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         bottom: false,
         child: safeAreaContainer(),
       ),
-      backgroundColor: Color.fromRGBO(43, 54, 181, 1),
+      backgroundColor: appColor,
     );
   }
 
   Widget safeAreaContainer() {
     return Column(
       children: <Widget>[
+        CTCoronaTraceCommonHeader(),
         Expanded(
-          child: Stack(
-            children: <Widget>[
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    backIcon(),
-                    CTHeaderTile("Help Save Lives!",
-                        "WHO announces COVID-19\noutbreak a pandemic"),
-                    testingInformation()
-                  ],
-                ),
-                margin: EdgeInsets.only(top: 50, bottom: 20),
-              ),
-              Align(
-                child: Container(
-                  margin: EdgeInsets.only(top: 80),
-                  transform: Matrix4.translationValues(20.0, 0.0, 0.0),
-                  child: Image.asset(
-                    "assets/images/combined_shape.png",
-                    height: 150,
-                    width: 150,
-                  ),
-                ),
-                alignment: Alignment.topRight,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-            ],
-          ),
-          flex: 1,
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            controller: _scrollController,
-            child: Container(
-              child: getCardBodySeverity(),
-              height: MediaQuery.of(context).size.height / 2,
-            ),
-          ),
-          flex: 1,
+          child: getCardBodySeverity(),
         )
       ],
     );
@@ -125,7 +84,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     return getBottomSheetWidget(
         headerText: "Have you tested positive for COVID-19?",
         subHeaderText:
-            "Select an answer to proceed.\n\nYour answer is completely anonymous and no personal information will ever be stored.",
+            "Your answer is completely anonymous and no personal information will ever be stored.\n\nSelect an answer to continue.",
         questionPair: questionPair);
   }
 
@@ -171,15 +130,13 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   }
 
   Widget thankYouCardContent() {
-    return CTThankYouDialog(
-      onButtonClick: () {
-        dialogOnResponse(SCREEN_FEELING_TODAY);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (BuildContext context) {
-          return NotificationsListScreen();
-        }));
-      },
-    );
+    return CTThankYouDialog(onButtonClick: () {
+      dialogOnResponse(SCREEN_FEELING_TODAY);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (BuildContext context) {
+        return NotificationsListScreen();
+      }));
+    });
   }
 
   void dialogOnResponse(screen) {

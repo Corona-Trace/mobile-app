@@ -33,7 +33,7 @@ class CTQuestion extends StatelessWidget {
 
     return Container(
       decoration: new BoxDecoration(
-          color: showAsRed ? Color(0xffc77b64) : Colors.transparent,
+          color: showAsRed ? Color.fromRGBO(219,102,81, 1) : Colors.transparent,
           border: showAsRed ? null : Border.all(color: Colors.indigo.shade400),
           borderRadius: new BorderRadius.all(const Radius.circular(8.0))),
       child: ListTile(
