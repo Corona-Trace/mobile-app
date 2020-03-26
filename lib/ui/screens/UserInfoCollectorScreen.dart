@@ -28,8 +28,6 @@ const SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS = 5;
 class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   int _currentScreen = SCREEN_FEELING_TODAY;
 
-  var _scrollController = ScrollController();
-
   @override
   Widget prepareWidget(BuildContext context) {
     return Scaffold(
@@ -143,9 +141,6 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     setState(() {
       _currentScreen = screen;
     });
-    // needed for small screens
-    _scrollController.animateTo(0,
-        duration: Duration(milliseconds: 200), curve: Curves.linear);
   }
 
   testingInformation() {
