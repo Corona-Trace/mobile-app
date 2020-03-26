@@ -140,7 +140,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           ApiRepository.setUserSeverity(1);
         },
         onPositiveQuestionClick: () async {
-          dialogOnResponse(SCREEN_FEELING_TODAY);
+          _onPopScope();
         });
 
     return getBottomSheetWidget(
@@ -159,7 +159,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Color.fromRGBO(240, 193, 28, 1),
         onPositiveQuestionClick: () async {
-          dialogOnResponse(SCREEN_FEELING_TODAY);
+          _onPopScope();
         },
         onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
@@ -182,7 +182,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Colors.green,
         onPositiveQuestionClick: () async {
-          dialogOnResponse(SCREEN_FEELING_TODAY);
+          _onPopScope();
         },
         onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
@@ -198,7 +198,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   Widget thankYouCardContent() {
     return CTThankYouDialog(onButtonClick: () {
-      dialogOnResponse(SCREEN_FEELING_TODAY);
+      _onPopScope();
       Navigator.push(context,
           MaterialPageRoute(builder: (BuildContext context) {
         return NotificationsListScreen();
@@ -244,7 +244,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              dialogOnResponse(SCREEN_FEELING_TODAY);
+              _onPopScope();
             },
           )
         : Container();
