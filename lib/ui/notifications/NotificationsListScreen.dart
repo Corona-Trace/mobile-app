@@ -22,22 +22,76 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
         bottom: false,
         child: Column(
           children: <Widget>[
-            Container(
-              child: CTCoronaTraceCommonHeader(),
-            ),
+            CTCoronaTraceCommonHeader(),
             Expanded(
-              child: Container(
-                child: Card(
-                  margin: EdgeInsets.all(0),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15))),
-                  child: notificationsList(),
+              child: Card(
+                margin: EdgeInsets.all(0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15))),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 20, left: 20),
+                        child: Align(
+                          child: Text(
+                            "NOTIFICATIONS",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          alignment: Alignment.centerLeft,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: notificationsList(),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      color: Color.fromRGBO(241, 227, 178, 1),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: 20, bottom: 20, left: 16, right: 16),
+                        child: Text(
+                            "Please updated your status if you test positive for COVID-19."),
+                      ),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          child: ListTile(
+                            title: Text(
+                              "No Symptoms",
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text("Your Anonymous Status"),
+                            leading: Icon(
+                              Icons.remove_circle_outline,
+                              color: Colors.green,
+                            ),
+                          ),
+                          height: 100,
+                          width: MediaQuery.of(context).size.width * 0.75,
+                        ),
+                        Row()
+                      ],
+                    ),
+                  ],
                 ),
-                height: MediaQuery.of(context).size.height,
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -46,6 +100,8 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
 
   notificationsList() {
     return ListView.separated(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       separatorBuilder: (context, index) {
         return Divider(
           color: Colors.grey,
