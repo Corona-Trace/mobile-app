@@ -2,21 +2,25 @@ import 'package:flutter/material.dart';
 
 class CTHeaderTile extends StatelessWidget {
 
+  final String title;
+  final String subtitle;
+  CTHeaderTile(this.title,this.subtitle);
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        "Help Save Lives!",
+        title,
         style: TextStyle(
             color: Color.fromRGBO(254, 198, 208, 1),
-            fontSize: 28,
+            fontSize: 26,
             fontWeight: FontWeight.bold),
       ),
       subtitle: Padding(
         child: Text(
-          "WHO announces COVID-19\noutbreak a pandemic",
+          subtitle,
           style:
-              TextStyle(color: Color.fromRGBO(254, 198, 208, 1), fontSize: 20),
+              TextStyle(color: Color.fromRGBO(254, 198, 208, 1), fontSize: 18),
         ),
         padding: EdgeInsets.only(top: 20, bottom: 20),
       ),

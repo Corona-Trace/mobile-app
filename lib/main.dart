@@ -12,6 +12,23 @@ void main() {
       .then((value) => LocationUpdates.initiateLocationUpdates())
       .then((value) => LocationUpdates.scheduleBGTask());
 }
+ 
+MaterialColor appColor = MaterialColor(
+  Color.fromRGBO(44, 48, 84, 1.0).value,
+  <int, Color>{
+    50: Color.fromRGBO(44, 48, 84, .1),
+    100: Color.fromRGBO(44, 48, 84, .2),
+    200: Color.fromRGBO(44, 48, 84, .3),
+    300: Color.fromRGBO(44, 48, 84, .4),
+    400: Color.fromRGBO(44, 48, 84, .5),
+    500: Color.fromRGBO(44, 48, 84, .6),
+    600: Color.fromRGBO(44, 48, 84, .7),
+    700: Color.fromRGBO(44, 48, 84, .8),
+    800: Color.fromRGBO(44, 48, 84, .9),
+    900: Color.fromRGBO(44, 48, 84, 1),
+  },
+);
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -22,10 +39,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'CoronaTrace',
         theme:
-            ThemeData(primarySwatch: Colors.indigo, fontFamily: 'Montserrat'),
+            ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
         home: UserInfoCollectorScreen(),
       ),
       data: MediaQueryData(),
     );
   }
 }
+

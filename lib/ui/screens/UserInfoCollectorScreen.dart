@@ -1,6 +1,8 @@
 import 'package:corona_trace/APIRepository.dart';
 import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/ui/BaseState.dart';
+import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
+import 'package:corona_trace/ui/notifications/NotificationsListScreen.dart';
 import 'package:corona_trace/ui/widgets/CTBottomSheetWidget.dart';
 import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
 import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
@@ -53,7 +55,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     backIcon(),
-                    CTHeaderTile(),
+                    CTHeaderTile("Help Save Lives!","WHO announces COVID-19\noutbreak a pandemic"),
                     testingInformation()
                   ],
                 ),
@@ -64,7 +66,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
                   margin: EdgeInsets.only(top: 80),
                   transform: Matrix4.translationValues(20.0, 0.0, 0.0),
                   child: Image.asset(
-                    "assets/combined_shape.png",
+                    "assets/images/combined_shape.png",
                     height: 150,
                     width: 150,
                   ),
@@ -200,6 +202,10 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
               padding: EdgeInsets.all(8.0),
               onPressed: () {
                 dialogOnResponse(SCREEN_TESTING_INFORMATION);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return NotificationsListScreen();
+                }));
               },
               child: Text(
                 "Testing Information",
