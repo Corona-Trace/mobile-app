@@ -78,7 +78,6 @@ class ApiRepository {
       var deviceID = await AppConstants.getDeviceId();
       var response = await http
           .get("$API_URL/notification/$deviceID/?page=$pageNo&perPage=10");
-      print(response);
       return ResponseNotifications.map(JSON.json.decode(response.body));
     } catch (ex) {
       throw ex;
@@ -121,7 +120,6 @@ class ApiRepository {
       double lat, double lng, SharedPreferences instance) async {
     var deviceID = await AppConstants.getDeviceId();
     var body = getLocationRequestBody(lat, lng, deviceID);
-    print(body);
     Response response = await _dio.post(
       "$API_URL/usersLocationHistory",
       options: Options(contentType: "application/json"),
@@ -131,7 +129,6 @@ class ApiRepository {
       await instance.setDouble(LAT_CONST, lat);
       await instance.setDouble(LNG_CONST, lng);
     }
-    print(response);
   }
 
   static Map<String, Object> getLocationRequestBody(
