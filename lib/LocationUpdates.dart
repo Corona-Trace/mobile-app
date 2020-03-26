@@ -86,5 +86,6 @@ class LocationUpdates {
         bg.BackgroundGeolocation.start();
       }
     });
+    await LocationUpdates.scheduleBGTask();
   }
 }

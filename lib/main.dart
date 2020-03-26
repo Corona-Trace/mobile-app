@@ -9,10 +9,9 @@ void main() {
   initializeDateFormatting().then((value) => runApp(MyApp()));
   PushNotifications()
       .initStuff()
-      .then((value) => LocationUpdates.initiateLocationUpdates())
-      .then((value) => LocationUpdates.scheduleBGTask());
+      .then((value) => LocationUpdates.initiateLocationUpdates());
 }
- 
+
 MaterialColor appColor = MaterialColor(
   Color.fromRGBO(44, 48, 84, 1.0).value,
   <int, Color>{
@@ -29,7 +28,6 @@ MaterialColor appColor = MaterialColor(
   },
 );
 
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -38,12 +36,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'CoronaTrace',
-        theme:
-            ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
+        theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
         home: UserInfoCollectorScreen(),
       ),
       data: MediaQueryData(),
     );
   }
 }
-

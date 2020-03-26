@@ -40,7 +40,7 @@ class CTThankYouDialog extends StatelessWidget {
                   width: double.infinity,
                   height: 50,
                   child: MaterialButton(
-                    color: Color.fromRGBO(43, 54, 181, 1),
+                    color: Color.fromRGBO(71, 93, 243, 1),
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(8.0),
                     ),
