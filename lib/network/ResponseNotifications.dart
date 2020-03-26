@@ -38,6 +38,8 @@ class ResponseNotificationItem {
   String _userId;
   String _timestamp;
   String _address;
+  double lat;
+  double lng;
 
   String get Id => _Id;
 
@@ -55,6 +57,8 @@ class ResponseNotificationItem {
     _userId = obj["userId"];
     _timestamp = obj["timestamp"];
     _address = obj["address"];
+    lat = obj["lat"];
+    lng = obj["lng"];
   }
 
   Map<String, dynamic> toMap() {
@@ -63,6 +67,8 @@ class ResponseNotificationItem {
     map["userId"] = _userId;
     map["timestamp"] = _timestamp;
     map["address"] = _address;
+    map["lat"] = lat;
+    map["lng"] = lng;
     return map;
   }
 }

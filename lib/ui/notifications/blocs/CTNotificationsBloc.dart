@@ -23,23 +23,7 @@ class CTNotificationsBloc {
 
   void fetchNotificationsInternal() async {
     var value = await ApiRepository.getNotificationsList(pageNo);
-    // for test TODO Change this
-    if (value.data.isEmpty) {
-      handleNotifications(
-        [
-          ResponseNotificationItem("someid", "some userid ",
-              DateTime.now().millisecondsSinceEpoch.toString(), "Texas Towers(Test data)"),
-          ResponseNotificationItem("someid", "some userid ",
-              DateTime.now().millisecondsSinceEpoch.toString(), "Texas Towers(Test data)"),
-          ResponseNotificationItem("someid", "some userid ",
-              DateTime.now().millisecondsSinceEpoch.toString(), "Texas Towers(Test data)"),
-          ResponseNotificationItem("someid", "some userid ",
-              DateTime.now().millisecondsSinceEpoch.toString(), "Texas Towers(Test data)"),
-        ],
-      );
-    } else {
-      handleNotifications(value.data);
-    }
+    handleNotifications(value.data);
   }
 
   void dispose() {

@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:corona_trace/LocationUpdates.dart';
+import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
+import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -7,9 +11,33 @@ import 'package:intl/date_symbol_data_local.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting().then((value) => runApp(MyApp()));
-  PushNotifications()
-      .initStuff()
-      .then((value) => LocationUpdates.initiateLocationUpdates());
+  WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
+    final PushNotifications _pushNotifications = PushNotifications();
+    _pushNotifications
+        .initStuff()
+        .then((value) => LocationUpdates.initiateLocationUpdates());
+  });
+}
+
+final GlobalKey<State> _globalKey = GlobalKey();
+
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+  if (message.containsKey('data')) {
+    // Handle data message
+    final dynamic data = message['data'];
+    print(data);
+    await navigateToMapDetail(data);
+  }
+
+  if (message.containsKey('notification')) {
+    // Handle notification message
+    final dynamic notification = message['notification'];
+    print(notification);
+    await navigateToMapDetail(notification["data"]);
+  }
+
+  // Or do other work.
+  return Future<void>.value();
 }
 
 MaterialColor appColor = MaterialColor(
@@ -28,11 +56,22 @@ MaterialColor appColor = MaterialColor(
   },
 );
 
+navigateToMapDetail(obj) {
+  print(obj);
+  var item = ResponseNotificationItem.map(obj);
+  Navigator.push(
+      _globalKey.currentContext,
+      MaterialPageRoute(
+          builder: (BuildContext context) =>
+              CTNotificationMapDetail(crossedPaths: true, notification: item)));
+}
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
+      key: _globalKey,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'CoronaTrace',

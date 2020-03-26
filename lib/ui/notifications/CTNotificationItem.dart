@@ -14,6 +14,7 @@ class CTNotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        SizedBox(height: 4,),
         ListTile(
           leading: crossedPaths
               ? Icon(
@@ -92,7 +93,11 @@ class CTNotificationItem extends StatelessWidget {
 
   formattedDate() {
     var format = DateFormat("dd MMMM, hh:mm a");
-    return format.format(
-        DateTime.fromMillisecondsSinceEpoch(int.parse(notification.timestamp)));
+    try {
+      return format
+          .format(DateTime.tryParse(notification.timestamp.toString()));
+    } catch (ex) {
+      return "";
+    }
   }
 }

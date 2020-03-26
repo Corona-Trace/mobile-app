@@ -8,13 +8,13 @@
        additional functionality it is fine to subclass or reimplement
        FlutterApplication and put your custom class here. -->
   <application
-    android:name="org.coronatrace.mobile.Application"
+    android:name=".Application"
     android:icon="@mipmap/ic_launcher"
     tools:replace="android:label"
     android:label="CoronaTracker">
     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCr96ks9JZMjenw1OiUtEOVHbBgQNWA2Wc"/>
     <activity
-      android:name="org.coronatrace.mobile.MainActivity"
+      android:name=".MainActivity"
       android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
       android:hardwareAccelerated="true"
       android:launchMode="singleTop"
