@@ -24,7 +24,7 @@ class CTCoronaTraceCommonHeader extends StatelessWidget {
                   "Anonymous, location-based information to help stop the spread of COVID-19."),
             ],
           ),
-          margin: EdgeInsets.only(top: 20, bottom: 20, right: 20),
+          margin: EdgeInsets.only(top: 20, right: 20),
         ),
         Align(
           child: Container(
