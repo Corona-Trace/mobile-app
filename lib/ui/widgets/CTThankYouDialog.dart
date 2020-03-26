@@ -33,7 +33,7 @@ class CTThankYouDialog extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(
-                height: 160,
+                height: 100,
               ),
               Align(
                 child: SizedBox(
