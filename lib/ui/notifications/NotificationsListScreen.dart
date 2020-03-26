@@ -85,7 +85,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
               color: Colors.green,
             ),
           ),
-          height: 110,
+          height: 80,
           width: MediaQuery.of(context).size.width * 0.75,
         ),
         Container(
@@ -116,7 +116,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
       padding: EdgeInsets.all(0),
       color: Color.fromRGBO(241, 227, 178, 1),
       child: Padding(
-        padding: EdgeInsets.only(top: 20, bottom: 20, left: 16, right: 16),
+        padding: EdgeInsets.only(top: 10, bottom: 10, left: 16, right: 16),
         child: Text(
             "Please updated your status if you test positive for COVID-19."),
       ),

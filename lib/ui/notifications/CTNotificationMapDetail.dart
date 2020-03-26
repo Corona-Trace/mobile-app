@@ -43,26 +43,30 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
         title: Text("Location"),
       ),
       body: Stack(
-        children: <Widget>[flutterMap(), notificationContainer()],
+        children: <Widget>[
+          flutterMap(),
+          Align(
+            child: notificationContainer(),
+            alignment: Alignment.bottomCenter,
+          )
+        ],
       ),
     );
   }
 
   Widget notificationContainer() {
-    return Align(
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: CTNotificationDetailCard(
-                crossedPaths: widget.crossedPaths,
-                notificationItem: widget.notification,
-              ),
-            )
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 500,
+          ),
+          CTNotificationDetailCard(
+            crossedPaths: widget.crossedPaths,
+            notificationItem: widget.notification,
+          )
+        ],
       ),
-      alignment: Alignment.bottomCenter,
     );
   }
 
