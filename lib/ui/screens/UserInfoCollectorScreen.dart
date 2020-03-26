@@ -10,6 +10,7 @@ import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
 import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
 import 'package:corona_trace/ui/widgets/CTTestingInformation.dart';
 import 'package:corona_trace/ui/widgets/CTThankYouDialog.dart';
+import 'package:corona_trace/utils/Stack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,18 +29,40 @@ const SCREEN_CONFIRM_DO_HAVE_SYMPTOMS = 6;
 
 class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   int _currentScreen = SCREEN_FEELING_TODAY;
+  var stack = StackCollect();
+
+  @override
+  void initState() {
+    super.initState();
+    stack.push(_currentScreen);
+  }
 
   @override
   Widget prepareWidget(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: safeAreaContainer(),
+    return WillPopScope(
+      child: Scaffold(
+        key: scaffoldKey,
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: safeAreaContainer(),
+        ),
+        backgroundColor: appColor,
       ),
-      backgroundColor: appColor,
+      onWillPop: _onPopScope,
     );
+  }
+
+  Future<bool> _onPopScope() async {
+    stack.pop();
+    if (stack.isEmpty) {
+      return true;
+    } else {
+      setState(() {
+        _currentScreen = stack.top();
+      });
+    }
+    return false;
   }
 
   Widget safeAreaContainer() {
@@ -186,6 +209,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   void dialogOnResponse(screen) {
     setState(() {
       _currentScreen = screen;
+      stack.push(_currentScreen);
     });
   }
 
