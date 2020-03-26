@@ -1,0 +1,21 @@
+# The organizer recursively looks into all files in the `asset_folder_path`. (relative to the project's root)
+asset_folder_path: assets/images/
+
+# The organizer only arranges files with their extension listed in the `file_extensions`.
+file_extensions:
+  - .jpg
+  - .png
+
+# The organizer uses `resolution_indicator` to extract a resolution's part from the filename.
+# The `resolution_indicator` must conform to the following pattern:
+#   '[start_token]{N}[end_token]' where
+#       - [start_token]: A token that indicates a starting point of the resolution's part.
+#       - [end_token]: A token that indicates an ending point of the resolution's part.
+#
+# Valid `resolution_indicator`s along with example filenames that they can detect are shown below.
+#   '@{N}x': logo@2x.png, logo@2.0x.png, @2.0xlogo.png
+#   '--{N}#': logo--2#.png, logo--2.0#.png, --2.0#logo.png
+resolution_indicator: '@{N}x'
+
+# If `allow_overwrite` is true when there is the same filename already existing in a target folder, the organizer will replace it.
+allow_overwrite: false

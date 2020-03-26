@@ -1,6 +1,7 @@
 import UIKit
 import Flutter
 import Firebase
+import GoogleMaps
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -9,6 +10,7 @@ import Firebase
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     // Use Firebase library to configure APIs
+    GMSServices.provideAPIKey("AIzaSyCr96ks9JZMjenw1OiUtEOVHbBgQNWA2Wc")
     FirebaseApp.configure()
     
     setupPushNotifications(for: application)
