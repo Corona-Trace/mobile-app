@@ -1,6 +1,7 @@
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
+import 'package:corona_trace/ui/notifications/CTNotificationsListWidget.dart';
 import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
 import 'package:flutter/material.dart';
 
@@ -49,14 +50,11 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                       height: 10,
                     ),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: notificationsList(),
-                      ),
+                      child:  CTNotificationsListWidget(),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    notificationHistory(),
                     updateYourStatus(),
                     noSymptomsUpdate(context),
                   ],
@@ -122,53 +120,6 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
         child: Text(
             "Please updated your status if you test positive for COVID-19."),
       ),
-    );
-  }
-
-  Container notificationHistory() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10, top: 10, right: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Text(
-            "Notification History",
-            style: TextStyle(
-                color: Colors.indigo,
-                fontSize: 17,
-                fontWeight: FontWeight.bold),
-          ),
-          Icon(
-            Icons.arrow_forward,
-            color: Colors.indigo,
-          )
-        ],
-      ),
-    );
-  }
-
-  notificationsList() {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      separatorBuilder: (context, index) {
-        return Divider(
-          color: Colors.grey,
-        );
-      },
-      itemBuilder: (context, index) {
-        bool crossedPaths = DateTime.now().millisecondsSinceEpoch % 2 == 0;
-        return InkWell(
-          child: CTNotificationItem(crossedPaths: crossedPaths),
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext context) {
-              return CTNotificationMapDetail(crossedPaths: crossedPaths);
-            }));
-          },
-        );
-      },
-      itemCount: 10,
     );
   }
 }

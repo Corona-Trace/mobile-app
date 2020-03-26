@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/ui/BaseState.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationDetailCard.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,9 @@ import 'package:intl/intl.dart';
 
 class CTNotificationMapDetail extends StatefulWidget {
   final bool crossedPaths;
+  final ResponseNotificationItem notification;
 
-  CTNotificationMapDetail({this.crossedPaths});
+  CTNotificationMapDetail({this.crossedPaths, this.notification});
 
   @override
   _NotificationMapDetailState createState() => _NotificationMapDetailState();
@@ -23,7 +25,7 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
   );
 
   double offset = 100;
-  
+
   @override
   void initState() {
     super.initState();
@@ -52,8 +54,10 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
         child: Column(
           children: <Widget>[
             Container(
-              child:
-                  CTNotificationDetailCard(crossedPaths: widget.crossedPaths),
+              child: CTNotificationDetailCard(
+                crossedPaths: widget.crossedPaths,
+                notificationItem: widget.notification,
+              ),
             )
           ],
         ),
@@ -65,7 +69,7 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
   flutterMap() {
     return GoogleMap(
       mapType: MapType.normal,
-      padding: EdgeInsets.only(bottom: offset , left: 15),
+      padding: EdgeInsets.only(bottom: offset, left: 15),
       initialCameraPosition: _kGooglePlex,
       onMapCreated: (GoogleMapController controller) {
         _controller.complete(controller);
