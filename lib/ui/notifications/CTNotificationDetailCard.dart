@@ -1,10 +1,11 @@
+import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationItem.dart';
 import 'package:flutter/material.dart';
 
 class CTNotificationDetailCard extends StatelessWidget {
   final bool crossedPaths;
-
-  CTNotificationDetailCard({this.crossedPaths});
+  final ResponseNotificationItem notificationItem;
+  CTNotificationDetailCard({this.crossedPaths,this.notificationItem});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class CTNotificationDetailCard extends StatelessWidget {
               topLeft: Radius.circular(25), topRight: Radius.circular(25))),
       child: Column(
         children: <Widget>[
-          CTNotificationItem(crossedPaths: crossedPaths),
+          CTNotificationItem(crossedPaths: crossedPaths,notification: notificationItem,),
           crossedPaths
               ? ListTile(
                   leading: Icon(

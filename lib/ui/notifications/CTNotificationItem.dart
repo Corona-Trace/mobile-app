@@ -1,3 +1,4 @@
+import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -5,54 +6,55 @@ import 'CTNotificationMapDetail.dart';
 
 class CTNotificationItem extends StatelessWidget {
   final bool crossedPaths;
+  final ResponseNotificationItem notification;
 
-  CTNotificationItem({this.crossedPaths});
+  CTNotificationItem({this.crossedPaths, this.notification});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: <Widget>[
-          ListTile(
-            leading: crossedPaths
-                ? Icon(
-                    Icons.info_outline,
-                    color: Colors.red,
-                  )
-                : Image.asset("assets/images/green_circle.png"),
-            title: Text(
-              "Texas Capitol",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(
-              "${formattedDate()}",
-              style: TextStyle(color: Colors.black),
-            ),
-            trailing: crossedPaths
-                ? Image.asset(
-                    "assets/images/map_pin.png",
-                  )
-                : Icon(
-                    Icons.build,
-                    color: Colors.white,
-                  ),
+      children: <Widget>[
+        ListTile(
+          leading: crossedPaths
+              ? Icon(
+                  Icons.info_outline,
+                  color: Colors.red,
+                )
+              : Image.asset("assets/images/green_circle.png"),
+          title: Text(
+            notification.address,
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          ListTile(
-            title: youMayHaveCrossedPaths(),
-            leading: Icon(
-              Icons.build,
-              color: Colors.white,
-            ),
+          subtitle: Text(
+            "${formattedDate()}",
+            style: TextStyle(color: Colors.black),
           ),
-          crossedPaths
-              ? ListTile(
-                  title: phonesLocation(),
-                  leading: Icon(
-                    Icons.build,
-                    color: Colors.white,
-                  ))
-              : Container()
-        ],
-      );
+          trailing: crossedPaths
+              ? Image.asset(
+                  "assets/images/map_pin.png",
+                )
+              : Icon(
+                  Icons.build,
+                  color: Colors.white,
+                ),
+        ),
+        ListTile(
+          title: youMayHaveCrossedPaths(),
+          leading: Icon(
+            Icons.build,
+            color: Colors.white,
+          ),
+        ),
+        crossedPaths
+            ? ListTile(
+                title: phonesLocation(),
+                leading: Icon(
+                  Icons.build,
+                  color: Colors.white,
+                ))
+            : Container()
+      ],
+    );
   }
 
   Text phonesLocation() {
@@ -89,7 +91,8 @@ class CTNotificationItem extends StatelessWidget {
   }
 
   formattedDate() {
-    var format = DateFormat("dd MMMM, hh:mm a - hh:mm a");
-    return format.format(DateTime.now());
+    var format = DateFormat("dd MMMM, hh:mm a");
+    return format.format(
+        DateTime.fromMillisecondsSinceEpoch(int.parse(notification.timestamp)));
   }
 }

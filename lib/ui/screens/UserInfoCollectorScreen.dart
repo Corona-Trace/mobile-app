@@ -1,4 +1,4 @@
-import 'package:corona_trace/APIRepository.dart';
+import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/ui/BaseState.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
@@ -55,7 +55,8 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     backIcon(),
-                    CTHeaderTile("Help Save Lives!","WHO announces COVID-19\noutbreak a pandemic"),
+                    CTHeaderTile("Help Save Lives!",
+                        "WHO announces COVID-19\noutbreak a pandemic"),
                     testingInformation()
                   ],
                 ),
@@ -137,7 +138,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         showBottomAsRed: true,
         onBottomQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
-          FirestoreRepository.setUserSeverity(1);
+          ApiRepository.setUserSeverity(1);
         },
         onTopQuestionClick: () async {
           dialogOnResponse(SCREEN_FEELING_TODAY);
@@ -159,7 +160,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         },
         onBottomQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
-          FirestoreRepository.setUserSeverity(0);
+          ApiRepository.setUserSeverity(0);
         });
 
     return getBottomSheetWidget(
@@ -173,12 +174,12 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     return CTThankYouDialog(
       onButtonClick: () {
         dialogOnResponse(SCREEN_FEELING_TODAY);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) {
+          return NotificationsListScreen();
+        }));
       },
     );
-  }
-
-  Widget testingInformationCardContent() {
-    return CTTestingInformation();
   }
 
   void dialogOnResponse(screen) {
@@ -202,10 +203,6 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
               padding: EdgeInsets.all(8.0),
               onPressed: () {
                 dialogOnResponse(SCREEN_TESTING_INFORMATION);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (BuildContext context) {
-                  return NotificationsListScreen();
-                }));
               },
               child: Text(
                 "Testing Information",
@@ -239,7 +236,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         questionPairWidget: questionPair,
         onTermsConditionsClick: (String key) async {
           showLoadingDialog(tapDismiss: false);
-          String url = await FirestoreRepository.getRemoteConfigValue(key);
+          String url = await ApiRepository.getRemoteConfigValue(key);
           print(url);
           hideLoadingDialog();
           AppConstants.launchUrl(url);
@@ -250,7 +247,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     switch (_currentScreen) {
       case SCREEN_TESTING_INFORMATION:
         {
-          return testingInformationCardContent();
+          return CTTestingInformation();
         }
         break;
       case SCREEN_FEELING_TODAY:

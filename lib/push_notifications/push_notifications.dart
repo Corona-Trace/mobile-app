@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert' as JSON;
 import 'dart:io';
 
-import 'package:corona_trace/APIRepository.dart';
+import 'package:corona_trace/network/APIRepository.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -62,6 +62,6 @@ class PushNotifications {
 
   Future<void> saveTokenForLoggedInUser() async {
     var token = await firebaseMessaging.getToken();
-    await FirestoreRepository.updateTokenForUser(token);
+    await ApiRepository.updateTokenForUser(token);
   }
 }

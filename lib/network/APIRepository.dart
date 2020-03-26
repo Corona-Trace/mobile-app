@@ -2,14 +2,16 @@ import 'dart:convert' as JSON;
 
 import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/LocationUpdates.dart';
+import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:http/http.dart' as http;
 
-class FirestoreRepository {
+class ApiRepository {
   static Dio _dio = Dio();
   static const TOKEN = "TOKEN";
   static const API_URL =
@@ -71,6 +73,18 @@ class FirestoreRepository {
     }
   }
 
+  static Future<ResponseNotifications> getNotificationsList(int pageNo) async {
+    try {
+      var deviceID = await AppConstants.getDeviceId();
+      var response = await http
+          .get("$API_URL/notification/$deviceID/?page=$pageNo&perPage=10");
+      print(response);
+      return ResponseNotifications.map(JSON.json.decode(response.body));
+    } catch (ex) {
+      throw ex;
+    }
+  }
+
   static Map<String, Object> getSeverityBody(int severity, String deviceID) =>
       {"severity": severity, "userId": deviceID};
 
@@ -91,7 +105,9 @@ class FirestoreRepository {
       //less than 100 metres return !
       var displacement =
           await getRemoteConfigValue(AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
-      if (displacement != null && distance < double.parse(displacement)) {
+      if (displacement != null &&
+          displacement.isNotEmpty &&
+          distance < double.parse(displacement)) {
         // dont do anythinh
       } else {
         await sendLocationUpdateInternal(lat, lng, instance);
