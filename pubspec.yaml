@@ -58,6 +58,7 @@ flutter:
     - assets/images/oval_notification.png
     - assets/images/map_pin.png
     - assets/images/green_circle.png
+    - assets/images/help_circle.png
 
   fonts:
      - family: Montserrat

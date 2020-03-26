@@ -24,6 +24,7 @@ const SCREEN_ACKNOWLEDGEMENT = 2;
 const SCREEN_TESTING_INFORMATION = 3;
 const SCREEN_CONFIRM_TESTED_POSITIVE = 4;
 const SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS = 5;
+const SCREEN_CONFIRM_DO_HAVE_SYMPTOMS = 6;
 
 class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   int _currentScreen = SCREEN_FEELING_TODAY;
@@ -67,15 +68,31 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   Widget firstCardContent() {
     Widget questionPair = CTQuestionPair(
-        topQuestionText: "YES",
-        topQuestionSubtitleText: "I tested positive for COVID-19",
-        bottomQuestionText: "NO",
-        bottomQuestionSubtitleText: "I do not have any symptoms",
+        positiveQuestionText: "YES",
+        positiveSubtitleBottomQuestionText: "I tested positive for COVID-19",
+        negativeQuestionTitleText: "NO",
+        negativeQuestionSubtitleText: "I do not have any symptoms",
+        neutralQuestionTitleText: "NO, BUT I HAVE SYMPTOMS",
+        neutralQuestionSubtitleText: "I have symptoms but have not tested",
         showArrows: true,
-        onBottomQuestionClick: () async {
+        iconPositive: Icon(
+          Icons.add_circle_outline,
+          color: Colors.red,
+        ),
+        iconNegative: Icon(
+          Icons.remove_circle_outline,
+          color: Colors.green,
+        ),
+        iconNeutral: Image.asset(
+          "assets/images/help_circle.png",
+        ),
+        onNeutralQuestionClick: () async {
+          dialogOnResponse(SCREEN_CONFIRM_DO_HAVE_SYMPTOMS);
+        },
+        onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS);
         },
-        onTopQuestionClick: () async {
+        onPositiveQuestionClick: () async {
           dialogOnResponse(SCREEN_CONFIRM_TESTED_POSITIVE);
         });
 
@@ -88,17 +105,42 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   Widget confirmTestedPositiveCardContent() {
     Widget questionPair = CTQuestionPair(
-        topQuestionText: "CANCEL",
-        bottomQuestionText: "YES",
-        bottomQuestionSubtitleText:
+        positiveQuestionText: "CANCEL",
+        positiveSubtitleBottomQuestionText: "",
+        negativeQuestionTitleText: "YES",
+        negativeQuestionSubtitleText:
             "I tested positive for COVID-19, use my location anonymously",
-        showBottomAsRed: true,
-        onBottomQuestionClick: () async {
+        hasCustomColor: true,
+        customColor: Colors.red,
+        onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
           ApiRepository.setUserSeverity(1);
         },
-        onTopQuestionClick: () async {
+        onPositiveQuestionClick: () async {
           dialogOnResponse(SCREEN_FEELING_TODAY);
+        });
+
+    return getBottomSheetWidget(
+        headerText: "Please confirm your answer to continue.",
+        subHeaderText:
+            "Confirm your answer and CoronaTrace will timestamp and use your location anonymously to help stop the spread of COVID-19.",
+        questionPair: questionPair);
+  }
+
+  Widget confirmDoHaveSymptomsCardContent() {
+    Widget questionPair = CTQuestionPair(
+        negativeQuestionSubtitleText: "I have symptoms but I have not tested",
+        positiveQuestionText: "CANCEL",
+        negativeQuestionTitleText: "NO, BUT I HAVE SYMPTOMS",
+        positiveSubtitleBottomQuestionText: "",
+        hasCustomColor: true,
+        customColor: Color.fromRGBO(240, 193, 28, 1),
+        onPositiveQuestionClick: () async {
+          dialogOnResponse(SCREEN_FEELING_TODAY);
+        },
+        onNegativeQuestionClick: () async {
+          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          ApiRepository.setUserSeverity(0);
         });
 
     return getBottomSheetWidget(
@@ -110,12 +152,16 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   Widget confirmDoNotHaveSymptomsCardContent() {
     Widget questionPair = CTQuestionPair(
-        bottomQuestionText: "I DO NOT HAVE ANY SYMPTOMS",
-        topQuestionText: "CANCEL",
-        onTopQuestionClick: () async {
+        negativeQuestionSubtitleText: "I DO NOT HAVE ANY SYMPTOMS",
+        positiveQuestionText: "CANCEL",
+        negativeQuestionTitleText: "NO",
+        positiveSubtitleBottomQuestionText: "",
+        hasCustomColor: true,
+        customColor: Colors.green,
+        onPositiveQuestionClick: () async {
           dialogOnResponse(SCREEN_FEELING_TODAY);
         },
-        onBottomQuestionClick: () async {
+        onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
           ApiRepository.setUserSeverity(0);
         });
@@ -222,6 +268,10 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           return confirmDoNotHaveSymptomsCardContent();
         }
         break;
+      case SCREEN_CONFIRM_DO_HAVE_SYMPTOMS:
+        {
+          return confirmDoHaveSymptomsCardContent();
+        }
     }
     return Container();
   }
