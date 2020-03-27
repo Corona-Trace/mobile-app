@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.transistorsoft.locationUpdate</string>
@@ -16,7 +18,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>CoronaTracker</string>
+	<string>CoronaTrace</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -42,7 +44,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>CoronaTracker would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
 	<key>NSMotionUsageDescription</key>
-	<string>CoronaTracker would like to use your phone's motion sensors. Permitting access to your device motion sensors is essential to provide critical COVID-19 notifications.</string>
+	<string>CoronaTracker would like to use your phone&apos;s motion sensors. Permitting access to your device motion sensors is essential to provide critical COVID-19 notifications.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>CoronaTracker would like to access your speech recognition.</string>
 	<key>UIBackgroundModes</key>
