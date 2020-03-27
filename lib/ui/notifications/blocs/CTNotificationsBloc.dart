@@ -18,6 +18,7 @@ class CTNotificationsBloc {
 
   void fetchNotifications() async {
     pageNo = 1;
+    _suggestions.clear();
     fetchNotificationsInternal();
   }
 
