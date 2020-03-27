@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/network/ResponseNotifications.dart';
-import 'package:flutter/material.dart';
 
 class CTNotificationsBloc {
   final _suggestions = List<ResponseNotificationItem>();
@@ -42,8 +41,10 @@ class CTNotificationsBloc {
   }
 
   handleNotifications(List<ResponseNotificationItem> data) {
-    _suggestions.addAll(data);
-    _notificationsController.sink.add(_suggestions);
+    if (!_notificationsController.isClosed) {
+      _suggestions.addAll(data);
+      _notificationsController.sink.add(_suggestions);
+    }
   }
 
   bool isInitialLoading() {
