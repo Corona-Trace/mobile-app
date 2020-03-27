@@ -10,11 +10,12 @@
             android:name=".Application"
             android:icon="@mipmap/ic_launcher"
             android:label="CoronaTrace"
+            android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning"
             tools:replace="android:label">
 
         <meta-data android:name="com.transistorsoft.locationmanager.license"
-                   android:value="bded3fb2d777a36828f71c24d7c7b85eed406f81d3e1e5fc9656fce4fe1d168f"/>
+                   android:value="4efa19e12769ea23e7678ecd76e9191b9964973f083d2b4c81aa8f733eda579e"/>
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"

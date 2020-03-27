@@ -9,32 +9,11 @@ class LocationUpdates {
     await bg.BackgroundGeolocation.requestPermission();
   }
 
-  static void headlessTask(bg.HeadlessEvent headlessEvent) async {
-    print('[BackgroundGeolocation HeadlessTask]: $headlessEvent');
-    // Implement a 'case' for only those events you're interested in.
-    switch (headlessEvent.name) {
-      case bg.Event.HTTP:
-        bg.HttpEvent event = headlessEvent.event;
-        print(event.toMap());
-        break;
-      case bg.Event.LOCATION:
-        bg.Location location = headlessEvent.event;
-        //await ApiRepository.updateLocationForUserHistory(location);
-        break;
-    }
-  }
-
   static Future<void> initiateLocationUpdates() async {
-    // Fired whenever a location is recorded
-    bg.BackgroundGeolocation.registerHeadlessTask(headlessTask);
-
-    bg.BackgroundGeolocation.onLocation((bg.Location location) async {
-      //await ApiRepository.updateLocationForUserHistory(location);
-    }, (error) {});
-
     var displacement = await ApiRepository.getRemoteConfigValue(
         AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
     var userId = await AppConstants.getDeviceId();
+    print("got user id $userId");
     await bg.BackgroundGeolocation.ready(bg.Config(
             url: ApiRepository.USER_LOCATION_URL,
             maxBatchSize: 50,
@@ -64,7 +43,7 @@ class LocationUpdates {
                 title: "Corona Trace",
                 text:
                     "Your location is being tracked, but all data will be anonymous."),
-            logLevel: bg.Config.LOG_LEVEL_OFF))
+            logLevel: bg.Config.LOG_LEVEL_DEBUG))
         .then((bg.State state) {
       if (!state.enabled) {
         bg.BackgroundGeolocation.start();
