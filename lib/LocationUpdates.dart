@@ -39,12 +39,14 @@ class LocationUpdates {
 
     var displacement = await ApiRepository.getRemoteConfigValue(
         AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
+    var userId = AppConstants.getDeviceId();
     await bg.BackgroundGeolocation.ready(bg.Config(
             url: ApiRepository.USER_LOCATION_URL,
             maxBatchSize: 50,
-            headers: {"AUTHENTICATION_TOKEN": "23kasdlfkjlksjflkasdZIds"},
-            params: {"user_id": 1234},
-            extras: {"route_id": 8675309},
+            params: {"userId": userId},
+            httpRootProperty: '.',
+            locationTemplate:
+                '{"lat":<%= latitude %>, "lng": <%= longitude %>, "timestamp":"<%= timestamp %>" "location":{"type":"Point", "coordinates":[<%= longitude %>,<%= latitude %>]}}',
             locationsOrderDirection: "DESC",
             maxDaysToPersist: 3,
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
