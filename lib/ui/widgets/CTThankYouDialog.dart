@@ -1,5 +1,6 @@
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/ui/widgets/CTTermsAndConditions.dart';
+import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
 
 class CTThankYouDialog extends StatelessWidget {
@@ -22,14 +23,14 @@ class CTThankYouDialog extends StatelessWidget {
                 height: 30.0,
               ),
               Text(
-                "Thank you for your response!",
+                AppLocalization.text("Response.ThankYou"),
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                "Reporting your status is helping everyone stay safe and slowing the spread of COVID-19.\n\nYour location will be used anonymously to help stop the spread of COVID-19.\n\nRemember, we will never store or share any personal information. ",
+                AppLocalization.text("Response.ReportingHelps"),
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(
@@ -46,7 +47,7 @@ class CTThankYouDialog extends StatelessWidget {
                     ),
                     onPressed: onButtonClick,
                     child: Text(
-                      "Ok",
+                      AppLocalization.text("Ok"),
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ),
