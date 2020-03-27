@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:corona_trace/LocationUpdates.dart';
+import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
+import 'package:corona_trace/ui/screens/Onboarding.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -11,12 +13,47 @@ import 'package:intl/date_symbol_data_local.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting().then((value) => runApp(MyApp()));
-  WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-    final PushNotifications _pushNotifications = PushNotifications();
-    _pushNotifications
-        .initStuff()
-        .then((value) => LocationUpdates.initiateLocationUpdates());
-  });
+  initPush();
+}
+
+void initPush() {
+  final PushNotifications _pushNotifications = PushNotifications();
+  _pushNotifications
+      .initStuff()
+      .then((value) => LocationUpdates.initiateLocationUpdates());
+  _pushNotifications.firebaseMessaging.configure(
+      onBackgroundMessage: _handleBGMessage,
+      onMessage: (Map<String, dynamic> message) async {
+        print("on message called");
+        _pushNotifications.showNotification(message);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("on onResume called");
+        navigateToMapDetail(message["data"]);
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("on onLaunch called");
+        navigateToMapDetail(message["data"]);
+      });
+}
+
+Future _handleBGMessage(Map<String, dynamic> message) {
+  print("_handleBGMessage");
+  if (message.containsKey('data')) {
+// Handle data message
+    final dynamic data = message['data'];
+    navigateToMapDetail(data);
+    print("bg message data");
+  }
+
+  if (message.containsKey('notification')) {
+// Handle notification message
+    final dynamic notification = message['notification'];
+    navigateToMapDetail(message["data"]);
+    print("bg message notification");
+  }
+  print(message);
+  return Future<void>.value();
 }
 
 final GlobalKey<NavigatorState> _globalKey = GlobalKey<NavigatorState>();
@@ -57,27 +94,50 @@ MaterialColor appColor = MaterialColor(
 );
 
 navigateToMapDetail(obj) {
-  print(obj);
+  print(obj["data"]);
   print("navigate now");
-  var item = ResponseNotificationItem.map(obj);
-  _globalKey.currentState.push(MaterialPageRoute(
-      builder: (BuildContext context) =>
-          CTNotificationMapDetail(crossedPaths: true, notification: item)));
+  try{
+    var item = ResponseNotificationItem.map(obj["data"]);
+    print("parsed");
+    _globalKey.currentState.push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            CTNotificationMapDetail(crossedPaths: true, notification: item)));
+  }catch(ex){
+    print(ex);
+  }
+
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'CoronaTrace',
-        navigatorKey: _globalKey,
-        theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
-        home: UserInfoCollectorScreen(),
-      ),
-      data: MediaQueryData(),
+    return FutureBuilder(
+      future: ApiRepository.getIsOnboardingDone(),
+      builder: (context, data) {
+        print(data.data);
+        if (!data.hasData) {
+          return Container(
+            color: appColor,
+          );
+        } else {
+          var isOnboardinDone = data.data == null ? false : data.data as bool;
+
+          return MediaQuery(
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'CoronaTrace',
+              navigatorKey: _globalKey,
+              theme:
+                  ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
+              home: isOnboardinDone
+                  ? UserInfoCollectorScreen()
+                  : OnboardingScreen(),
+            ),
+            data: MediaQueryData(),
+          );
+        }
+      },
     );
   }
 }

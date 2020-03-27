@@ -60,8 +60,8 @@ flutter:
     - assets/images/green_circle.png
     - assets/images/help_circle.png
     - assets/images/combined_shape.png
-    - assets/images/first_onboarding_image.png
-    - assets/images/second_onboarding_image.png
+    - assets/images/firstonboarding.png
+    - assets/images/Illustration_Anonymous.png
 
   fonts:
      - family: Montserrat

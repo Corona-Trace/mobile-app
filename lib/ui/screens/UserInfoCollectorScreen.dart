@@ -37,41 +37,11 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   int _currentScreen = SCREEN_FEELING_TODAY;
   var stack = StackCollect();
   PushNotifications _pushNotifications = PushNotifications();
-  static Future _handleBGMessage(Map<String, dynamic> message) {
-    if (message.containsKey('data')) {
-      // Handle data message
-      final dynamic data = message['data'];
-      navigateToMapDetail(data);
-    }
-
-    if (message.containsKey('notification')) {
-      // Handle notification message
-      final dynamic notification = message['notification'];
-      navigateToMapDetail(message["data"]);
-    }
-
-    print(message);
-    return Future<void>.value();
-  }
 
   @override
   void initState() {
     super.initState();
     stack.push(_currentScreen);
-    _pushNotifications.firebaseMessaging.configure(
-      onBackgroundMessage: _handleBGMessage,
-        onMessage: (Map<String, dynamic> message) async {
-          _pushNotifications.showNotification(message["notification"]);
-        },
-        onResume: (Map<String, dynamic> message) async {
-          print(message);
-          navigateToMapDetail(message["data"]);
-        },
-        onLaunch: (Map<String, dynamic> message) async {
-          print(message);
-          navigateToMapDetail(message["data"]);
-        });
-
     Future.delayed(Duration(seconds: 5)).then((value) => _pushNotifications.sendAndRetrieveMessage());
   }
 

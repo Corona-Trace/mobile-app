@@ -21,6 +21,8 @@ class ApiRepository {
   static const IS_SEVERE = "IS_SEVERE";
   static const ACCEPTED_ONCE = "ACCEPTED_ONCE";
 
+  static const String IS_ONBOARDING_DONE = "IS_ONBOARDING_DONE";
+
   static Future<void> updateTokenForUser(String token) async {
     var instance = await SharedPreferences.getInstance();
     if (instance.getBool(ACCEPTED_ONCE) != null &&
@@ -143,5 +145,15 @@ class ApiRepository {
       "timestamp": DateTime.now().toIso8601String(),
       "userId": deviceID
     };
+  }
+
+  static Future<bool> getIsOnboardingDone() async {
+    var sharedPrefs = await SharedPreferences.getInstance();
+    return sharedPrefs.getBool(IS_ONBOARDING_DONE) ?? false;
+  }
+
+  static setOnboardingDone(bool isDone) async {
+    var sharedPrefs = await SharedPreferences.getInstance();
+    await sharedPrefs.setBool(IS_ONBOARDING_DONE, isDone);
   }
 }
