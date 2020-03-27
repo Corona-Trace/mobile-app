@@ -1,5 +1,7 @@
 import 'package:corona_trace/main.dart';
+import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
+import 'package:corona_trace/ui/CTStatusColor.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationsListWidget.dart';
 import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
@@ -50,7 +52,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                       height: 10,
                     ),
                     Expanded(
-                      child:  CTNotificationsListWidget(),
+                      child: CTNotificationsListWidget(),
                     ),
                     SizedBox(
                       height: 10,
@@ -67,47 +69,57 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
     );
   }
 
-  Row noSymptomsUpdate(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Container(
-          child: ListTile(
-            title: Text(
-              "No Symptoms",
-              style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text("Your Anonymous Status"),
-            leading: Icon(
-              Icons.remove_circle_outline,
-              color: Colors.green,
-            ),
-          ),
-          height: 80,
-          width: MediaQuery.of(context).size.width * 0.75,
-        ),
-        Container(
-          margin: EdgeInsets.only(bottom: 30),
-          child: Row(
-            children: <Widget>[
-              Text(
-                "Update",
-                style: TextStyle(
-                    color: Colors.indigo,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold),
-              ),
-              Icon(
-                Icons.arrow_forward,
-                color: Colors.indigo,
-              )
-            ],
-          ),
-        )
-      ],
-    );
+  Widget noSymptomsUpdate(BuildContext context) {
+    return FutureBuilder(
+        future: ApiRepository.getUserSeverity(),
+        builder: (context, snapshot) {
+          if (snapshot.data != null) {
+            Pair pair = getSymptomData(snapshot.data as int);
+            return Row(
+              children: <Widget>[
+                Container(
+                  child: ListTile(
+                    title: Text(
+                      pair.first,
+                      style: TextStyle(
+                          color: pair.second.first,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text("Your Anonymous Status"),
+                    leading: pair.second.second,
+                  ),
+                  height: 80,
+                  width: MediaQuery.of(context).size.width * 0.75,
+                ),
+                Container(
+                  margin: EdgeInsets.only(bottom: 30),
+                  child: InkWell(
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "Update",
+                          style: TextStyle(
+                              color: Colors.indigo,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.indigo,
+                        )
+                      ],
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                )
+              ],
+            );
+          }
+          return Container();
+        });
   }
 
   Container updateYourStatus() {
