@@ -63,8 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Container(
-                  height: 600.0,
+                Expanded(
                   child: PageView(
                     physics: ClampingScrollPhysics(),
                     controller: _pageController,
@@ -97,12 +96,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget getFirstPage() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 40.0),
-          child: Image.asset("assets/images/firstonboarding.png"),
-        ),
-        SizedBox(height: 30.0),
+        Image.asset("assets/images/firstonboarding.png"),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
           child: Text(
@@ -134,18 +130,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Padding(
       padding: EdgeInsets.all(40.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 40.0),
-            child: Center(
-              child: Image(
-                image: AssetImage(
-                  "assets/images/Illustration_Anonymous.png",
-                ),
-                height: 300.0,
-                width: 300.0,
+          Center(
+            child: Image(
+              image: AssetImage(
+                "assets/images/Illustration_Anonymous.png",
               ),
+              height: 300.0,
+              width: 300.0,
             ),
           ),
           Text(
@@ -153,9 +147,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             style: kSubtitleStyle,
           ),
           SizedBox(height: 15.0),
-          Text(
-            'Help prevent the spread of COVID-19 by sharing your status and location anonymously.',
-            style: kMainTextStyle,
+          Align(
+            child: Text(
+              'Help prevent the spread of COVID-19 by sharing your status and location anonymously.',
+              textAlign: TextAlign.center,
+              style: kMainTextStyle,
+            ),
+            alignment: Alignment.center,
           ),
         ],
       ),
@@ -166,17 +164,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Padding(
       padding: EdgeInsets.all(40.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 200.0, 0.0, 100.0),
-            child: Container(
-                height: 8.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  color: Color(0xFFE3CBE4),
-                )),
-          ),
+          Container(
+              height: 8.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                color: Color(0xFFE3CBE4),
+              )),
           SizedBox(height: 30.0),
           Text(
             'Get Notified',
@@ -185,6 +181,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           SizedBox(height: 15.0),
           Text(
             "Get notified if you cross paths with someone who has anonymously reported themselves as positive for COVID-19 and get peace of mind when you don't.",
+            textAlign: TextAlign.center,
             style: kMainTextStyle,
           ),
         ],
@@ -193,32 +190,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Widget getFourthPage() {
-    return Padding(
-      padding: EdgeInsets.all(40.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Center(
-            child: Image(
-              image: AssetImage(
-                'assets/images/Illustration_Anonymous.png',
-              ),
-              height: 300.0,
-              width: 300.0,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Center(
+          child: Image(
+            image: AssetImage(
+              'assets/images/Illustration_Anonymous.png',
             ),
+            height: 300.0,
+            width: 300.0,
           ),
-          SizedBox(height: 30.0),
-          Text(
-            'Clear & Meaningful Status',
-            style: kSubtitleStyle,
-          ),
-          SizedBox(height: 15.0),
-          Text(
+        ),
+        SizedBox(height: 10.0),
+        Text(
+          'Clear & Meaningful Status',
+          style: kSubtitleStyle,
+        ),
+        SizedBox(height: 15.0),
+        Padding(
+          child: Text(
             'Anonymous self-reporting is based on clear guidelines with actionable next steps for people that might need help.',
             style: kMainTextStyle,
           ),
-        ],
-      ),
+          padding: EdgeInsets.only(left: 20, right: 20),
+        ),
+      ],
     );
   }
 
