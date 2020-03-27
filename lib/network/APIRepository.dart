@@ -2,22 +2,26 @@ import 'dart:convert' as JSON;
 
 import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/LocationUpdates.dart';
+import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:http/http.dart' as http;
 
-class FirestoreRepository {
+class ApiRepository {
   static Dio _dio = Dio();
   static const TOKEN = "TOKEN";
   static const API_URL =
       "http://coronatrace-env.eba-rzwsytyk.us-east-2.elasticbeanstalk.com";
   static const LAT_CONST = "LAT";
   static const LNG_CONST = "LNG";
-  static const IS_SEVERE = "IS_SEVERE";
+  static const SEVERITY = "SEVERITY";
   static const ACCEPTED_ONCE = "ACCEPTED_ONCE";
+
+  static const String IS_ONBOARDING_DONE = "IS_ONBOARDING_DONE";
 
   static Future<void> updateTokenForUser(String token) async {
     var instance = await SharedPreferences.getInstance();
@@ -55,34 +59,41 @@ class FirestoreRepository {
   static Future<void> setUserSeverity(int severity) async {
     var instance = await SharedPreferences.getInstance();
     await instance.setBool(ACCEPTED_ONCE, true);
+    await instance.setInt(SEVERITY, severity);
+
     try {
       var deviceID = await AppConstants.getDeviceId();
       var body = getSeverityBody(severity, deviceID);
-      var response =
-          await _dio.patch("$API_URL/users", data: JSON.jsonEncode(body));
-      if (response.statusCode != 200) {
-        // api failed set the value next time we get location updates.
-        await instance.setBool(IS_SEVERE, severity == 1);
-      } else if (response.statusCode == 200) {
-        await instance.setBool(IS_SEVERE, null);
-      }
+      await _dio.patch("$API_URL/users", data: JSON.jsonEncode(body));
     } catch (ex) {
-      await instance.setBool(IS_SEVERE, severity == 1);
+      print(ex);
+    }
+  }
+
+  static Future<ResponseNotifications> getNotificationsList(int pageNo) async {
+    try {
+      var deviceID = await AppConstants.getDeviceId();
+      var response = await http
+          .get("$API_URL/notification/$deviceID/?page=$pageNo&perPage=10");
+      return ResponseNotifications.map(JSON.json.decode(response.body));
+    } catch (ex) {
+      throw ex;
     }
   }
 
   static Map<String, Object> getSeverityBody(int severity, String deviceID) =>
       {"severity": severity, "userId": deviceID};
 
+  static Future<int> getUserSeverity() async {
+    var instance = await SharedPreferences.getInstance();
+    return instance.getInt(SEVERITY);
+  }
+
   static Future<void> updateLocationForUserHistory(Location location) async {
     var lat = location.coords.latitude;
     var lng = location.coords.longitude;
 
     var instance = await SharedPreferences.getInstance();
-    if (instance.getBool(IS_SEVERE) != null) {
-      // the api failed to set severity retry last time
-      setUserSeverity(instance.getBool(IS_SEVERE) ? 1 : 0);
-    }
     var cacheLat = instance.getDouble(LAT_CONST);
     var cacheLng = instance.getDouble(LNG_CONST);
     if (cacheLat != null && cacheLng != null) {
@@ -91,7 +102,9 @@ class FirestoreRepository {
       //less than 100 metres return !
       var displacement =
           await getRemoteConfigValue(AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
-      if (displacement != null && distance < double.parse(displacement)) {
+      if (displacement != null &&
+          displacement.isNotEmpty &&
+          distance < double.parse(displacement)) {
         // dont do anythinh
       } else {
         await sendLocationUpdateInternal(lat, lng, instance);
@@ -105,7 +118,6 @@ class FirestoreRepository {
       double lat, double lng, SharedPreferences instance) async {
     var deviceID = await AppConstants.getDeviceId();
     var body = getLocationRequestBody(lat, lng, deviceID);
-    print(body);
     Response response = await _dio.post(
       "$API_URL/usersLocationHistory",
       options: Options(contentType: "application/json"),
@@ -115,7 +127,6 @@ class FirestoreRepository {
       await instance.setDouble(LAT_CONST, lat);
       await instance.setDouble(LNG_CONST, lng);
     }
-    print(response);
   }
 
   static Map<String, Object> getLocationRequestBody(
@@ -130,5 +141,15 @@ class FirestoreRepository {
       "timestamp": DateTime.now().toIso8601String(),
       "userId": deviceID
     };
+  }
+
+  static Future<bool> getIsOnboardingDone() async {
+    var sharedPrefs = await SharedPreferences.getInstance();
+    return sharedPrefs.getBool(IS_ONBOARDING_DONE) ?? false;
+  }
+
+  static setOnboardingDone(bool isDone) async {
+    var sharedPrefs = await SharedPreferences.getInstance();
+    await sharedPrefs.setBool(IS_ONBOARDING_DONE, isDone);
   }
 }

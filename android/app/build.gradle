@@ -24,7 +24,6 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 Project background_geolocation = project(':flutter_background_geolocation')
 apply from: "${background_geolocation.projectDir}/background_geolocation.gradle"
 android {
@@ -103,3 +102,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
 }
+
+apply plugin: 'com.google.gms.google-services'  // Google Services plugin
