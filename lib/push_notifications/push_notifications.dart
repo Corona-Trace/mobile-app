@@ -24,10 +24,15 @@ class PushNotifications {
   void configLocalNotification() {
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('ic_stat_name');
-    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettingsIOS = new IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initializationSettings = new InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,onSelectNotification:onSelectNotification );
+  }
+
+  Future onDidReceiveLocalNotification(
+      int id, String title, String body, String payload) async {
+    onSelectNotification(payload);
   }
 
   Future onSelectNotification(String payload) async {

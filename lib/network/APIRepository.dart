@@ -18,7 +18,7 @@ class ApiRepository {
       "http://coronatrace-env.eba-rzwsytyk.us-east-2.elasticbeanstalk.com";
   static const LAT_CONST = "LAT";
   static const LNG_CONST = "LNG";
-  static const IS_SEVERE = "IS_SEVERE";
+  static const SEVERITY = "SEVERITY";
   static const ACCEPTED_ONCE = "ACCEPTED_ONCE";
 
   static const String IS_ONBOARDING_DONE = "IS_ONBOARDING_DONE";
@@ -59,19 +59,14 @@ class ApiRepository {
   static Future<void> setUserSeverity(int severity) async {
     var instance = await SharedPreferences.getInstance();
     await instance.setBool(ACCEPTED_ONCE, true);
+    await instance.setInt(SEVERITY, severity);
+
     try {
       var deviceID = await AppConstants.getDeviceId();
       var body = getSeverityBody(severity, deviceID);
-      var response =
-          await _dio.patch("$API_URL/users", data: JSON.jsonEncode(body));
-      if (response.statusCode != 200) {
-        // api failed set the value next time we get location updates.
-        await instance.setBool(IS_SEVERE, severity == 1);
-      } else if (response.statusCode == 200) {
-        await instance.setBool(IS_SEVERE, null);
-      }
+      await _dio.patch("$API_URL/users", data: JSON.jsonEncode(body));
     } catch (ex) {
-      await instance.setBool(IS_SEVERE, severity == 1);
+      print(ex);
     }
   }
 
@@ -89,15 +84,16 @@ class ApiRepository {
   static Map<String, Object> getSeverityBody(int severity, String deviceID) =>
       {"severity": severity, "userId": deviceID};
 
+  static Future<int> getUserSeverity() async {
+    var instance = await SharedPreferences.getInstance();
+    return instance.getInt(SEVERITY);
+  }
+
   static Future<void> updateLocationForUserHistory(Location location) async {
     var lat = location.coords.latitude;
     var lng = location.coords.longitude;
 
     var instance = await SharedPreferences.getInstance();
-    if (instance.getBool(IS_SEVERE) != null) {
-      // the api failed to set severity retry last time
-      setUserSeverity(instance.getBool(IS_SEVERE) ? 1 : 0);
-    }
     var cacheLat = instance.getDouble(LAT_CONST);
     var cacheLng = instance.getDouble(LNG_CONST);
     if (cacheLat != null && cacheLng != null) {

@@ -31,18 +31,14 @@ const SCREEN_CONFIRM_TESTED_POSITIVE = 4;
 const SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS = 5;
 const SCREEN_CONFIRM_DO_HAVE_SYMPTOMS = 6;
 
-
-
 class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   int _currentScreen = SCREEN_FEELING_TODAY;
   var stack = StackCollect();
-  PushNotifications _pushNotifications = PushNotifications();
 
   @override
   void initState() {
     super.initState();
     stack.push(_currentScreen);
-    Future.delayed(Duration(seconds: 5)).then((value) => _pushNotifications.sendAndRetrieveMessage());
   }
 
   @override
@@ -171,7 +167,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         },
         onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
-          ApiRepository.setUserSeverity(0);
+          ApiRepository.setUserSeverity(2);
         });
 
     return getBottomSheetWidget(
@@ -206,7 +202,8 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   Widget thankYouCardContent() {
     return CTThankYouDialog(onButtonClick: () {
-      _onPopScope();
+      stack = StackCollect();
+      dialogOnResponse(SCREEN_FEELING_TODAY);
       Navigator.push(context,
           MaterialPageRoute(builder: (BuildContext context) {
         return NotificationsListScreen();
@@ -307,6 +304,4 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     }
     return Container();
   }
-
-
 }
