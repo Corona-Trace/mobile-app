@@ -1,6 +1,7 @@
 import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationItem.dart';
+import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
 
 class CTNotificationDetailCard extends StatelessWidget {
@@ -32,12 +33,12 @@ class CTNotificationDetailCard extends StatelessWidget {
                     Icons.info_outline,
                   ),
                   title: Text(
-                    "What do I do now?",
+                    AppLocalization.text("CrossedPaths.NextSteps.Title"),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Padding(
                     child: Text(
-                      "Please stay home and monitor your health and contact a medical professional if you have any symptoms.",
+                      AppLocalization.text("CrossedPaths.NextSteps.SubTitle"),
                       style: TextStyle(fontSize: 15),
                     ),
                     padding: EdgeInsets.only(top: 10),
@@ -59,12 +60,12 @@ class CTNotificationDetailCard extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "CDC Recommendations",
+                    AppLocalization.text("CrossedPaths.CDC.Title"),
                     style: TextStyle(
                         color: Colors.indigo, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(
-                      "Center for Disease Conrtorl and Prevention Online Resounces"),
+                      AppLocalization.text("CrossedPaths.CDC.SubTitle")),
                   trailing: IconButton(
                     icon: Icon(
                       Icons.arrow_forward,
@@ -83,12 +84,12 @@ class CTNotificationDetailCard extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "Where to Get Tested",
+                    AppLocalization.text("CrossedPaths.Testing.Title"),
                     style: TextStyle(
                         color: Colors.indigo, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(
-                      "Find a medical facility that offers COVID-19 testing."),
+                      AppLocalization.text("CrossedPaths.Testing.SubTitle")),
                   trailing: IconButton(
                     icon: Icon(
                       Icons.arrow_forward,

@@ -1,4 +1,5 @@
 import 'package:corona_trace/network/ResponseNotifications.dart';
+import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -60,7 +61,7 @@ class CTNotificationItem extends StatelessWidget {
 
   Text phonesLocation() {
     return Text(
-      "Your phone’s location and time came within a short distance and timeframe as someone who has tested positive for COVID-19.",
+      AppLocalization.text("CrossedPaths.PhonesLocation"),
       style: TextStyle(fontSize: 16),
     );
   }
@@ -75,16 +76,14 @@ class CTNotificationItem extends StatelessWidget {
         ),
         children: <TextSpan>[
           new TextSpan(
-              text: 'You '
-                  ''),
+              text: AppLocalization.text("CrossedPaths.You")),
           new TextSpan(
               text: crossedPaths
-                  ? 'may have crossed paths'
-                  : 'have not crossed paths',
+                  ? AppLocalization.text("CrossedPaths.HaveCrossed")
+                  : AppLocalization.text("CrossedPaths.NotCrossed"),
               style: new TextStyle(fontWeight: FontWeight.bold)),
           new TextSpan(
-            text:
-                ' with someone who tested positive for COVID-19 since you were out.',
+            text: AppLocalization.text("CrossedPaths.Someone.Positive"),
           ),
         ],
       ),
