@@ -6,7 +6,6 @@
 	<true/>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>com.transistorsoft.locationUpdate</string>
 		<string>com.transistorsoft.fetch</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>

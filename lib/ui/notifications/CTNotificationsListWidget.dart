@@ -44,6 +44,9 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
       stream: _notificationsBloc.notificationsStream,
       builder: (context, snapshot) {
         print(snapshot.data);
+        if (_notificationsBloc.isInitialLoading()) {
+          return Center(child: CTLoader(50, 50),);
+        }
         return SingleChildScrollView(
           controller: _controller,
           child: ListView.separated(
@@ -57,13 +60,13 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
             itemBuilder: (context, index) {
               var item = snapshot.data[index];
               return InkWell(
-                child: CTNotificationItem(
-                    crossedPaths: true, notification: item),
+                child:
+                    CTNotificationItem(crossedPaths: true, notification: item),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (BuildContext context) {
                     return CTNotificationMapDetail(
-                        crossedPaths:  true, notification: item);
+                        crossedPaths: true, notification: item);
                   }));
                 },
               );

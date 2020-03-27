@@ -11,6 +11,8 @@ class CTNotificationsBloc {
       _notificationsController =
       StreamController<List<ResponseNotificationItem>>();
 
+  bool _isloading = false;
+
   Stream<List<ResponseNotificationItem>> get notificationsStream =>
       _notificationsController.stream;
   int pageNo = 1;
@@ -23,8 +25,10 @@ class CTNotificationsBloc {
   }
 
   void fetchNotificationsInternal() async {
+    _isloading = true;
     var value = await ApiRepository.getNotificationsList(pageNo);
     handleNotifications(value.data);
+    _isloading = false;
   }
 
   void dispose() {
@@ -40,5 +44,9 @@ class CTNotificationsBloc {
   handleNotifications(List<ResponseNotificationItem> data) {
     _suggestions.addAll(data);
     _notificationsController.sink.add(_suggestions);
+  }
+
+  bool isInitialLoading() {
+    return pageNo == 1 && _isloading;
   }
 }
