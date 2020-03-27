@@ -13,18 +13,13 @@ class LocationUpdates {
     print('[BackgroundGeolocation HeadlessTask]: $headlessEvent');
     // Implement a 'case' for only those events you're interested in.
     switch (headlessEvent.name) {
-      case bg.Event.TERMINATE:
-        bg.State state = headlessEvent.event;
-        print('- State: $state');
+      case bg.Event.HTTP:
+        bg.HttpEvent event = headlessEvent.event;
+        print(event.toMap());
         break;
       case bg.Event.LOCATION:
         bg.Location location = headlessEvent.event;
-        print('- Location: $location');
-        await ApiRepository.updateLocationForUserHistory(location);
-        break;
-      case bg.Event.HTTP:
-        bg.HttpEvent response = headlessEvent.event;
-        print('HttpEvent: $response');
+        //await ApiRepository.updateLocationForUserHistory(location);
         break;
     }
   }
@@ -34,19 +29,19 @@ class LocationUpdates {
     bg.BackgroundGeolocation.registerHeadlessTask(headlessTask);
 
     bg.BackgroundGeolocation.onLocation((bg.Location location) async {
-      await ApiRepository.updateLocationForUserHistory(location);
+      //await ApiRepository.updateLocationForUserHistory(location);
     }, (error) {});
 
     var displacement = await ApiRepository.getRemoteConfigValue(
         AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
-    var userId = AppConstants.getDeviceId();
+    var userId = await AppConstants.getDeviceId();
     await bg.BackgroundGeolocation.ready(bg.Config(
             url: ApiRepository.USER_LOCATION_URL,
             maxBatchSize: 50,
             params: {"userId": userId},
             httpRootProperty: '.',
             locationTemplate:
-                '{"lat":<%= latitude %>, "lng": <%= longitude %>, "timestamp":"<%= timestamp %>" "location":{"type":"Point", "coordinates":[<%= longitude %>,<%= latitude %>]}}',
+                '{"lat":<%= latitude %>, "lng": <%= longitude %>, "timestamp":"<%= timestamp %>", "location":{"type":"Point", "coordinates":[<%= longitude %>,<%= latitude %>]}}',
             locationsOrderDirection: "DESC",
             maxDaysToPersist: 3,
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
