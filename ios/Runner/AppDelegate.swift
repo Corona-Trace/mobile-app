@@ -10,7 +10,7 @@ import GoogleMaps
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     // Use Firebase library to configure APIs
-    GMSServices.provideAPIKey("AIzaSyCr96ks9JZMjenw1OiUtEOVHbBgQNWA2Wc")
+    GMSServices.provideAPIKey("AIzaSyBX9n2YTrH_YjgZ4IRnut4cFmVJ95NaE9c")
     FirebaseApp.configure()
     
     setupPushNotifications(for: application)
@@ -20,18 +20,10 @@ import GoogleMaps
   }
   
     private func setupPushNotifications(for application: UIApplication) {
-        if #available(iOS 10.0, *) {
-          // For iOS 10 display notification (sent via APNS)
-          UNUserNotificationCenter.current().delegate = self
-
-          let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-          UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: {_, _ in })
-        } else {
-          let settings: UIUserNotificationSettings =
-          UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-          application.registerUserNotificationSettings(settings)
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            //Do Nothing
         }
         
         application.registerForRemoteNotifications()

@@ -80,7 +80,7 @@ class LocationUpdates {
                 title: "Corona Trace",
                 text:
                     "Your location is being tracked, but all data will be anonymous."),
-            logLevel: bg.Config.LOG_LEVEL_VERBOSE))
+            logLevel: bg.Config.LOG_LEVEL_OFF))
         .then((bg.State state) {
       if (!state.enabled) {
         bg.BackgroundGeolocation.start();

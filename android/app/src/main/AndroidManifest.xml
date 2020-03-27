@@ -9,7 +9,7 @@
     <application
         android:name=".Application"
         android:icon="@mipmap/ic_launcher"
-        android:label="CoronaTracker"
+        android:label="CoronaTrace"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label">
         <meta-data
