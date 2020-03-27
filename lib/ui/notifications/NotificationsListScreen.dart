@@ -77,6 +77,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
           if (snapshot.data != null) {
             Pair pair = getSymptomData(snapshot.data as int);
             return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   child: ListTile(
@@ -94,7 +95,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                   width: MediaQuery.of(context).size.width * 0.75,
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 30),
+                  margin: EdgeInsets.only(bottom: 30,right: 15),
                   child: InkWell(
                     child: Row(
                       children: <Widget>[
