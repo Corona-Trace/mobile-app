@@ -5,34 +5,24 @@ import 'package:flutter_background_geolocation/flutter_background_geolocation.da
 import 'AppConstants.dart';
 
 class LocationUpdates {
-
   static requestPermissions() async {
     await bg.BackgroundGeolocation.requestPermission();
   }
 
   static Future<void> initiateLocationUpdates() async {
-    // Fired whenever a location is recorded
-    bg.BackgroundGeolocation.onLocation((bg.Location location) async {
-      print('[location] - $location');
-      await ApiRepository.updateLocationForUserHistory(location);
-    }, (error) {});
-
-    // Fired whenever the plugin changes motion-state (stationary->moving and vice-versa)
-    bg.BackgroundGeolocation.onMotionChange((bg.Location location) async {
-      print('[motionchange] - $location');
-    });
-
-    // Fired whenever the state of location-services changes.  Always fired at boot
-    bg.BackgroundGeolocation.onProviderChange((bg.ProviderChangeEvent event) {
-      print('[providerchange] - $event');
-    });
-
-    ////
-    // 2.  Configure the plugin
-    //
     var displacement = await ApiRepository.getRemoteConfigValue(
         AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
+    var userId = await AppConstants.getDeviceId();
+    print("got user id $userId");
     await bg.BackgroundGeolocation.ready(bg.Config(
+            url: ApiRepository.USER_LOCATION_URL,
+            maxBatchSize: 50,
+            params: {"userId": userId},
+            httpRootProperty: '.',
+            locationTemplate:
+                '{"lat":<%= latitude %>, "lng": <%= longitude %>, "timestamp":"<%= timestamp %>", "location":{"type":"Point", "coordinates":[<%= longitude %>,<%= latitude %>]}}',
+            locationsOrderDirection: "DESC",
+            maxDaysToPersist: 3,
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
             distanceFilter: displacement != null && displacement.isNotEmpty
                 ? double.parse(displacement)
@@ -40,7 +30,7 @@ class LocationUpdates {
             stopOnTerminate: false,
             allowIdenticalLocations: false,
             startOnBoot: true,
-            debug: false,
+            enableHeadless: true,
             locationAuthorizationAlert: {
               'titleWhenNotEnabled': 'Your location-services are disabled',
               'titleWhenOff': 'Your location-services are disabled',
@@ -53,7 +43,7 @@ class LocationUpdates {
                 title: "Corona Trace",
                 text:
                     "Your location is being tracked, but all data will be anonymous."),
-            logLevel: bg.Config.LOG_LEVEL_OFF))
+            logLevel: bg.Config.LOG_LEVEL_ERROR))
         .then((bg.State state) {
       if (!state.enabled) {
         bg.BackgroundGeolocation.start();

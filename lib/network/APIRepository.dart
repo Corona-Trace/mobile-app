@@ -20,7 +20,7 @@ class ApiRepository {
   static const LNG_CONST = "LNG";
   static const SEVERITY = "SEVERITY";
   static const ACCEPTED_ONCE = "ACCEPTED_ONCE";
-
+  static const USER_LOCATION_URL = "$API_URL/usersLocationHistory";
   static const String IS_ONBOARDING_DONE = "IS_ONBOARDING_DONE";
 
   static Future<void> updateTokenForUser(String token) async {
@@ -119,7 +119,7 @@ class ApiRepository {
     var deviceID = await AppConstants.getDeviceId();
     var body = getLocationRequestBody(lat, lng, deviceID);
     Response response = await _dio.post(
-      "$API_URL/usersLocationHistory",
+      USER_LOCATION_URL,
       options: Options(contentType: "application/json"),
       data: JSON.jsonEncode(body),
     );
