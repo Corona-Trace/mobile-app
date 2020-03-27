@@ -53,12 +53,12 @@ class ResponseNotificationItem {
       this._Id, this._userId, this._timestamp, this._address);
 
   ResponseNotificationItem.map(dynamic obj) {
-    _Id = obj["Id"];
+    _Id = obj["id"];
     _userId = obj["userId"];
     _timestamp = obj["timestamp"];
     _address = obj["address"];
-    lat = obj["lat"];
-    lng = obj["lng"];
+    lat = double.parse(obj["lat"].toString());
+    lng = double.parse(obj["lng"].toString());
   }
 
   Map<String, dynamic> toMap() {

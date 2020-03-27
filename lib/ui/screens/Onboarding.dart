@@ -1,3 +1,5 @@
+import 'package:corona_trace/network/APIRepository.dart';
+import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -98,7 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 40.0),
-          child: Image.asset("assets/first_onboarding_image.png"),
+          child: Image.asset("assets/images/firstonboarding.png"),
         ),
         SizedBox(height: 30.0),
         Padding(
@@ -139,7 +141,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Center(
               child: Image(
                 image: AssetImage(
-                  "assets/second_onboarding_image.png",
+                  "assets/images/Illustration_Anonymous.png",
                 ),
                 height: 300.0,
                 width: 300.0,
@@ -255,14 +257,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 fontSize: 20.0,
                 fontWeight: FontWeight.w500),
           ),
-          onPressed: () {
+          onPressed: () async {
             if (_currentPage < 3) {
               _pageController.nextPage(
                 duration: Duration(milliseconds: 500),
                 curve: Curves.ease,
               );
             } else {
-              //TODO: go to next screen
+              await ApiRepository.setOnboardingDone(true);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          UserInfoCollectorScreen()),
+                  (route) => false);
             }
           },
         ));

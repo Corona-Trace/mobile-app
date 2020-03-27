@@ -27,7 +27,15 @@ class PushNotifications {
     var initializationSettingsIOS = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,onSelectNotification:onSelectNotification );
+  }
+
+  Future onSelectNotification(String payload) async {
+    var jsonData = JSON.json.decode(payload);
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    navigateToMapDetail(jsonData);
   }
 
   void showNotification(message) async {
@@ -44,13 +52,17 @@ class PushNotifications {
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
-        message['body'].toString(), platformChannelSpecifics,
+    await flutterLocalNotificationsPlugin.show(0, message["notification"]['title'].toString(),
+        message["notification"]['body'].toString(), platformChannelSpecifics,
         payload: JSON.jsonEncode(message));
   }
 
   void registerNotification() async {
     await firebaseMessaging.requestNotificationPermissions();
+    await firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(
+          sound: true, badge: true, alert: true, provisional: false),
+    );
     firebaseMessaging.onTokenRefresh.listen((event) async {
       await saveTokenForLoggedInUser();
     });
@@ -58,43 +70,8 @@ class PushNotifications {
 
   sendAndRetrieveMessage() async {
     print("sending push");
-    await firebaseMessaging.requestNotificationPermissions(
-      const IosNotificationSettings(
-          sound: true, badge: true, alert: true, provisional: false),
-    );
 
-    var response = await http.post(
-      'https://fcm.googleapis.com/fcm/send',
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Authorization': 'key=${AppConstants.FIREBASE_SERVER_KEY}',
-      },
-      body: JSON.jsonEncode(
-        <String, dynamic>{
-          "notification": <String, dynamic>{
-            "body": "this is a body",
-            "title": "this is a title",
-            "click_action": "FLUTTER_NOTIFICATION_CLICK",
-          },
-          'priority': 'high',
-          "data": <String, dynamic>{
-            "id": "1",
-            "body": "this is a body",
-            "title": "this is a title",
-            "click_action": "FLUTTER_NOTIFICATION_CLICK",
-            'status': "done",
-            "address":
-                "Workafella Business Center 5th Floor, Western Aqua, Whitefields, HITEC City, Hyderabad, Telangana 500081, India",
-            "userId": "d60aaa3bffdac1b9",
-            "lat": 17.4521516,
-            "lng": 78.3691191,
-            "timestamp": "2020-03-25T10:22:28.715Z",
-            "notificationId": "5e7ccc712b77251c8228f89d"
-          },
-          "to": await firebaseMessaging.getToken(),
-        },
-      ),
-    );
+    print(await firebaseMessaging.getToken());
   }
 
   Future<void> saveTokenForLoggedInUser() async {
