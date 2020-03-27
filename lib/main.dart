@@ -19,7 +19,7 @@ void main() {
   });
 }
 
-final GlobalKey<State> _globalKey = GlobalKey();
+final GlobalKey<NavigatorState> _globalKey = GlobalKey<NavigatorState>();
 
 Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
   if (message.containsKey('data')) {
@@ -58,12 +58,11 @@ MaterialColor appColor = MaterialColor(
 
 navigateToMapDetail(obj) {
   print(obj);
+  print("navigate now");
   var item = ResponseNotificationItem.map(obj);
-  Navigator.push(
-      _globalKey.currentContext,
-      MaterialPageRoute(
-          builder: (BuildContext context) =>
-              CTNotificationMapDetail(crossedPaths: true, notification: item)));
+  _globalKey.currentState.push(MaterialPageRoute(
+      builder: (BuildContext context) =>
+          CTNotificationMapDetail(crossedPaths: true, notification: item)));
 }
 
 class MyApp extends StatelessWidget {
@@ -71,10 +70,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-      key: _globalKey,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'CoronaTrace',
+        navigatorKey: _globalKey,
         theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
         home: UserInfoCollectorScreen(),
       ),

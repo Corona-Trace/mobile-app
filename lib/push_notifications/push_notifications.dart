@@ -3,6 +3,7 @@ import 'dart:convert' as JSON;
 import 'dart:io';
 import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/main.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:corona_trace/network/APIRepository.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -17,21 +18,7 @@ class PushNotifications {
     configLocalNotification();
     registerNotification();
     await saveTokenForLoggedInUser();
-    firebaseMessaging.configure(
-        onMessage: (Map<String, dynamic> message) async {
-          showNotification(message["notification"]);
-          print(message);
-          navigateToMapDetail(message["data"]);
-        },
-        onResume: (Map<String, dynamic> message) async {
-          print(message);
-          navigateToMapDetail(message["data"]);
-        },
-        onLaunch: (Map<String, dynamic> message) async {
-          print(message);
-          navigateToMapDetail(message["data"]);
-        });
-    await sendAndRetrieveMessage();
+    //await sendAndRetrieveMessage();
   }
 
   void configLocalNotification() {
@@ -84,17 +71,18 @@ class PushNotifications {
       },
       body: JSON.jsonEncode(
         <String, dynamic>{
-          'notification': <String, dynamic>{
-            'body': 'this is a body',
-            'title': 'this is a title'
+          "notification": <String, dynamic>{
+            "body": "this is a body",
+            "title": "this is a title",
+            "click_action": "FLUTTER_NOTIFICATION_CLICK",
           },
           'priority': 'high',
-          'data': <String, dynamic>{
-            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-            'id': '1',
-            'body': 'this is a body',
-            'title': 'this is a title',
-            'status': 'done',
+          "data": <String, dynamic>{
+            "id": "1",
+            "body": "this is a body",
+            "title": "this is a title",
+            "click_action": "FLUTTER_NOTIFICATION_CLICK",
+            'status': "done",
             "address":
                 "Workafella Business Center 5th Floor, Western Aqua, Whitefields, HITEC City, Hyderabad, Telangana 500081, India",
             "userId": "d60aaa3bffdac1b9",
@@ -103,7 +91,7 @@ class PushNotifications {
             "timestamp": "2020-03-25T10:22:28.715Z",
             "notificationId": "5e7ccc712b77251c8228f89d"
           },
-          'to': await firebaseMessaging.getToken(),
+          "to": await firebaseMessaging.getToken(),
         },
       ),
     );
