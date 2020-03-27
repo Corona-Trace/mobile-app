@@ -5,34 +5,48 @@ import 'package:flutter_background_geolocation/flutter_background_geolocation.da
 import 'AppConstants.dart';
 
 class LocationUpdates {
-
   static requestPermissions() async {
     await bg.BackgroundGeolocation.requestPermission();
   }
 
+  static void headlessTask(bg.HeadlessEvent headlessEvent) async {
+    print('[BackgroundGeolocation HeadlessTask]: $headlessEvent');
+    // Implement a 'case' for only those events you're interested in.
+    switch (headlessEvent.name) {
+      case bg.Event.TERMINATE:
+        bg.State state = headlessEvent.event;
+        print('- State: $state');
+        break;
+      case bg.Event.LOCATION:
+        bg.Location location = headlessEvent.event;
+        print('- Location: $location');
+        await ApiRepository.updateLocationForUserHistory(location);
+        break;
+      case bg.Event.HTTP:
+        bg.HttpEvent response = headlessEvent.event;
+        print('HttpEvent: $response');
+        break;
+    }
+  }
+
   static Future<void> initiateLocationUpdates() async {
     // Fired whenever a location is recorded
+    bg.BackgroundGeolocation.registerHeadlessTask(headlessTask);
+
     bg.BackgroundGeolocation.onLocation((bg.Location location) async {
-      print('[location] - $location');
       await ApiRepository.updateLocationForUserHistory(location);
     }, (error) {});
 
-    // Fired whenever the plugin changes motion-state (stationary->moving and vice-versa)
-    bg.BackgroundGeolocation.onMotionChange((bg.Location location) async {
-      print('[motionchange] - $location');
-    });
-
-    // Fired whenever the state of location-services changes.  Always fired at boot
-    bg.BackgroundGeolocation.onProviderChange((bg.ProviderChangeEvent event) {
-      print('[providerchange] - $event');
-    });
-
-    ////
-    // 2.  Configure the plugin
-    //
     var displacement = await ApiRepository.getRemoteConfigValue(
         AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
     await bg.BackgroundGeolocation.ready(bg.Config(
+            url: ApiRepository.USER_LOCATION_URL,
+            maxBatchSize: 50,
+            headers: {"AUTHENTICATION_TOKEN": "23kasdlfkjlksjflkasdZIds"},
+            params: {"user_id": 1234},
+            extras: {"route_id": 8675309},
+            locationsOrderDirection: "DESC",
+            maxDaysToPersist: 3,
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
             distanceFilter: displacement != null && displacement.isNotEmpty
                 ? double.parse(displacement)
@@ -40,7 +54,7 @@ class LocationUpdates {
             stopOnTerminate: false,
             allowIdenticalLocations: false,
             startOnBoot: true,
-            debug: false,
+            enableHeadless: true,
             locationAuthorizationAlert: {
               'titleWhenNotEnabled': 'Your location-services are disabled',
               'titleWhenOff': 'Your location-services are disabled',
