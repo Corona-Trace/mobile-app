@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/ui/BaseState.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationDetailCard.dart';
+import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -38,7 +39,7 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
   Widget prepareWidget(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Location"),
+        title: Text(AppLocalization.text("Location")),
       ),
       body: Container(
         child: SingleChildScrollView(
