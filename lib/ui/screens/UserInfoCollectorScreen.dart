@@ -26,7 +26,6 @@ class UserInfoCollectorScreen extends StatefulWidget {
 
 const SCREEN_FEELING_TODAY = 1;
 const SCREEN_ACKNOWLEDGEMENT = 2;
-const SCREEN_TESTING_INFORMATION = 3;
 const SCREEN_CONFIRM_TESTED_POSITIVE = 4;
 const SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS = 5;
 const SCREEN_CONFIRM_DO_HAVE_SYMPTOMS = 6;
@@ -218,43 +217,6 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     });
   }
 
-  testingInformation() {
-    return _currentScreen != SCREEN_TESTING_INFORMATION
-        ? Container(
-            child: FlatButton(
-              shape: new RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(8.0),
-                  side: BorderSide(color: Colors.indigo.shade300)),
-              color: Colors.transparent,
-              textColor: Colors.indigo,
-              padding: EdgeInsets.all(8.0),
-              onPressed: () {
-                dialogOnResponse(SCREEN_TESTING_INFORMATION);
-              },
-              child: Text(
-                "Testing Information",
-                style: TextStyle(fontSize: 16.0, color: Colors.white),
-              ),
-            ),
-            margin: EdgeInsets.only(left: 20),
-          )
-        : Container();
-  }
-
-  backIcon() {
-    return _currentScreen == SCREEN_TESTING_INFORMATION
-        ? IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              _onPopScope();
-            },
-          )
-        : Container();
-  }
-
   CTBottomSheetWidget getBottomSheetWidget(
       {CTQuestionPair questionPair, String headerText, String subHeaderText}) {
     return CTBottomSheetWidget(
@@ -272,11 +234,6 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   Widget getCurrentScreen() {
     switch (_currentScreen) {
-      case SCREEN_TESTING_INFORMATION:
-        {
-          return CTTestingInformation();
-        }
-        break;
       case SCREEN_FEELING_TODAY:
         {
           return firstCardContent();

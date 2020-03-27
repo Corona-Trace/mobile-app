@@ -21,7 +21,6 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
   Completer<GoogleMapController> _controller = Completer();
   CameraPosition inititalCameraPosition;
   Set<Marker> _markers = {};
-  double offset = 100;
 
   @override
   void initState() {
@@ -33,11 +32,6 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
     _markers.add(Marker(
         markerId: MarkerId(widget.notification.Id.toString()),
         position: LatLng(widget.notification.lat, widget.notification.lng)));
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      setState(() {
-        offset = MediaQuery.of(context).size.height * 0.85;
-      });
-    });
   }
 
   @override
@@ -46,31 +40,23 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
       appBar: AppBar(
         title: Text("Location"),
       ),
-      body: Stack(
-        children: <Widget>[
-          flutterMap(),
-          Container(width: MediaQuery.of(context).size.width,height: MediaQuery.of(context).size.height,color: Colors.black12,),
-          Align(
-            child: notificationContainer(),
-            alignment: Alignment.bottomCenter,
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget notificationContainer() {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 500,
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: flutterMap(),
+                height: MediaQuery.of(context).size.height * 0.5,
+              ),
+              Container(
+                child: CTNotificationDetailCard(
+                  crossedPaths: widget.crossedPaths,
+                  notificationItem: widget.notification,
+                ),
+              )
+            ],
           ),
-          CTNotificationDetailCard(
-            crossedPaths: widget.crossedPaths,
-            notificationItem: widget.notification,
-          )
-        ],
+        ),
       ),
     );
   }
@@ -79,7 +65,7 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
     return GoogleMap(
       mapType: MapType.normal,
       markers: _markers,
-      padding: EdgeInsets.only(bottom: offset, left: 15),
+      myLocationButtonEnabled: false,
       initialCameraPosition: inititalCameraPosition,
       onMapCreated: (GoogleMapController controller) {
         _controller.complete(controller);
