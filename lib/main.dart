@@ -22,7 +22,7 @@ void initPush() {
       .initStuff()
       .then((value) => LocationUpdates.initiateLocationUpdates());
   _pushNotifications.firebaseMessaging.configure(
-      onBackgroundMessage: _handleBGMessage,
+      onBackgroundMessage: Platform.isAndroid ? myBackgroundMessageHandler:null,
       onMessage: (Map<String, dynamic> message) async {
         print("on message called");
         _pushNotifications.showNotification(message);
@@ -49,7 +49,7 @@ Future _handleBGMessage(Map<String, dynamic> message) {
   if (message.containsKey('notification')) {
 // Handle notification message
     final dynamic notification = message['notification'];
-    navigateToMapDetail(message["data"]);
+    navigateToMapDetail(message);
     print("bg message notification");
   }
   print(message);
@@ -70,7 +70,7 @@ Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
     // Handle notification message
     final dynamic notification = message['notification'];
     print(notification);
-    await navigateToMapDetail(notification["data"]);
+    await navigateToMapDetail(notification);
   }
 
   // Or do other work.
@@ -94,11 +94,10 @@ MaterialColor appColor = MaterialColor(
 );
 
 navigateToMapDetail(obj) {
-  print(obj["data"]);
+  print(obj);
   print("navigate now");
   try{
-    var item = ResponseNotificationItem.map(obj["data"]);
-    print("parsed");
+    var item = ResponseNotificationItem.map(obj);
     _globalKey.currentState.push(MaterialPageRoute(
         builder: (BuildContext context) =>
             CTNotificationMapDetail(crossedPaths: true, notification: item)));

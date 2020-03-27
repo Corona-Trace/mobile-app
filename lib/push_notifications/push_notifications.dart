@@ -24,15 +24,17 @@ class PushNotifications {
   void configLocalNotification() {
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('ic_stat_name');
-    var initializationSettingsIOS = new IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    var initializationSettingsIOS = new IOSInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initializationSettings = new InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,onSelectNotification:onSelectNotification );
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
   }
 
   Future onDidReceiveLocalNotification(
       int id, String title, String body, String payload) async {
-    onSelectNotification(payload);
+    navigateToMapDetail(JSON.json.decode(payload));
   }
 
   Future onSelectNotification(String payload) async {
@@ -40,7 +42,12 @@ class PushNotifications {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
-    navigateToMapDetail(jsonData);
+    print("json data $jsonData");
+    if (Platform.isIOS) {
+      navigateToMapDetail(jsonData);
+    } else {
+      navigateToMapDetail(jsonData["data"]);
+    }
   }
 
   void showNotification(message) async {
@@ -57,8 +64,11 @@ class PushNotifications {
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(0, message["notification"]['title'].toString(),
-        message["notification"]['body'].toString(), platformChannelSpecifics,
+    await flutterLocalNotificationsPlugin.show(
+        0,
+        message["notification"]['title'].toString(),
+        message["notification"]['body'].toString(),
+        platformChannelSpecifics,
         payload: JSON.jsonEncode(message));
   }
 
@@ -81,6 +91,7 @@ class PushNotifications {
 
   Future<void> saveTokenForLoggedInUser() async {
     var token = await firebaseMessaging.getToken();
+    print(token);
     await ApiRepository.updateTokenForUser(token);
   }
 }
