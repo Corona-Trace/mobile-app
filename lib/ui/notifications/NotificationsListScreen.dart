@@ -5,6 +5,7 @@ import 'package:corona_trace/ui/CTStatusColor.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationsListWidget.dart';
 import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
+import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
 
 import 'CTNotificationItem.dart';
@@ -40,7 +41,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                         padding: EdgeInsets.only(top: 20, left: 20),
                         child: Align(
                           child: Text(
-                            "NOTIFICATIONS",
+                            AppLocalization.text("NOTIFICATIONS"),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
@@ -86,7 +87,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text("Your Anonymous Status"),
+                    subtitle: Text(AppLocalization.text("Anonymous.Status")),
                     leading: pair.second.second,
                   ),
                   height: 80,
@@ -98,7 +99,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                     child: Row(
                       children: <Widget>[
                         Text(
-                          "Update",
+                          AppLocalization.text("Update"),
                           style: TextStyle(
                               color: Colors.indigo,
                               fontSize: 17,
@@ -129,8 +130,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
       color: Color.fromRGBO(241, 227, 178, 1),
       child: Padding(
         padding: EdgeInsets.only(top: 10, bottom: 10, left: 16, right: 16),
-        child: Text(
-            "Please updated your status if you test positive for COVID-19."),
+        child: Text(AppLocalization.text("Please.Update.Status")),
       ),
     );
   }

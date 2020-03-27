@@ -27,11 +27,11 @@ class LocationUpdates {
       BackgroundFetch.finish(taskId);
     });
 
-    // Step 2:  Schedule a custom "oneshot" task "com.transistorsoft.locationUpdate" to execute certain time from now.
-    BackgroundFetch.scheduleTask(TaskConfig(
-        taskId: "com.transistorsoft.locationUpdate",
-        delay: Duration(minutes: 15).inMilliseconds // <-- milliseconds
-        ));
+    // // Step 2:  Schedule a custom "oneshot" task "com.transistorsoft.locationUpdate" to execute certain time from now.
+    // BackgroundFetch.scheduleTask(TaskConfig(
+    //     taskId: "com.transistorsoft.locationUpdate",
+    //     delay: Duration(minutes: 15).inMilliseconds // <-- milliseconds
+    //     ));
   }
 
   static requestPermissions() async {

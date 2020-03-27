@@ -8,11 +8,13 @@ import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
 import 'package:corona_trace/ui/screens/Onboarding.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'utils/AppLocalization.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  initializeDateFormatting().then((value) => runApp(MyApp()));
+  runApp(MyApp());
   initPush();
 }
 
@@ -132,6 +134,25 @@ class MyApp extends StatelessWidget {
               home: isOnboardinDone
                   ? UserInfoCollectorScreen()
                   : OnboardingScreen(),
+              localizationsDelegates: [
+                const AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              supportedLocales: [
+                const Locale('en'),
+                const Locale('es'),
+              ],
+              localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+                print(locale);
+                for (Locale supportedLocale in supportedLocales) {
+                  if (supportedLocale.languageCode == locale.languageCode ||
+                      supportedLocale.countryCode == locale.countryCode) {
+                    return supportedLocale;
+                  }
+                }
+                return supportedLocales.first;
+              },
             ),
             data: MediaQueryData(),
           );
