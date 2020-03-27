@@ -19,14 +19,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="eXc-h6-cAv">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashCircles" translatesAutoresizingMaskIntoConstraints="NO" id="eXc-h6-cAv">
                                 <rect key="frame" x="124.33333333333333" y="365.33333333333331" width="165.33333333333337" height="165.33333333333331"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="eXc-h6-cAv" secondAttribute="height" multiplier="1:1" id="6C9-i2-7Wx"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.19215686274509802" green="0.24313725490196078" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.17254901960784313" green="0.18823529411764706" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="eXc-h6-cAv" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.4" id="T8g-H7-vXt"/>
                             <constraint firstItem="eXc-h6-cAv" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="glL-jZ-zf8"/>
@@ -40,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="224" height="85"/>
+        <image name="SplashCircles" width="159" height="159"/>
     </resources>
 </document>
