@@ -1,5 +1,6 @@
 import 'package:corona_trace/LocationUpdates.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
+import 'package:corona_trace/ui/screens/Onboarding.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         title: 'CoronaTrace',
         theme:
             ThemeData(primarySwatch: Colors.indigo, fontFamily: 'Montserrat'),
-        home: UserInfoCollectorScreen(),
+        home: OnboardingScreen(),
       ),
       data: MediaQueryData(),
     );

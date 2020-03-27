@@ -53,6 +53,8 @@ flutter:
 
   assets:
     - assets/combined_shape.png
+    - assets/first_onboarding_image.png
+    - assets/second_onboarding_image.png
 
   fonts:
      - family: Montserrat
