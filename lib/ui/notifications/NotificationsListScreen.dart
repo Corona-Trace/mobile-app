@@ -131,15 +131,28 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
         });
   }
 
-  Container updateYourStatus() {
-    return Container(
-      margin: EdgeInsets.all(0),
-      padding: EdgeInsets.all(0),
-      color: Color.fromRGBO(241, 227, 178, 1),
-      child: Padding(
-        padding: EdgeInsets.only(top: 10, bottom: 10, left: 16, right: 16),
-        child: Text(AppLocalization.text("Please.Update.Status")),
-      ),
-    );
+  Widget updateYourStatus() {
+    return FutureBuilder(
+        future: ApiRepository.getUserSeverity(),
+        builder: (context, snapshot) {
+          if (snapshot.data != null) {
+            int severity = snapshot.data as int;
+            // severity = YES response from the user dont show this.
+            if (severity == 1) {
+              return Container();
+            }
+            return Container(
+              margin: EdgeInsets.all(0),
+              padding: EdgeInsets.all(0),
+              color: Color.fromRGBO(241, 227, 178, 1),
+              child: Padding(
+                padding:
+                    EdgeInsets.only(top: 10, bottom: 10, left: 16, right: 16),
+                child: Text(AppLocalization.text("Please.Update.Status")),
+              ),
+            );
+          }
+          return Container();
+        });
   }
 }
