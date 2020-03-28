@@ -19,6 +19,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   firebase_messaging: ^6.0.12
   flutter_local_notifications: ^1.2.0+3
   shared_preferences: ^0.5.6+3
@@ -62,6 +64,8 @@ flutter:
     - assets/images/combined_shape.png
     - assets/images/firstonboarding.png
     - assets/images/Illustration_Anonymous.png
+    - assets/locales/en.json
+    - assets/locales/es.json
 
   fonts:
      - family: Montserrat

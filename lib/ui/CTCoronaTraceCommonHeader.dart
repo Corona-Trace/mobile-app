@@ -1,4 +1,5 @@
 import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
+import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
 
 class CTCoronaTraceCommonHeader extends StatelessWidget {
@@ -12,7 +13,7 @@ class CTCoronaTraceCommonHeader extends StatelessWidget {
             children: <Widget>[
               Padding(
                 child: Text(
-                  "Coronatrace",
+                  AppLocalization.text("Coronatrace"),
                   style: TextStyle(
                       color: Color.fromRGBO(254, 198, 208, 1),
                       fontSize: 16),
@@ -20,8 +21,8 @@ class CTCoronaTraceCommonHeader extends StatelessWidget {
                 padding:
                 EdgeInsets.only(top: 20, bottom: 5, left: 20),
               ),
-              CTHeaderTile("A Single Answer to Save Lives",
-                  "Anonymous, location-based information to help stop the spread of COVID-19."),
+              CTHeaderTile(AppLocalization.text("Coronatrace.Tagline"),
+                  AppLocalization.text("Coronatrace.SubTagline")),
             ],
           ),
           margin: EdgeInsets.only(top: 20, right: 20),

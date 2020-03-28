@@ -9,11 +9,13 @@ import 'package:corona_trace/ui/notifications/NotificationsListScreen.dart';
 import 'package:corona_trace/ui/screens/Onboarding.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'utils/AppLocalization.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  initializeDateFormatting().then((value) => runApp(MyApp()));
+  runApp(MyApp());
   initPush();
 }
 
@@ -137,6 +139,25 @@ class MyApp extends StatelessWidget {
         var severity = snapshot.data == null ? -1 : snapshot.data as int;
         return MediaQuery(
           child: MaterialApp(
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('en'),
+              const Locale('es'),
+            ],
+            localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+              print(locale);
+              for (Locale supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale.languageCode ||
+                    supportedLocale.countryCode == locale.countryCode) {
+                  return supportedLocale;
+                }
+              }
+              return supportedLocales.first;
+            },
             debugShowCheckedModeBanner: false,
             title: 'CoronaTrace',
             navigatorKey: _globalKey,
