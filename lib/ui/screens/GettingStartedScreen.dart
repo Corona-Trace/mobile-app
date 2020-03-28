@@ -28,7 +28,7 @@ class _GettingStartedState extends BaseState<GettingStarted> {
         bottom: false,
         child: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+            margin: EdgeInsets.only(left: 20, right: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -89,7 +89,7 @@ class _GettingStartedState extends BaseState<GettingStarted> {
                 ),
                 Container(
                   child: Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 36.0, 12.0, 0.0),
+                      padding: const EdgeInsets.fromLTRB(12.0, 28.0, 12.0, 0.0),
                       child: MaterialButton(
                         padding: EdgeInsets.symmetric(vertical: 14.0),
                         shape: RoundedRectangleBorder(

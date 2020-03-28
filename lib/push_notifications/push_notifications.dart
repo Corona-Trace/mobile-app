@@ -132,12 +132,6 @@ class PushNotifications {
     });
   }
 
-  static sendAndRetrieveMessage() async {
-    print("sending push");
-
-    print(await firebaseMessaging.getToken());
-  }
-
   static Future<void> saveTokenForLoggedInUser() async {
     var token = await firebaseMessaging.getToken();
     await ApiRepository.updateTokenForUser(token);

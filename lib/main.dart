@@ -15,10 +15,15 @@ import 'utils/AppLocalization.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  ApiRepository.getIsOnboardingDone().then((onboardingDone) {
+    ApiRepository.getUserSeverity().then((userSeverity) {
+      var isOnboardinDone =
+          onboardingDone == null ? false : onboardingDone as bool;
+      var severity = userSeverity == null ? -1 : userSeverity as int;
+      runApp(MyApp(isOnboardinDone, severity));
+    });
+  });
 }
-
-
 
 MaterialColor appColor = MaterialColor(
   Color.fromRGBO(44, 48, 84, 1.0).value,
@@ -38,38 +43,15 @@ MaterialColor appColor = MaterialColor(
 final GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
+  final bool isOnboardinDone;
+  final int severity;
+
+  MyApp(this.isOnboardinDone, this.severity);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: ApiRepository.getIsOnboardingDone(),
-      builder: (context, data) {
-        print(data);
-        if (data.connectionState == ConnectionState.done) {
-          var isOnboardinDone = data.data == null ? false : data.data as bool;
-          return handleOnboardingDone(isOnboardinDone);
-        }
-        return Container(
-          color: Color(0xFF2c3054),
-        );
-      },
-    );
-  }
-
-  Widget handleOnboardingDone(bool isOnboardinDone) {
-    return FutureBuilder(
-      future: ApiRepository.getUserSeverity(),
-      builder: (context, snapshot) {
-        print(snapshot);
-        if (snapshot.connectionState == ConnectionState.done) {
-          var severity = snapshot.data == null ? -1 : snapshot.data as int;
-          return getMaterialApp(isOnboardinDone, severity);
-        }
-        return Container(
-          color: Color(0xFF2c3054),
-        );
-      },
-    );
+    return getMaterialApp(this.isOnboardinDone, this.severity);
   }
 
   MediaQuery getMaterialApp(bool isOnboardinDone, int severity) {
@@ -98,8 +80,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'CoronaTrace',
         navigatorKey: globalKey,
-        theme:
-            ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
+        theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
         home: isOnboardinDone
             ? severity == -1
                 ? UserInfoCollectorScreen()
