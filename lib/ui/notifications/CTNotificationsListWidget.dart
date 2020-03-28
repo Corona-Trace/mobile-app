@@ -26,7 +26,6 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
 
   void _scrollListener() {
     if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-      print("load more called");
       _notificationsBloc.loadMore();
     }
   }
@@ -45,7 +44,17 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
       builder: (context, snapshot) {
         print(snapshot.data);
         if (_notificationsBloc.isInitialLoading()) {
-          return Center(child: CTLoader(50, 50),);
+          return Center(
+            child: CTLoader(50, 50),
+          );
+        }
+        if (snapshot.data.isEmpty) {
+          return Center(
+            child: Text(
+              "No Notifications available!",
+              style: TextStyle(fontSize: 18),
+            ),
+          );
         }
         return SingleChildScrollView(
           controller: _controller,

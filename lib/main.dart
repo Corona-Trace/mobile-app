@@ -39,8 +39,6 @@ void initPush() {
       });
 }
 
-final GlobalKey<NavigatorState> _globalKey = GlobalKey<NavigatorState>();
-
 Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
   if (message.containsKey('data')) {
     // Handle data message
@@ -89,6 +87,8 @@ navigateToMapDetail(obj) {
   }
 }
 
+final GlobalKey<NavigatorState> _globalKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -97,63 +97,68 @@ class MyApp extends StatelessWidget {
       future: ApiRepository.getIsOnboardingDone(),
       builder: (context, data) {
         print(data);
-        if (data.connectionState != ConnectionState.done) {
-          return Container(
-            color: appColor,
-          );
-        } else {
+        if (data.connectionState == ConnectionState.done) {
           var isOnboardinDone = data.data == null ? false : data.data as bool;
-          return getMaterialApp(isOnboardinDone);
+          return handleOnboardingDone(isOnboardinDone);
         }
+        return Container(
+          color: Color(0xFF2c3054),
+        );
       },
     );
   }
 
-  Widget getMaterialApp(bool isOnboardinDone) {
+  Widget handleOnboardingDone(bool isOnboardinDone) {
     return FutureBuilder(
       future: ApiRepository.getUserSeverity(),
       builder: (context, snapshot) {
         print(snapshot);
-        if (snapshot.connectionState != ConnectionState.done) {
-          return Container(
-            color: appColor,
-          );
+        if (snapshot.connectionState == ConnectionState.done) {
+          var severity = snapshot.data == null ? -1 : snapshot.data as int;
+          return getMaterialApp(isOnboardinDone, severity);
         }
-        var severity = snapshot.data == null ? -1 : snapshot.data as int;
-        return MediaQuery(
-          child: MaterialApp(
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            supportedLocales: [
-              const Locale('en'),
-              const Locale('es'),
-            ],
-            localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
-              print(locale);
-              for (Locale supportedLocale in supportedLocales) {
-                if (supportedLocale.languageCode == locale.languageCode ||
-                    supportedLocale.countryCode == locale.countryCode) {
-                  return supportedLocale;
-                }
-              }
-              return supportedLocales.first;
-            },
-            debugShowCheckedModeBanner: false,
-            title: 'CoronaTrace',
-            navigatorKey: _globalKey,
-            theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
-            home: isOnboardinDone
-                ? severity == -1
-                    ? UserInfoCollectorScreen()
-                    : NotificationsListScreen()
-                : OnboardingScreen(),
-          ),
-          data: MediaQueryData(),
+        return Container(
+          color: Color(0xFF2c3054),
         );
       },
+    );
+  }
+
+  MediaQuery getMaterialApp(bool isOnboardinDone, int severity) {
+    return MediaQuery(
+      child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en'),
+          const Locale('es'),
+        ],
+        localeResolutionCallback:
+            (Locale locale, Iterable<Locale> supportedLocales) {
+          print(locale);
+          for (Locale supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale.languageCode ||
+                supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
+            }
+          }
+          return supportedLocales.first;
+        },
+        debugShowCheckedModeBanner: false,
+        title: 'CoronaTrace',
+        navigatorKey: _globalKey,
+        theme:
+            ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
+        home: isOnboardinDone
+            ? severity == -1
+                ? UserInfoCollectorScreen()
+                : NotificationsListScreen()
+            : OnboardingScreen(),
+      ),
+      data: MediaQueryData(),
     );
   }
 }
