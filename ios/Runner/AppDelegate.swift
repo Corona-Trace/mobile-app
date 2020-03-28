@@ -13,19 +13,10 @@ import GoogleMaps
     GMSServices.provideAPIKey("AIzaSyBX9n2YTrH_YjgZ4IRnut4cFmVJ95NaE9c")
     FirebaseApp.configure()
     
-    setupPushNotifications(for: application)
+    UNUserNotificationCenter.current().delegate = self
     
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
-  
-    private func setupPushNotifications(for application: UIApplication) {
-        let center = UNUserNotificationCenter.current()
-        center.delegate = self
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-            DispatchQueue.main.async {
-                application.registerForRemoteNotifications()
-            }
-        }
-    }
+    
 }

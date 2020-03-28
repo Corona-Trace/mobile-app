@@ -1,5 +1,6 @@
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/APIRepository.dart';
+import 'package:corona_trace/push_notifications/push_notifications.dart';
 import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
 import 'package:corona_trace/ui/CTStatusColor.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
@@ -18,6 +19,13 @@ class NotificationsListScreen extends StatefulWidget {
 }
 
 class _NotificationsListScreenState extends State<NotificationsListScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    PushNotifications.initStuff();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
