@@ -7,7 +7,7 @@
     "NOTIFICATIONS": "NOTIFICATIONS",
     "Update": "Update",
     "Continue": "Continue",
-    "Ok": "Ok",
+    "Ok": "OK",
     
     "Coronatrace": "Coronatrace",
     "Coronatrace.Tagline": "A Single Answer to Save Lives",
@@ -50,7 +50,7 @@
     "Please.Update.Status": "Please updated your status if you test positive for COVID-19.",
 
     "Onboarding.Stop.Spread": "Help stop the\nspread of COVID-19",
-    "Onboarding.Single.Answer": "A single answer saves lives",
+    "Onboarding.Single.Answer": "A single answer saves lives.",
     "Onboarding.Anonymous": "CoronaTrace is an anonymous, real-time location-based contact tracer that alerts you about possible contact with someone who has tested positive for COVID-19 and helps stop the spread of the virus.",
     "Onboarding.CheckIn": "Anonymous Check-in",
     "Onboarding.Help": "Help prevent the spread of COVID-19 by sharing your status and location anonymously.",
