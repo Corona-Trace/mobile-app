@@ -14,10 +14,11 @@ class AppLocalization {
   Map<dynamic, dynamic> _englishValues;
 
   Future<AppLocalization> load(Locale locale) async {
+    
     String jsonContent =
-      await rootBundle.loadString("assets/locales/${locale.languageCode}.json");
+      await rootBundle.loadString("assets/locales/${locale != null ? locale.languageCode : "en"}.json");
     _localisedValues = json.decode(jsonContent);
-    if(locale.languageCode != 'en') {
+    if(locale != null && locale.languageCode != 'en') {
       String jsonEnglishContent =
       await rootBundle.loadString("assets/locales/en.json");
     _englishValues = json.decode(jsonEnglishContent);
