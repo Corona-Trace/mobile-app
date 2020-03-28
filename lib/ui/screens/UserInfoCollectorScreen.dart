@@ -32,13 +32,12 @@ const SCREEN_CONFIRM_DO_NOT_HAVE_SYMPTOMS = 5;
 const SCREEN_CONFIRM_DO_HAVE_SYMPTOMS = 6;
 
 class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
-  int _currentScreen = SCREEN_FEELING_TODAY;
   var stack = StackCollect();
 
   @override
   void initState() {
     super.initState();
-    stack.push(_currentScreen);
+    stack.push(SCREEN_FEELING_TODAY);
   }
 
   @override
@@ -63,7 +62,6 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
       return true;
     } else {
       setState(() {
-        _currentScreen = stack.top();
       });
     }
     return false;
@@ -233,8 +231,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   void dialogOnResponse(screen) {
     setState(() {
-      _currentScreen = screen;
-      stack.push(_currentScreen);
+      stack.push(screen);
     });
   }
 
@@ -254,7 +251,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   }
 
   Widget getCurrentScreen() {
-    switch (_currentScreen) {
+    switch (stack.top()) {
       case SCREEN_FEELING_TODAY:
         {
           return firstCardContent();
