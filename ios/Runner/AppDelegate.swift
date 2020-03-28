@@ -22,10 +22,10 @@ import GoogleMaps
     private func setupPushNotifications(for application: UIApplication) {
         let center = UNUserNotificationCenter.current()
         center.delegate = self
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            //Do Nothing
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            DispatchQueue.main.async {
+                application.registerForRemoteNotifications()
+            }
         }
-        
-        application.registerForRemoteNotifications()
     }
 }
