@@ -20,6 +20,7 @@ class LocationUpdates {
   }
 
   static Future<void> initiateLocationUpdates() async {
+    await LocationUpdates.requestPermissions();
     var displacement = await ApiRepository.getRemoteConfigValue(
         AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
     var userId = await AppConstants.getDeviceId();

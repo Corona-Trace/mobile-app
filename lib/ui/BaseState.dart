@@ -1,3 +1,4 @@
+import 'package:corona_trace/ui/notifications/CTLoader.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseState<T extends StatefulWidget> extends State<T> {
@@ -26,9 +27,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
             child: Stack(
               children: [
                 new Center(
-                  child: new CircularProgressIndicator(
-                    backgroundColor: Colors.indigo,
-                  ),
+                  child: CTLoader(50, 50),
                 ),
               ],
             ),

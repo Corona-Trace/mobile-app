@@ -19,16 +19,11 @@ class ApiRepository {
   static const LAT_CONST = "LAT";
   static const LNG_CONST = "LNG";
   static const SEVERITY = "SEVERITY";
-  static const ACCEPTED_ONCE = "ACCEPTED_ONCE";
   static const USER_LOCATION_URL = "$API_URL/usersLocationHistory";
   static const String IS_ONBOARDING_DONE = "IS_ONBOARDING_DONE";
 
   static Future<void> updateTokenForUser(String token) async {
     var instance = await SharedPreferences.getInstance();
-    if (instance.getBool(ACCEPTED_ONCE) != null &&
-        instance.getBool(ACCEPTED_ONCE)) {
-      await LocationUpdates.requestPermissions();
-    }
     if (instance.get(TOKEN) != null && instance.get(TOKEN) == token) {
       return;
     }
@@ -59,7 +54,6 @@ class ApiRepository {
 
   static Future<void> setUserSeverity(int severity) async {
     var instance = await SharedPreferences.getInstance();
-    await instance.setBool(ACCEPTED_ONCE, true);
     await instance.setInt(SEVERITY, severity);
     try {
       var deviceID = await AppConstants.getDeviceId();
