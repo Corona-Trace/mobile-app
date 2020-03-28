@@ -213,10 +213,9 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     return CTThankYouDialog(onButtonClick: () {
       stack = StackCollect();
       dialogOnResponse(SCREEN_FEELING_TODAY);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (BuildContext context) {
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
         return NotificationsListScreen();
-      }));
+      }), (route) => false);
     });
   }
 
