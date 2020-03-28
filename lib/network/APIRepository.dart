@@ -56,11 +56,11 @@ class ApiRepository {
   static Map<String, String> tokenRequestBody(String token, String deviceID) =>
       {"token": token, "userId": deviceID};
 
+
   static Future<void> setUserSeverity(int severity) async {
     var instance = await SharedPreferences.getInstance();
     await instance.setBool(ACCEPTED_ONCE, true);
     await instance.setInt(SEVERITY, severity);
-
     try {
       var deviceID = await AppConstants.getDeviceId();
       var body = getSeverityBody(severity, deviceID);
@@ -152,4 +152,5 @@ class ApiRepository {
     var sharedPrefs = await SharedPreferences.getInstance();
     await sharedPrefs.setBool(IS_ONBOARDING_DONE, isDone);
   }
+
 }

@@ -4,6 +4,7 @@ import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
 import 'package:corona_trace/ui/CTStatusColor.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationsListWidget.dart';
+import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
 import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
@@ -79,23 +80,24 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  child: ListTile(
-                    title: Text(
-                      pair.first,
-                      style: TextStyle(
-                          color: pair.second.first,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Container(
+                    child: ListTile(
+                      title: Text(
+                        pair.first,
+                        style: TextStyle(
+                            color: pair.second.first,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(AppLocalization.text("Anonymous.Status")),
+                      leading: pair.second.second,
                     ),
-                    subtitle: Text(AppLocalization.text("Anonymous.Status")),
-                    leading: pair.second.second,
+                    height: 80,
                   ),
-                  height: 80,
-                  width: MediaQuery.of(context).size.width * 0.75,
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 30,right: 15),
+                  margin: EdgeInsets.only(bottom: 30, right: 20),
                   child: InkWell(
                     child: Row(
                       children: <Widget>[
@@ -113,7 +115,12 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  UserInfoCollectorScreen()),
+                          (route) => false);
                     },
                   ),
                 )
