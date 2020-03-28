@@ -5,6 +5,7 @@ import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
+import 'package:corona_trace/ui/notifications/NotificationsListScreen.dart';
 import 'package:corona_trace/ui/screens/Onboarding.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,10 @@ void main() {
 
 void initPush() {
   final PushNotifications _pushNotifications = PushNotifications();
-  _pushNotifications
-      .initStuff()
-      .then((value) => LocationUpdates.initiateLocationUpdates());
+  _pushNotifications.initStuff();
   _pushNotifications.firebaseMessaging.configure(
-      onBackgroundMessage: Platform.isAndroid ? myBackgroundMessageHandler:null,
+      onBackgroundMessage:
+          Platform.isAndroid ? myBackgroundMessageHandler : null,
       onMessage: (Map<String, dynamic> message) async {
         print("on message called");
         _pushNotifications.showNotification(message);
@@ -98,15 +98,14 @@ MaterialColor appColor = MaterialColor(
 navigateToMapDetail(obj) {
   print(obj);
   print("navigate now");
-  try{
+  try {
     var item = ResponseNotificationItem.map(obj);
     _globalKey.currentState.push(MaterialPageRoute(
         builder: (BuildContext context) =>
             CTNotificationMapDetail(crossedPaths: true, notification: item)));
-  }catch(ex){
+  } catch (ex) {
     print(ex);
   }
-
 }
 
 class MyApp extends StatelessWidget {
@@ -116,47 +115,61 @@ class MyApp extends StatelessWidget {
     return FutureBuilder(
       future: ApiRepository.getIsOnboardingDone(),
       builder: (context, data) {
-        print(data.data);
         if (!data.hasData) {
           return Container(
             color: appColor,
           );
         } else {
           var isOnboardinDone = data.data == null ? false : data.data as bool;
+          return getMaterialApp(isOnboardinDone);
+        }
+      },
+    );
+  }
 
-          return MediaQuery(
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'CoronaTrace',
-              navigatorKey: _globalKey,
-              theme:
-                  ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
-              home: isOnboardinDone
-                  ? UserInfoCollectorScreen()
-                  : OnboardingScreen(),
-              localizationsDelegates: [
-                const AppLocalizationsDelegate(),
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              supportedLocales: [
-                const Locale('en'),
-                const Locale('es'),
-              ],
-              localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
-                print(locale);
-                for (Locale supportedLocale in supportedLocales) {
-                  if (supportedLocale.languageCode == locale.languageCode ||
-                      supportedLocale.countryCode == locale.countryCode) {
-                    return supportedLocale;
-                  }
-                }
-                return supportedLocales.first;
-              },
-            ),
-            data: MediaQueryData(),
+  Widget getMaterialApp(bool isOnboardinDone) {
+    return FutureBuilder(
+      future: ApiRepository.getUserSeverity(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container(
+            color: appColor,
           );
         }
+        var severity = snapshot.data == null ? -1 : snapshot.data as int;
+        return MediaQuery(
+          child: MaterialApp(
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('en'),
+              const Locale('es'),
+            ],
+            localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+              print(locale);
+              for (Locale supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale.languageCode ||
+                    supportedLocale.countryCode == locale.countryCode) {
+                  return supportedLocale;
+                }
+              }
+              return supportedLocales.first;
+            },
+            debugShowCheckedModeBanner: false,
+            title: 'CoronaTrace',
+            navigatorKey: _globalKey,
+            theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
+            home: isOnboardinDone
+                ? severity == -1
+                    ? UserInfoCollectorScreen()
+                    : NotificationsListScreen()
+                : OnboardingScreen(),
+          ),
+          data: MediaQueryData(),
+        );
       },
     );
   }
