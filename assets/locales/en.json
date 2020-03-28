@@ -15,7 +15,7 @@
     
     "Tested.Positive.COVID": "I tested positive for COVID-19",
     "Tested.Positive.COVID.Location.Usage": "I tested positive for COVID-19, use my location anonymously",
-    "Symptoms.None": "I do not have any symptoms    ",
+    "Symptoms.None": "I do not have any symptoms, use my location anonymously",
     "Symptoms.Not.Tested": "I have symptoms but I have not tested",
     "Symptoms.Some": "NO, BUT I HAVE SYMPTOMS",
     "Question.Test.Positive": "Have you tested positive for COVID-19?",
