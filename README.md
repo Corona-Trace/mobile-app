@@ -1,5 +1,7 @@
 ![Corona Tracker App](CoronaTrackerAppHeader.png)
 
+[![Codemagic build status](https://api.codemagic.io/apps/5e7fd298a2d77c1607b8f7ad/5e7fd298a2d77c1607b8f7ac/status_badge.svg)](https://codemagic.io/apps/5e7fd298a2d77c1607b8f7ad/5e7fd298a2d77c1607b8f7ac/latest_build)
+
 # CoronaTracker App
 
 CoronaTracker App is written in Flutter and can be built to run on Android and iOS. 
