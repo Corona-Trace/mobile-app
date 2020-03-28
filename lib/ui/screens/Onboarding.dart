@@ -1,4 +1,5 @@
 import 'package:corona_trace/network/APIRepository.dart';
+import 'package:corona_trace/ui/screens/GettingStartedScreen.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
@@ -267,7 +268,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           buttonTitle = AppLocalization.text("Onboarding.GetStarted");
         }
         break;
-
       default:
         {
           buttonTitle = AppLocalization.text("Continue");
@@ -308,12 +308,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 curve: Curves.ease,
               );
             } else {
-              await ApiRepository.setOnboardingDone(true);
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          UserInfoCollectorScreen()),
+                          GettingStarted()),
                   (route) => false);
             }
           },

@@ -38,6 +38,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   void initState() {
     super.initState();
     stack.push(SCREEN_FEELING_TODAY);
+    PushNotifications.initStuff();
   }
 
   @override
@@ -145,9 +146,6 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         },
         onPositiveQuestionClick: () async {
-          showLoadingDialog(tapDismiss: false);
-          await ApiRepository.setUserSeverity(-1);
-          hideLoadingDialog();
           LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         });
@@ -168,9 +166,6 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Color.fromRGBO(240, 193, 28, 1),
         onPositiveQuestionClick: () async {
-          showLoadingDialog(tapDismiss: false);
-          await ApiRepository.setUserSeverity(-1);
-          hideLoadingDialog();
           LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         },
@@ -198,9 +193,6 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Colors.green,
         onPositiveQuestionClick: () async {
-          showLoadingDialog(tapDismiss: false);
-          await ApiRepository.setUserSeverity(-1);
-          hideLoadingDialog();
           LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         },
