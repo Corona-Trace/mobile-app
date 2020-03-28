@@ -27,110 +27,115 @@ class _GettingStartedState extends BaseState<GettingStarted> {
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(left: 20, right: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Text(
-                      AppLocalization.text("GettingStarted"),
-                      style: kMainTitleStyle,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      AppLocalization.text("info.how.selected"),
-                      style: kSubtitleStyle,
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    ListTile(
-                      leading: Image.asset("assets/images/map_pin.png"),
-                      title: Text(
-                        AppLocalization.text(
-                          "location.info",
-                        ),
-                        style: kMainTextStyle,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height * 0.85),
+            child: Container(
+              margin: EdgeInsets.only(left: 20, right: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 40,
                       ),
-                      subtitle: Padding(
-                        child: Text(
-                            AppLocalization.text("corona.anonymous.infected"),
+                      Text(
+                        AppLocalization.text("GettingStarted"),
+                        style: kMainTitleStyle,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        AppLocalization.text("info.how.selected"),
+                        style: kSubtitleStyle,
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      ListTile(
+                        leading: Image.asset("assets/images/map_pin.png"),
+                        title: Text(
+                          AppLocalization.text(
+                            "location.info",
+                          ),
+                          style: kMainTextStyle,
+                        ),
+                        subtitle: Padding(
+                          child: Text(
+                              AppLocalization.text("corona.anonymous.infected"),
+                              style: kMainTextStyle),
+                          padding: EdgeInsets.only(top: 10, bottom: 20),
+                        ),
+                      ),
+                      Divider(
+                        color: Color.fromRGBO(227, 203, 228, 1),
+                        height: 0.5,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ListTile(
+                        leading: Image.asset("assets/images/bell1.png"),
+                        title: Text(AppLocalization.text("notifications_camel"),
                             style: kMainTextStyle),
-                        padding: EdgeInsets.only(top: 10, bottom: 20),
-                      ),
-                    ),
-                    Divider(
-                      color: Color.fromRGBO(227, 203, 228, 1),
-                      height: 0.5,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ListTile(
-                      leading: Image.asset("assets/images/map_pin.png"),
-                      title: Text(AppLocalization.text("notifications_camel"),
-                          style: kMainTextStyle),
-                      subtitle: Padding(
-                        child: Text(
-                            AppLocalization.text("coronatrace.will.send"),
-                            style: kMainTextStyle),
-                        padding: EdgeInsets.only(top: 10, bottom: 20),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  child: Padding(
-                      padding: const EdgeInsets.fromLTRB(12.0, 28.0, 12.0, 0.0),
-                      child: MaterialButton(
-                        padding: EdgeInsets.symmetric(vertical: 14.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(8.0),
+                        subtitle: Padding(
+                          child: Text(
+                              AppLocalization.text("coronatrace.will.send"),
+                              style: kMainTextStyle),
+                          padding: EdgeInsets.only(top: 10, bottom: 20),
                         ),
-                        color: Color(0xFF475df3),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              AppLocalization.text("Continue"),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                          ],
-                        ),
-                        onPressed: () async {
-                          showLoadingDialog(tapDismiss: false);
-                          var selected = await showDialogForLocation();
-                          if (selected) {
-                            await LocationUpdates.requestPermissions();
-                            await PushNotifications.registerNotification();
-                          }
-                          await ApiRepository.setOnboardingDone(true);
-                          hideLoadingDialog();
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      UserInfoCollectorScreen()),
-                              (route) => false);
-                        },
-                      )),
-                  margin: EdgeInsets.only(bottom: 20),
-                ),
-              ],
+                      ),
+                    ],
+                  ),
+                  Container(
+                    child: Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(12.0, 28.0, 12.0, 0.0),
+                        child: MaterialButton(
+                          padding: EdgeInsets.symmetric(vertical: 14.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(8.0),
+                          ),
+                          color: Color(0xFF475df3),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                AppLocalization.text("Continue"),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                          onPressed: () async {
+                            showLoadingDialog(tapDismiss: false);
+                            var selected = await showDialogForLocation();
+                            if (selected) {
+                              await LocationUpdates.requestPermissions();
+                              await PushNotifications.registerNotification();
+                            }
+                            await ApiRepository.setOnboardingDone(true);
+                            hideLoadingDialog();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        UserInfoCollectorScreen()),
+                                (route) => false);
+                          },
+                        )),
+                    margin: EdgeInsets.only(bottom: 20),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -179,7 +184,6 @@ class _GettingStartedState extends BaseState<GettingStarted> {
                   Navigator.pop(context, true);
                 },
               ),
-
             ],
           );
         }
