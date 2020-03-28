@@ -140,12 +140,16 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Color.fromRGBO(219, 102, 81, 1),
         onNegativeQuestionClick: () async {
-          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          showLoadingDialog(tapDismiss: false);
           await LocationUpdates.initiateLocationUpdates();
-          ApiRepository.setUserSeverity(1);
+          await ApiRepository.setUserSeverity(1);
+          hideLoadingDialog();
+          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         },
         onPositiveQuestionClick: () async {
-          ApiRepository.setUserSeverity(-1);
+          showLoadingDialog(tapDismiss: false);
+          await ApiRepository.setUserSeverity(-1);
+          hideLoadingDialog();
           LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         });
@@ -166,14 +170,18 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Color.fromRGBO(240, 193, 28, 1),
         onPositiveQuestionClick: () async {
-          ApiRepository.setUserSeverity(-1);
+          showLoadingDialog(tapDismiss: false);
+          await ApiRepository.setUserSeverity(-1);
+          hideLoadingDialog();
           LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         },
         onNegativeQuestionClick: () async {
-          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          showLoadingDialog(tapDismiss: false);
           await LocationUpdates.initiateLocationUpdates();
-          ApiRepository.setUserSeverity(2);
+          await ApiRepository.setUserSeverity(2);
+          hideLoadingDialog();
+          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         });
 
     return getBottomSheetWidget(
@@ -192,14 +200,18 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Colors.green,
         onPositiveQuestionClick: () async {
-          ApiRepository.setUserSeverity(-1);
+          showLoadingDialog(tapDismiss: false);
+          await ApiRepository.setUserSeverity(-1);
+          hideLoadingDialog();
           LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         },
         onNegativeQuestionClick: () async {
-          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          showLoadingDialog(tapDismiss: false);
           await LocationUpdates.initiateLocationUpdates();
-          ApiRepository.setUserSeverity(0);
+          await ApiRepository.setUserSeverity(0);
+          hideLoadingDialog();
+          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         });
 
     return getBottomSheetWidget(

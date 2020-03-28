@@ -39,25 +39,6 @@ void initPush() {
       });
 }
 
-Future _handleBGMessage(Map<String, dynamic> message) {
-  print("_handleBGMessage");
-  if (message.containsKey('data')) {
-// Handle data message
-    final dynamic data = message['data'];
-    navigateToMapDetail(data);
-    print("bg message data");
-  }
-
-  if (message.containsKey('notification')) {
-// Handle notification message
-    final dynamic notification = message['notification'];
-    navigateToMapDetail(message);
-    print("bg message notification");
-  }
-  print(message);
-  return Future<void>.value();
-}
-
 final GlobalKey<NavigatorState> _globalKey = GlobalKey<NavigatorState>();
 
 Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
@@ -115,7 +96,8 @@ class MyApp extends StatelessWidget {
     return FutureBuilder(
       future: ApiRepository.getIsOnboardingDone(),
       builder: (context, data) {
-        if (!data.hasData) {
+        print(data);
+        if (data.connectionState != ConnectionState.done) {
           return Container(
             color: appColor,
           );
@@ -131,7 +113,8 @@ class MyApp extends StatelessWidget {
     return FutureBuilder(
       future: ApiRepository.getUserSeverity(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
+        print(snapshot);
+        if (snapshot.connectionState != ConnectionState.done) {
           return Container(
             color: appColor,
           );
