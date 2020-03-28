@@ -140,9 +140,12 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         customColor: Color.fromRGBO(219, 102, 81, 1),
         onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          await LocationUpdates.initiateLocationUpdates();
           ApiRepository.setUserSeverity(1);
         },
         onPositiveQuestionClick: () async {
+          ApiRepository.setUserSeverity(-1);
+          LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         });
 
@@ -162,10 +165,13 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Color.fromRGBO(240, 193, 28, 1),
         onPositiveQuestionClick: () async {
+          ApiRepository.setUserSeverity(-1);
+          LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         },
         onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          await LocationUpdates.initiateLocationUpdates();
           ApiRepository.setUserSeverity(2);
         });
 
@@ -185,10 +191,13 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Colors.green,
         onPositiveQuestionClick: () async {
+          ApiRepository.setUserSeverity(-1);
+          LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         },
         onNegativeQuestionClick: () async {
           dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          await LocationUpdates.initiateLocationUpdates();
           ApiRepository.setUserSeverity(0);
         });
 

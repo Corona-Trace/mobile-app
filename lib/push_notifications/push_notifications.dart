@@ -91,7 +91,6 @@ class PushNotifications {
 
   Future<void> saveTokenForLoggedInUser() async {
     var token = await firebaseMessaging.getToken();
-    print(token);
     await ApiRepository.updateTokenForUser(token);
   }
 }
