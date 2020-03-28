@@ -13,6 +13,7 @@ import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
 import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
 import 'package:corona_trace/ui/widgets/CTTestingInformation.dart';
 import 'package:corona_trace/ui/widgets/CTThankYouDialog.dart';
+import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:corona_trace/utils/Stack.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,12 +95,12 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
   Widget firstCardContent() {
     Widget questionPair = CTQuestionPair(
-        positiveQuestionText: "YES",
-        positiveSubtitleBottomQuestionText: "I tested positive for COVID-19",
-        negativeQuestionTitleText: "NO",
-        negativeQuestionSubtitleText: "I do not have any symptoms",
-        neutralQuestionTitleText: "NO, BUT I HAVE SYMPTOMS",
-        neutralQuestionSubtitleText: "I have symptoms but have not tested",
+        positiveQuestionText: AppLocalization.text("YES"),
+        positiveSubtitleBottomQuestionText: AppLocalization.text("Tested.Positive.COVID"),
+        negativeQuestionTitleText: AppLocalization.text("NO"),
+        negativeQuestionSubtitleText: AppLocalization.text("Symptoms.None"),
+        neutralQuestionTitleText: AppLocalization.text("Symptoms.Some"),
+        neutralQuestionSubtitleText: AppLocalization.text("Symptoms.Not.Tested"),
         showArrows: true,
         iconPositive: Icon(
           Icons.add_circle_outline,
@@ -123,19 +124,19 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         });
 
     return getBottomSheetWidget(
-        headerText: "Have you tested positive for COVID-19?",
+        headerText: AppLocalization.text("Question.Test.Positive"),
         subHeaderText:
-            "Your answer is completely anonymous and no personal information will ever be stored.\n\nSelect an answer to continue.",
+            AppLocalization.text("Answer.Anonymous"),
         questionPair: questionPair);
   }
 
   Widget confirmTestedPositiveCardContent() {
     Widget questionPair = CTQuestionPair(
-        positiveQuestionText: "CANCEL",
+        positiveQuestionText: AppLocalization.text("CANCEL"),
         positiveSubtitleBottomQuestionText: "",
-        negativeQuestionTitleText: "YES",
+        negativeQuestionTitleText: AppLocalization.text("YES"),
         negativeQuestionSubtitleText:
-            "I tested positive for COVID-19, use my location anonymously",
+            AppLocalization.text("Tested.Positive.COVID.Location.Usage"),
         hasCustomColor: true,
         customColor: Color.fromRGBO(219, 102, 81, 1),
         onNegativeQuestionClick: () async {
@@ -150,17 +151,17 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         });
 
     return getBottomSheetWidget(
-        headerText: "Please confirm your answer to continue.",
+        headerText: AppLocalization.text("Answer.Confirm"),
         subHeaderText:
-            "Confirm your answer and CoronaTrace will timestamp and use your location anonymously to help stop the spread of COVID-19.",
+            AppLocalization.text("Answer.Confirm.Location.Usage"),
         questionPair: questionPair);
   }
 
   Widget confirmDoHaveSymptomsCardContent() {
     Widget questionPair = CTQuestionPair(
-        negativeQuestionSubtitleText: "I have symptoms but I have not tested",
-        positiveQuestionText: "CANCEL",
-        negativeQuestionTitleText: "NO, BUT I HAVE SYMPTOMS",
+        negativeQuestionSubtitleText: AppLocalization.text("Symptoms.Not.Tested"),
+        positiveQuestionText: AppLocalization.text("CANCEL"),
+        negativeQuestionTitleText: AppLocalization.text("Symptoms.Some"),
         positiveSubtitleBottomQuestionText: "",
         hasCustomColor: true,
         customColor: Color.fromRGBO(240, 193, 28, 1),
@@ -176,17 +177,17 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         });
 
     return getBottomSheetWidget(
-        headerText: "Please confirm your answer to continue.",
+        headerText: AppLocalization.text("Answer.Confirm"),
         subHeaderText:
-            "Confirm your answer and CoronaTrace will timestamp and use your location anonymously to help stop the spread of COVID-19.",
+            AppLocalization.text("Answer.Confirm.Location.Usage"),
         questionPair: questionPair);
   }
 
   Widget confirmDoNotHaveSymptomsCardContent() {
     Widget questionPair = CTQuestionPair(
-        negativeQuestionSubtitleText: "I DO NOT HAVE ANY SYMPTOMS",
-        positiveQuestionText: "CANCEL",
-        negativeQuestionTitleText: "NO",
+        negativeQuestionSubtitleText: AppLocalization.text("Symptoms.None"),
+        positiveQuestionText: AppLocalization.text("CANCEL"),
+        negativeQuestionTitleText: AppLocalization.text("NO"),
         positiveSubtitleBottomQuestionText: "",
         hasCustomColor: true,
         customColor: Colors.green,
@@ -202,9 +203,9 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         });
 
     return getBottomSheetWidget(
-        headerText: "Please confirm your answer to continue.",
+        headerText:AppLocalization.text("Answer.Confirm"),
         subHeaderText:
-            "Confirm your answer and CoronaTrace will timestamp and use your location anonymously to help stop the spread of COVID-19.",
+            AppLocalization.text("Answer.Confirm.Location.Usage"),
         questionPair: questionPair);
   }
 

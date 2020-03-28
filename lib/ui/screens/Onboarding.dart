@@ -1,5 +1,6 @@
 import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
+import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -102,7 +103,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
           child: Text(
-            'Help stop the\nspread of COVID-19',
+            AppLocalization.text("Onboarding.Stop.Spread"),
             style: kMainTitleStyle,
           ),
         ),
@@ -110,7 +111,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
           child: Text(
-            'A single answer saves lives',
+            AppLocalization.text("Onboarding.Single.Answer"),
             style: kSubtitleStyle,
           ),
         ),
@@ -118,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
           child: Text(
-            'CoronaTrace is an anonymous, real-time location-based contact tracer that alerts you about possible contact with someone who has tested positive for COVID-19 and helps stop the spread of the virus.',
+            AppLocalization.text("Onboarding.Anonymous"),
             style: kMainTextStyle,
           ),
         ),
@@ -143,13 +144,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           Text(
-            'Anonymous Check-in',
+            AppLocalization.text("Onboarding.CheckIn"),
             style: kSubtitleStyle,
           ),
           SizedBox(height: 15.0),
           Align(
             child: Text(
-              'Help prevent the spread of COVID-19 by sharing your status and location anonymously.',
+              AppLocalization.text("Onboarding.Help"),
               textAlign: TextAlign.center,
               style: kMainTextStyle,
             ),
@@ -175,12 +176,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               )),
           SizedBox(height: 30.0),
           Text(
-            'Get Notified',
+            AppLocalization.text("Onboarding.Notified"),
             style: kSubtitleStyle,
           ),
           SizedBox(height: 15.0),
           Text(
-            "Get notified if you cross paths with someone who has anonymously reported themselves as positive for COVID-19 and get peace of mind when you don't.",
+            AppLocalization.text("Onboarding.Notified.CrossPaths"),
             textAlign: TextAlign.center,
             style: kMainTextStyle,
           ),
@@ -205,13 +206,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
         SizedBox(height: 10.0),
         Text(
-          'Clear & Meaningful Status',
+          AppLocalization.text("Onboarding.Meaningful"),
           style: kSubtitleStyle,
         ),
         SizedBox(height: 15.0),
         Padding(
           child: Text(
-            'Anonymous self-reporting is based on clear guidelines with actionable next steps for people that might need help.',
+            AppLocalization.text("Onboarding.Meaningful.Guidelines"),
             style: kMainTextStyle,
           ),
           padding: EdgeInsets.only(left: 20, right: 20),
@@ -226,18 +227,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     switch (_currentPage) {
       case 0:
         {
-          buttonTitle = "See How it Works";
+          buttonTitle = AppLocalization.text("Onboarding.SeeHow");
         }
         break;
       case 3:
         {
-          buttonTitle = "Get Started";
+          buttonTitle = AppLocalization.text("Onboarding.GetStarted");
         }
         break;
 
       default:
         {
-          buttonTitle = "Continue";
+          buttonTitle = AppLocalization.text("Continue");
         }
     }
     return Padding(
