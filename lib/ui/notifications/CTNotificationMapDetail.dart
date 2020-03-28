@@ -66,6 +66,10 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
     return GoogleMap(
       mapType: MapType.normal,
       markers: _markers,
+      zoomGesturesEnabled: false,
+      scrollGesturesEnabled: false,
+      tiltGesturesEnabled: false,
+      rotateGesturesEnabled: false,
       myLocationButtonEnabled: false,
       initialCameraPosition: inititalCameraPosition,
       onMapCreated: (GoogleMapController controller) {

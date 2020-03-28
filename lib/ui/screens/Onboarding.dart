@@ -1,4 +1,5 @@
 import 'package:corona_trace/network/APIRepository.dart';
+import 'package:corona_trace/ui/screens/GettingStartedScreen.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
@@ -149,8 +150,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               image: AssetImage(
                 "assets/images/Illustration_Anonymous.png",
               ),
-              width: 200,
-              height: 200,
             ),
             alignment: Alignment.center,
           ),
@@ -174,37 +173,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Widget getThirdPage() {
-    return Container(
+    return SingleChildScrollView(child: ConstrainedBox(
+      constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height * 0.85),
       child: Padding(
         padding: EdgeInsets.only(left: 20, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromRGBO(227, 203, 228, 1),
-                        Color.fromRGBO(227, 203, 228, 0.8),
-                        Color.fromRGBO(227, 203, 228, 0.6),
-                        Color.fromRGBO(227, 203, 228, 0.4),
-                        Color.fromRGBO(227, 203, 228, 0.2),
-                        Color.fromRGBO(227, 203, 228, 0)
-                      ],
-                    ),
-                  ),
-                  width: 8.0,
-                  height: 150,
-                )
-              ],
-            ),
+            Image.asset("assets/images/Illustration_GetNotified.png"),
             SizedBox(height: 15.0),
             Text(
               AppLocalization.text("Onboarding.Notified"),
@@ -219,7 +197,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ],
         ),
       ),
-    );
+    ),);
   }
 
   Widget getFourthPage() {
@@ -234,8 +212,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               image: AssetImage(
                 "assets/images/Illustration_Anonymous.png",
               ),
-              width: 200,
-              height: 200,
             ),
             alignment: Alignment.center,
           ),
@@ -267,7 +243,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           buttonTitle = AppLocalization.text("Onboarding.GetStarted");
         }
         break;
-
       default:
         {
           buttonTitle = AppLocalization.text("Continue");
@@ -308,12 +283,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 curve: Curves.ease,
               );
             } else {
-              await ApiRepository.setOnboardingDone(true);
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                       builder: (BuildContext context) =>
-                          UserInfoCollectorScreen()),
+                          GettingStarted()),
                   (route) => false);
             }
           },
