@@ -80,20 +80,22 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Expanded(child: Container(
-                  child: ListTile(
-                    title: Text(
-                      pair.first,
-                      style: TextStyle(
-                          color: pair.second.first,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Container(
+                    child: ListTile(
+                      title: Text(
+                        pair.first,
+                        style: TextStyle(
+                            color: pair.second.first,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(AppLocalization.text("Anonymous.Status")),
+                      leading: pair.second.second,
                     ),
-                    subtitle: Text(AppLocalization.text("Anonymous.Status")),
-                    leading: pair.second.second,
+                    height: 80,
                   ),
-                  height: 80,
-                ),),
+                ),
                 Container(
                   margin: EdgeInsets.only(bottom: 30, right: 20),
                   child: InkWell(
