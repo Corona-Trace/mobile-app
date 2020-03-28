@@ -64,6 +64,8 @@ flutter:
     - assets/images/combined_shape.png
     - assets/images/firstonboarding.png
     - assets/images/Illustration_Anonymous.png
+    - assets/images/bell1.png
+    - assets/images/Illustration_GetNotified.png
     - assets/locales/en.json
     - assets/locales/es.json
 
