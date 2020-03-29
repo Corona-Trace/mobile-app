@@ -67,6 +67,7 @@ flutter:
     - assets/images/Illustration_Anonymous.png
     - assets/images/bell1.png
     - assets/images/Illustration_GetNotified.png
+    - assets/images/Illustration_ClearStatus.png
     - assets/locales/en.json
     - assets/locales/es.json
 

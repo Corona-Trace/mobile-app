@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 
 final kMainTitleStyle = TextStyle(
   color: Color.fromRGBO(227, 203, 228, 1),
-  fontSize: 28.0,
+  fontSize: 32.0,
 );
 
 final kSubtitleStyle = TextStyle(
@@ -174,60 +174,67 @@ class _OnboardingScreenState extends BaseState<OnboardingScreen> {
   }
 
   Widget getThirdPage() {
-    return SingleChildScrollView(child: ConstrainedBox(
-      constraints: BoxConstraints(
-          minHeight: MediaQuery.of(context).size.height * 0.85),
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height * 0.85),
+        child: Padding(
+          padding: EdgeInsets.only(left: 20, right: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset("assets/images/Illustration_GetNotified.png"),
+              SizedBox(height: 15.0),
+              Text(
+                AppLocalization.text("Onboarding.Notified"),
+                style: kSubtitleStyle,
+              ),
+              SizedBox(height: 15.0),
+              Text(
+                AppLocalization.text("Onboarding.Notified.CrossPaths"),
+                textAlign: TextAlign.left,
+                style: kMainTextStyle,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget getFourthPage() {
+    return SingleChildScrollView(
+        child: ConstrainedBox(
+      constraints:
+          BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.85),
       child: Padding(
         padding: EdgeInsets.only(left: 20, right: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset("assets/images/Illustration_GetNotified.png"),
-            SizedBox(height: 15.0),
+            Align(
+              child: Image(
+                image: AssetImage(
+                  "assets/images/Illustration_ClearStatus.png",
+                ),
+              ),
+              alignment: Alignment.center,
+            ),
             Text(
-              AppLocalization.text("Onboarding.Notified"),
+              AppLocalization.text("Onboarding.Meaningful"),
               style: kSubtitleStyle,
             ),
             SizedBox(height: 15.0),
             Text(
-              AppLocalization.text("Onboarding.Notified.CrossPaths"),
-              textAlign: TextAlign.left,
+              AppLocalization.text("Onboarding.Meaningful.Guidelines"),
               style: kMainTextStyle,
             ),
           ],
         ),
       ),
-    ),);
-  }
-
-  Widget getFourthPage() {
-    return Padding(
-      padding: EdgeInsets.only(left: 20, right: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Align(
-            child: Image(
-              image: AssetImage(
-                "assets/images/Illustration_Anonymous.png",
-              ),
-            ),
-            alignment: Alignment.center,
-          ),
-          Text(
-            AppLocalization.text("Onboarding.Meaningful"),
-            style: kSubtitleStyle,
-          ),
-          SizedBox(height: 15.0),
-          Text(
-            AppLocalization.text("Onboarding.Meaningful.Guidelines"),
-            style: kMainTextStyle,
-          ),
-        ],
-      ),
-    );
+    ));
   }
 
   Widget getBottomButton() {
@@ -287,8 +294,7 @@ class _OnboardingScreenState extends BaseState<OnboardingScreen> {
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          GettingStarted()),
+                      builder: (BuildContext context) => GettingStarted()),
                   (route) => false);
             }
           },
