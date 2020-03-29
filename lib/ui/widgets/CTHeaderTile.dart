@@ -13,14 +13,14 @@ class CTHeaderTile extends StatelessWidget {
         title,
         style: TextStyle(
             color: Color.fromRGBO(254, 198, 208, 1),
-            fontSize: 26,
+            fontSize: 20,
             fontWeight: FontWeight.bold),
       ),
       subtitle: Padding(
         child: Text(
           subtitle,
           style:
-              TextStyle(color: Color.fromRGBO(254, 198, 208, 1), fontSize: 18),
+              TextStyle(color: Color.fromRGBO(254, 198, 208, 1), fontSize: 14),
         ),
         padding: EdgeInsets.only(top: 20, bottom: 20),
       ),
