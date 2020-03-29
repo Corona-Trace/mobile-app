@@ -1,6 +1,7 @@
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
+import 'package:corona_trace/ui/BaseState.dart';
 import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
 import 'package:corona_trace/ui/CTStatusColor.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
@@ -18,8 +19,7 @@ class NotificationsListScreen extends StatefulWidget {
       _NotificationsListScreenState();
 }
 
-class _NotificationsListScreenState extends State<NotificationsListScreen> {
-
+class _NotificationsListScreenState extends BaseState<NotificationsListScreen> {
   @override
   void initState() {
     super.initState();
@@ -27,7 +27,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget prepareWidget(BuildContext context) {
     return Scaffold(
       backgroundColor: appColor,
       body: SafeArea(
@@ -67,8 +67,14 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    updateYourStatus(),
+                    Container(
+                      child: updateYourStatus(),
+                      width: MediaQuery.of(context).size.width,
+                    ),
                     noSymptomsUpdate(context),
+                    SizedBox(
+                      height: 20,
+                    )
                   ],
                 ),
               ),
@@ -87,6 +93,7 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
             Pair pair = getSymptomData(snapshot.data as int);
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Expanded(
                   child: Container(
@@ -101,28 +108,16 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                       subtitle: Text(AppLocalization.text("Anonymous.Status")),
                       leading: pair.second.second,
                     ),
-                    height: 80,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 30, right: 20),
-                  child: InkWell(
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          AppLocalization.text("Update"),
-                          style: TextStyle(
-                              color: Colors.indigo,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Colors.indigo,
-                        )
-                      ],
-                    ),
-                    onTap: () {
+                  margin: EdgeInsets.only(right: 20),
+                  child: MaterialButton(
+                    color: Colors.indigo,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(18.0),
+                        side: BorderSide(color: Colors.indigo)),
+                    onPressed: () {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -130,6 +125,13 @@ class _NotificationsListScreenState extends State<NotificationsListScreen> {
                                   UserInfoCollectorScreen()),
                           (route) => false);
                     },
+                    child: Text(
+                      AppLocalization.text("Update"),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 )
               ],

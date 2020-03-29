@@ -1,5 +1,6 @@
 import 'package:corona_trace/ui/notifications/CTLoader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class BaseState<T extends StatefulWidget> extends State<T> {
   bool isVisible = false;
@@ -7,6 +8,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, width: 375, height: 812, allowFontScaling: false);
     return prepareWidget(context);
   }
 
