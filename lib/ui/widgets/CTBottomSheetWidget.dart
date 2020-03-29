@@ -20,31 +20,33 @@ class CTBottomSheetWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              mainQuestionText,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              subSectionDescription,
-              style: TextStyle(fontSize: 15),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            questionPairWidget,
-            SizedBox(
-              height: 20,
-            ),
-          ],
+        Expanded(
+          child: SingleChildScrollView(child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                mainQuestionText,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                subSectionDescription,
+                style: TextStyle(fontSize: 15),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              questionPairWidget,
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),),
         ),
         Column(
           children: <Widget>[
