@@ -63,8 +63,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     if (stack.isEmpty) {
       return true;
     } else {
-      setState(() {
-      });
+      setState(() {});
     }
     return false;
   }
@@ -96,11 +95,13 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   Widget firstCardContent() {
     Widget questionPair = CTQuestionPair(
         positiveQuestionText: AppLocalization.text("YES"),
-        positiveSubtitleBottomQuestionText: AppLocalization.text("Tested.Positive.COVID"),
+        positiveSubtitleBottomQuestionText:
+            AppLocalization.text("Tested.Positive.COVID"),
         negativeQuestionTitleText: AppLocalization.text("NO"),
         negativeQuestionSubtitleText: AppLocalization.text("Symptoms.None"),
         neutralQuestionTitleText: AppLocalization.text("Symptoms.Some"),
-        neutralQuestionSubtitleText: AppLocalization.text("Symptoms.Not.Tested"),
+        neutralQuestionSubtitleText:
+            AppLocalization.text("Symptoms.Not.Tested"),
         showArrows: true,
         iconPositive: Icon(
           Icons.add_circle_outline,
@@ -125,8 +126,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
     return getBottomSheetWidget(
         headerText: AppLocalization.text("Question.Test.Positive"),
-        subHeaderText:
-            AppLocalization.text("Answer.Anonymous"),
+        subHeaderText: AppLocalization.text("Answer.Anonymous"),
         questionPair: questionPair);
   }
 
@@ -153,14 +153,14 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
     return getBottomSheetWidget(
         headerText: AppLocalization.text("Answer.Confirm"),
-        subHeaderText:
-            AppLocalization.text("Answer.Confirm.Location.Usage"),
+        subHeaderText: AppLocalization.text("Answer.Confirm.Location.Usage"),
         questionPair: questionPair);
   }
 
   Widget confirmDoHaveSymptomsCardContent() {
     Widget questionPair = CTQuestionPair(
-        negativeQuestionSubtitleText: AppLocalization.text("Symptoms.Not.Tested"),
+        negativeQuestionSubtitleText:
+            AppLocalization.text("Symptoms.Not.Tested"),
         positiveQuestionText: AppLocalization.text("CANCEL"),
         negativeQuestionTitleText: AppLocalization.text("Symptoms.Some"),
         positiveSubtitleBottomQuestionText: "",
@@ -180,8 +180,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
 
     return getBottomSheetWidget(
         headerText: AppLocalization.text("Answer.Confirm"),
-        subHeaderText:
-            AppLocalization.text("Answer.Confirm.Location.Usage"),
+        subHeaderText: AppLocalization.text("Answer.Confirm.Location.Usage"),
         questionPair: questionPair);
   }
 
@@ -206,9 +205,8 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         });
 
     return getBottomSheetWidget(
-        headerText:AppLocalization.text("Answer.Confirm"),
-        subHeaderText:
-            AppLocalization.text("Answer.Confirm.Location.Usage"),
+        headerText: AppLocalization.text("Answer.Confirm"),
+        subHeaderText: AppLocalization.text("Answer.Confirm.Location.Usage"),
         questionPair: questionPair);
   }
 
@@ -216,7 +214,8 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     return CTThankYouDialog(onButtonClick: () {
       stack = StackCollect();
       dialogOnResponse(SCREEN_FEELING_TODAY);
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (BuildContext context) {
         return NotificationsListScreen();
       }), (route) => false);
     });
