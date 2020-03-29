@@ -1,4 +1,5 @@
 import 'package:corona_trace/network/APIRepository.dart';
+import 'package:corona_trace/ui/BaseState.dart';
 import 'package:corona_trace/ui/screens/GettingStartedScreen.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:corona_trace/utils/AppLocalization.dart';
@@ -25,7 +26,7 @@ class OnboardingScreen extends StatefulWidget {
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnboardingScreenState extends BaseState<OnboardingScreen> {
   final int _numPages = 4;
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
@@ -52,7 +53,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget prepareWidget(BuildContext context) {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,

@@ -10,6 +10,7 @@ import 'package:corona_trace/ui/screens/Onboarding.dart';
 import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'utils/AppLocalization.dart';
 

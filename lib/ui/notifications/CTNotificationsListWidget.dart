@@ -1,9 +1,11 @@
 import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/ui/notifications/CTLoader.dart';
+import 'package:corona_trace/ui/notifications/CTNotificationDetailCard.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationItem.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
 import 'package:corona_trace/ui/notifications/blocs/CTNotificationsBloc.dart';
+import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
 
 class CTNotificationsListWidget extends StatefulWidget {
@@ -49,11 +51,41 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
           );
         }
         if (snapshot.data.isEmpty) {
-          return Center(
-            child: Text(
-              "No Notifications available!",
-              style: TextStyle(fontSize: 18),
-            ),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Padding(
+                child: Text(
+                  AppLocalization.text("notifications.about.your.location"),
+                  style: TextStyle(fontSize: 15),
+                ),
+                padding: EdgeInsets.only(left: 20, right: 20),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Divider(
+                    color: Colors.grey,
+                  ),
+                  Padding(
+                    child: Text(
+                      AppLocalization.text("notifications.resources"),
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                  ),
+                  cdcDocumentation(emptyLeadingSpace: false),
+                  Divider(
+                    color: Colors.grey,
+                  ),
+                  cdcTesting(emptyLeadingSpace: false),
+                  Divider(
+                    color: Colors.grey,
+                  ),
+                ],
+              )
+            ],
           );
         }
         return SingleChildScrollView(

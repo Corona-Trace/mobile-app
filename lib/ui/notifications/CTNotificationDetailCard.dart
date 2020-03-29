@@ -51,52 +51,10 @@ class CTNotificationDetailCard extends StatelessWidget {
                 )
               : Container(),
           crossedPaths
-              ? ListTile(
-                  onTap: () {
-                    AppConstants.launchUrl(AppConstants.DOCUMENTATION_URL);
-                  },
-                  leading: Icon(
-                    Icons.info,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    AppLocalization.text("CrossedPaths.CDC.Title"),
-                    style: TextStyle(
-                        color: Colors.indigo, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                      AppLocalization.text("CrossedPaths.CDC.SubTitle")),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.indigo,
-                    ),
-                  ),
-                )
+              ? cdcDocumentation(emptyLeadingSpace:true)
               : Container(),
           crossedPaths
-              ? ListTile(
-                  onTap: () {
-                    AppConstants.launchUrl(AppConstants.TESTED_URL);
-                  },
-                  leading: Icon(
-                    Icons.info,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    AppLocalization.text("CrossedPaths.Testing.Title"),
-                    style: TextStyle(
-                        color: Colors.indigo, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                      AppLocalization.text("CrossedPaths.Testing.SubTitle")),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.indigo,
-                    ),
-                  ),
-                )
+              ? cdcTesting(emptyLeadingSpace:true)
               : Container(),
           SizedBox(
             height: 20,
@@ -105,4 +63,56 @@ class CTNotificationDetailCard extends StatelessWidget {
       ),
     );
   }
+
+}
+
+
+ListTile cdcDocumentation({bool emptyLeadingSpace}) {
+  return ListTile(
+    onTap: () {
+      AppConstants.launchUrl(AppConstants.DOCUMENTATION_URL);
+    },
+    leading: emptyLeadingSpace?Icon(
+      Icons.info,
+      color: Colors.white,
+    ):null,
+    title: Text(
+      AppLocalization.text("CrossedPaths.CDC.Title"),
+      style: TextStyle(
+          color: Colors.indigo, fontWeight: FontWeight.bold),
+    ),
+    subtitle: Text(
+        AppLocalization.text("CrossedPaths.CDC.SubTitle")),
+    trailing: IconButton(
+      icon: Icon(
+        Icons.arrow_forward,
+        color: Colors.indigo,
+      ),
+    ),
+  );
+}
+
+ListTile cdcTesting({bool emptyLeadingSpace}) {
+  return ListTile(
+    onTap: () {
+      AppConstants.launchUrl(AppConstants.TESTED_URL);
+    },
+    leading: emptyLeadingSpace?Icon(
+      Icons.info,
+      color: Colors.white,
+    ):null,
+    title: Text(
+      AppLocalization.text("CrossedPaths.Testing.Title"),
+      style: TextStyle(
+          color: Colors.indigo, fontWeight: FontWeight.bold),
+    ),
+    subtitle: Text(
+        AppLocalization.text("CrossedPaths.Testing.SubTitle")),
+    trailing: IconButton(
+      icon: Icon(
+        Icons.arrow_forward,
+        color: Colors.indigo,
+      ),
+    ),
+  );
 }
