@@ -101,6 +101,7 @@ class __NotificationsBlocListWidgetState
   Widget getNoNotificationsWidget() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           child: Text(
