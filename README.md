@@ -22,11 +22,11 @@ As of now, when coupled with the CoronaTracker Firebase backend, the app anonymo
     * Add GoogleServices.json and GoogleServices-Info.plist to Android and iOS projects respectively.
 2. The App uses multiple Flutter plugins.
     * The `background_geolocator_flutter` plugin needs a license to be purchased in case of a release builds.
-    * Some sounds are played by this flutter plugin as debug but can be stripped off in relase builds.
+    * Debug sound effects are controlled with Config.debug. Set `debug: false` to disable sounds.
     * You are free to use any other plugin for background location.
 
 # How To Contribute
-This project uses Firebase and therefore relies on a `google-services.json` configuration file. This file is not included in this repo and every contributor is encouraged to generate it's own.
+This project uses Firebase and therefore relies on a `google-services.json` configuration file. This file is not included in this repo and every contributor is encouraged to generate their own.
 
 When importing the project in Android Studio the build task will fail with the following error:
 
