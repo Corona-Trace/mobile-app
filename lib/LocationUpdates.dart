@@ -18,13 +18,10 @@ class LocationUpdates {
     await bg.BackgroundGeolocation.stop();
   }
 
-  static initiateLocationUpdates() async {
+  static Future<bool> initiateLocationUpdates() async {
     try {
       await LocationUpdates.requestPermissions();
       var userId = await AppConstants.getDeviceId();
-      bg.BackgroundGeolocation.onHttp((bg.HttpEvent event) {
-        print(event);
-      });
       await bg.BackgroundGeolocation.ready(bg.Config(
               url: ApiRepository.USER_LOCATION_URL,
               maxBatchSize: 50,
@@ -57,7 +54,10 @@ class LocationUpdates {
           bg.BackgroundGeolocation.start();
         }
       });
-    } catch (ex) {}
+      return Future.value(true);
+    } catch (ex) {
+      return Future.value(false);
+    }
   }
 
   static Future<void> notifyUserStoppedLocationUpdates(

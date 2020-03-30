@@ -87,6 +87,7 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
   Widget getNoNotificationsWidget() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           child: Text(

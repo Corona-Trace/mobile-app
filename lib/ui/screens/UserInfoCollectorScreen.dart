@@ -141,10 +141,12 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         customColor: Color.fromRGBO(219, 102, 81, 1),
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
-          await LocationUpdates.initiateLocationUpdates();
-          await ApiRepository.setUserSeverity(1);
+          var value = await LocationUpdates.initiateLocationUpdates();
+          if (value) {
+            await ApiRepository.setUserSeverity(1);
+            dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          }
           hideLoadingDialog();
-          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         },
         onPositiveQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
@@ -178,10 +180,12 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
-          await LocationUpdates.initiateLocationUpdates();
-          await ApiRepository.setUserSeverity(2);
+          var value = await LocationUpdates.initiateLocationUpdates();
+          if (value) {
+            await ApiRepository.setUserSeverity(2);
+            dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          }
           hideLoadingDialog();
-          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         });
 
     return getBottomSheetWidget(
@@ -207,10 +211,12 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
-          await LocationUpdates.initiateLocationUpdates();
-          await ApiRepository.setUserSeverity(0);
+          var value = await LocationUpdates.initiateLocationUpdates();
+          if (value) {
+            await ApiRepository.setUserSeverity(0);
+            dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          }
           hideLoadingDialog();
-          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         });
 
     return getBottomSheetWidget(
