@@ -116,20 +116,32 @@ class _GettingStartedState extends BaseState<GettingStarted> {
                             ],
                           ),
                           onPressed: () async {
-                            showLoadingDialog(tapDismiss: false);
                             var selected = await showDialogForLocation();
+                            await PushNotifications.registerNotification();
                             if (selected) {
-                              await LocationUpdates.requestPermissions();
-                              await PushNotifications.registerNotification();
+                              try {
+                                await LocationUpdates.requestPermissions();
+                                var denied = await LocationUpdates
+                                    .arePermissionsDenied();
+                                if (denied) {
+                                  LocationUpdates
+                                      .showLocationPermissionsNotAvailableDialog(
+                                          context);
+                                } else {
+                                  showLoadingDialog(tapDismiss: false);
+                                  await ApiRepository.setOnboardingDone(true);
+                                  hideLoadingDialog();
+                                  navigateCollectInformation(context);
+                                }
+                              } catch (ex) {
+                                LocationUpdates
+                                    .showLocationPermissionsNotAvailableDialog(
+                                        context);
+                              }
+                            } else {
+                              await ApiRepository.setOnboardingDone(true);
+                              navigateCollectInformation(context);
                             }
-                            await ApiRepository.setOnboardingDone(true);
-                            hideLoadingDialog();
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        UserInfoCollectorScreen()),
-                                (route) => false);
                           },
                         )),
                     margin: EdgeInsets.only(bottom: 20),
@@ -141,6 +153,14 @@ class _GettingStartedState extends BaseState<GettingStarted> {
         ),
       ),
     );
+  }
+
+  void navigateCollectInformation(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => UserInfoCollectorScreen()),
+        (route) => false);
   }
 
   Future<bool> showDialogForLocation() {
