@@ -7,6 +7,7 @@ import 'package:flutter_background_geolocation/flutter_background_geolocation.da
     as bg;
 
 import 'AppConstants.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class LocationUpdates {
   static requestPermissions() async {
@@ -18,47 +19,62 @@ class LocationUpdates {
     await bg.BackgroundGeolocation.stop();
   }
 
-  static Future<bool> initiateLocationUpdates() async {
-    try {
-      await LocationUpdates.requestPermissions();
-      var userId = await AppConstants.getDeviceId();
-      await bg.BackgroundGeolocation.ready(bg.Config(
-              url: ApiRepository.USER_LOCATION_URL,
-              maxBatchSize: 50,
-              params: {"userId": userId},
-              extras: {"userId": userId},
-              locationsOrderDirection: "DESC",
-              maxDaysToPersist: 3,
-              debug: false,
-              autoSync: true,
-              desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
-              stopOnTerminate: false,
-              allowIdenticalLocations: false,
-              startOnBoot: true,
-              enableHeadless: true,
-              locationAuthorizationAlert: {
-                'titleWhenNotEnabled': 'Your location-services are disabled',
-                'titleWhenOff': 'Your location-services are disabled',
-                'instructions':
-                    'Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.',
-                'cancelButton': 'Cancel',
-                'settingsButton': 'Settings'
-              },
-              notification: bg.Notification(
-                  title: "Corona Trace",
-                  text:
-                      "Your location is being tracked, but all data will be anonymous."),
-              logLevel: bg.Config.LOG_LEVEL_OFF))
-          .then((bg.State state) {
-        if (!state.enabled) {
-          bg.BackgroundGeolocation.start();
-        }
-      });
-      return Future.value(true);
-    } catch (ex) {
+  static Future<bool> initiateLocationUpdates(context) async {
+    var permissionDenied = await arePermissionsDenied();
+    if (permissionDenied) {
+      showLocationPermissionsNotAvailableDialog(context);
       return Future.value(false);
+    } else {
+      try {
+        await initiateLocationUpdatesInternal();
+        return Future.value(true);
+      } catch (ex) {
+        showLocationPermissionsNotAvailableDialog(context);
+        return Future.value(false);
+      }
     }
   }
+
+  static Future initiateLocationUpdatesInternal() async {
+    var userId = await AppConstants.getDeviceId();
+    await bg.BackgroundGeolocation.ready(bg.Config(
+            url: ApiRepository.USER_LOCATION_URL,
+            maxBatchSize: 50,
+            params: {"userId": userId},
+            extras: {"userId": userId},
+            locationsOrderDirection: "DESC",
+            maxDaysToPersist: 3,
+            debug: false,
+            autoSync: true,
+            desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
+            stopOnTerminate: false,
+            allowIdenticalLocations: false,
+            startOnBoot: true,
+            enableHeadless: true,
+            locationAuthorizationAlert: {
+              'titleWhenNotEnabled': 'Your location-services are disabled',
+              'titleWhenOff': 'Your location-services are disabled',
+              'instructions':
+                  'Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.',
+              'cancelButton': 'Cancel',
+              'settingsButton': 'Settings'
+            },
+            notification: bg.Notification(
+                title: "Corona Trace",
+                text:
+                    "Your location is being tracked, but all data will be anonymous."),
+            logLevel: bg.Config.LOG_LEVEL_OFF))
+        .then((bg.State state) {
+      if (!state.enabled) {
+        bg.BackgroundGeolocation.start();
+      }
+    });
+  }
+
+  static Future<bool> arePermissionsDenied() async =>
+      !await Permission.locationAlways.isGranted ||
+      await Permission.locationAlways.isPermanentlyDenied ||
+      !await Permission.location.isGranted;
 
   static Future<void> notifyUserStoppedLocationUpdates(
       BuildContext context) async {
@@ -95,5 +111,41 @@ class LocationUpdates {
         }
       },
     );
+  }
+
+  static showLocationPermissionsNotAvailableDialog(BuildContext context) {
+    if (Platform.isAndroid) {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              "Your location-services are disabled",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            content: Text(
+                "Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications."),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text('Settings'),
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  openAppSettings();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      LocationUpdates.requestPermissions();
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:corona_trace/LocationUpdates.dart';
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/APIRepository.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
@@ -24,6 +25,9 @@ class _NotificationsListScreenState extends BaseState<NotificationsListScreen> {
   void initState() {
     super.initState();
     PushNotifications.initStuff();
+    Future.delayed(Duration(milliseconds: 500)).then((value) {
+      LocationUpdates.initiateLocationUpdates(context);
+    });
   }
 
   @override

@@ -21,9 +21,6 @@ void main() {
       var isOnboardinDone =
           onboardingDone == null ? false : onboardingDone as bool;
       var severity = userSeverity == null ? -1 : userSeverity as int;
-      if (severity != -1) {
-        LocationUpdates.initiateLocationUpdates();
-      }
       runApp(MyApp(isOnboardinDone, severity));
     });
   });

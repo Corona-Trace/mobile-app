@@ -141,7 +141,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         customColor: Color.fromRGBO(219, 102, 81, 1),
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
-          var value = await LocationUpdates.initiateLocationUpdates();
+          var value = await LocationUpdates.initiateLocationUpdates(context);
           if (value) {
             await ApiRepository.setUserSeverity(1);
             dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
@@ -180,7 +180,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
-          var value = await LocationUpdates.initiateLocationUpdates();
+          var value = await LocationUpdates.initiateLocationUpdates(context);
           if (value) {
             await ApiRepository.setUserSeverity(2);
             dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
@@ -211,7 +211,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
-          var value = await LocationUpdates.initiateLocationUpdates();
+          var value = await LocationUpdates.initiateLocationUpdates(context);
           if (value) {
             await ApiRepository.setUserSeverity(0);
             dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
