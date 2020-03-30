@@ -32,7 +32,6 @@ dependencies:
   flutter_background_geolocation: ^1.7.0
   dio: ^3.0.9
   google_maps_flutter: ^0.5.25+1
-  intl: ^0.16.1
   url_launcher: ^5.4.2
   firebase_remote_config: ^0.3.0+3
   flutter_screenutil: ^1.0.2
@@ -72,11 +71,11 @@ flutter:
     - assets/locales/es.json
 
   fonts:
-     - family: Montserrat
-       fonts:
-         - asset: fonts/Montserrat-Regular.ttf
-         - asset: fonts/Montserrat-Bold.ttf
-           weight: 700
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+        - asset: fonts/Montserrat-Bold.ttf
+          weight: 700
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
