@@ -34,21 +34,21 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>CoronaTracker would like to access your music library.</string>
+	<string>CoronaTrace would like to access your music library.</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>CoronaTracker would like to access your calendar.</string>
+	<string>CoronaTrace would like to access your calendar.</string>
 	<key>NSContactsUsageDescription</key>
-	<string>CoronaTracker would like to access your contacts.</string>
+	<string>CoronaTrace would like to access your contacts.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>CoronaTracker would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
+	<string>CoronaTrace would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>CoronaTracker would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
+	<string>CoronaTrace would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>CoronaTracker would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
+	<string>CoronaTrace would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
 	<key>NSMotionUsageDescription</key>
-	<string>CoronaTracker would like to use your phone's motion sensors. Permitting access to your device motion sensors is essential to provide critical COVID-19 notifications.</string>
+	<string>CoronaTrace would like to use your phone's motion sensors to optimize location tracking. Permitting access to your device motion sensors is essential to provide accurate COVID-19 notifications.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>CoronaTracker would like to access your speech recognition.</string>
+	<string>CoronaTrace would like to access your speech recognition.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
