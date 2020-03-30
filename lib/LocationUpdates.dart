@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:corona_trace/network/APIRepository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
 
@@ -21,22 +20,15 @@ class LocationUpdates {
 
   static Future<void> initiateLocationUpdates() async {
     await LocationUpdates.requestPermissions();
-    var displacement = await ApiRepository.getRemoteConfigValue(
-        AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
     var userId = await AppConstants.getDeviceId();
     await bg.BackgroundGeolocation.ready(bg.Config(
             url: ApiRepository.USER_LOCATION_URL,
             maxBatchSize: 50,
             params: {"userId": userId},
-            httpRootProperty: '.',
-            locationTemplate:
-                '{"lat":<%= latitude %>, "lng": <%= longitude %>, "timestamp":"<%= timestamp %>", "location":{"type":"Point", "coordinates":[<%= longitude %>,<%= latitude %>]}}',
+            extras: {"userId": userId},
             locationsOrderDirection: "DESC",
             maxDaysToPersist: 3,
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
-            distanceFilter: displacement != null && displacement.isNotEmpty
-                ? double.parse(displacement)
-                : 100,
             stopOnTerminate: false,
             allowIdenticalLocations: false,
             startOnBoot: true,
