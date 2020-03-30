@@ -1,34 +1,48 @@
-import 'package:corona_trace/network/APIRepository.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/ui/notifications/CTLoader.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationDetailCard.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationItem.dart';
 import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
 import 'package:corona_trace/ui/notifications/blocs/CTNotificationsBloc.dart';
+import 'package:corona_trace/ui/notifications/blocs/NotificationsBlocEvent.dart';
+import 'package:corona_trace/ui/notifications/blocs/NotificationsBlocState.dart';
 import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CTNotificationsListWidget extends StatefulWidget {
+class CTNotificationsListWidget extends StatelessWidget {
   @override
-  _CTNotificationsListWidgetState createState() =>
-      _CTNotificationsListWidgetState();
+  Widget build(BuildContext context) {
+    return BlocProvider<CTNotificationsBloc>(
+      create: (context) => CTNotificationsBloc(),
+      child: _NotificationsBlocListWidget(),
+    );
+  }
 }
 
-class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
+class _NotificationsBlocListWidget extends StatefulWidget {
+  @override
+  __NotificationsBlocListWidgetState createState() =>
+      __NotificationsBlocListWidgetState();
+}
+
+class __NotificationsBlocListWidgetState
+    extends State<_NotificationsBlocListWidget> {
   ScrollController _controller;
-  final _notificationsBloc =
-      CTNotificationsBloc(); // In production, a provider should be used instead of initializing here
+  CTNotificationsBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    _notificationsBloc.fetchNotifications();
+
+    _bloc = BlocProvider.of<CTNotificationsBloc>(context)
+      ..add(NotificationsBloEvent.fetch);
+
     _controller = ScrollController()..addListener(_scrollListener);
   }
 
   void _scrollListener() {
     if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-      _notificationsBloc.loadMore();
+      _bloc.add(NotificationsBloEvent.fetchMore);
     }
   }
 
@@ -36,51 +50,51 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
   void dispose() {
     super.dispose();
     _controller.dispose();
-    _notificationsBloc.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<ResponseNotificationItem>>(
-      stream: _notificationsBloc.notificationsStream,
-      builder: (context, snapshot) {
-        print(snapshot.data);
-        if (_notificationsBloc.isInitialLoading()) {
-          return Center(
-            child: CTLoader(50, 50),
+    return BlocBuilder<CTNotificationsBloc, NotificationsBlocState>(
+      builder: (context, state) => _content(state),
+    );
+  }
+
+  Widget _content(NotificationsBlocState state) {
+    if (state.isInitialLoading()) {
+      return Center(
+        child: CTLoader(50, 50),
+      );
+    }
+
+    if (state.suggestions.isEmpty) {
+      return getNoNotificationsWidget();
+    }
+
+    return SingleChildScrollView(
+      controller: _controller,
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        separatorBuilder: (context, index) {
+          return Divider(
+            color: Colors.grey,
           );
-        }
-        if (snapshot.data.isEmpty) {
-          return getNoNotificationsWidget();
-        }
-        return SingleChildScrollView(
-          controller: _controller,
-          child: ListView.separated(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            separatorBuilder: (context, index) {
-              return Divider(
-                color: Colors.grey,
-              );
+        },
+        itemBuilder: (context, index) {
+          var item = state.suggestions[index];
+          return InkWell(
+            child: CTNotificationItem(crossedPaths: true, notification: item),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return CTNotificationMapDetail(
+                    crossedPaths: true, notification: item);
+              }));
             },
-            itemBuilder: (context, index) {
-              var item = snapshot.data[index];
-              return InkWell(
-                child:
-                    CTNotificationItem(crossedPaths: true, notification: item),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return CTNotificationMapDetail(
-                        crossedPaths: true, notification: item);
-                  }));
-                },
-              );
-            },
-            itemCount: snapshot.data?.length ?? 0,
-          ),
-        );
-      },
+          );
+        },
+        itemCount: state.suggestions.length,
+      ),
     );
   }
 
@@ -104,8 +118,7 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
             Padding(
               child: Text(
                 AppLocalization.text("notifications.resources"),
-                style: TextStyle(
-                    fontSize: 12, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
               padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
             ),
