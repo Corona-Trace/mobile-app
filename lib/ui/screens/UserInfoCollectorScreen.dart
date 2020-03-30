@@ -141,12 +141,17 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         customColor: Color.fromRGBO(219, 102, 81, 1),
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
-          await LocationUpdates.initiateLocationUpdates();
-          await ApiRepository.setUserSeverity(1);
+          var value = await LocationUpdates.initiateLocationUpdates(context);
+          if (value) {
+            await ApiRepository.setUserSeverity(1);
+            dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          }
           hideLoadingDialog();
-          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         },
         onPositiveQuestionClick: () async {
+          showLoadingDialog(tapDismiss: false);
+          await ApiRepository.setUserSeverity(-1);
+          hideLoadingDialog();
           LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         });
@@ -167,15 +172,20 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Color.fromRGBO(240, 193, 28, 1),
         onPositiveQuestionClick: () async {
+          showLoadingDialog(tapDismiss: false);
+          await ApiRepository.setUserSeverity(-1);
+          hideLoadingDialog();
           LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
-          await LocationUpdates.initiateLocationUpdates();
-          await ApiRepository.setUserSeverity(2);
+          var value = await LocationUpdates.initiateLocationUpdates(context);
+          if (value) {
+            await ApiRepository.setUserSeverity(2);
+            dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          }
           hideLoadingDialog();
-          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         });
 
     return getBottomSheetWidget(
@@ -193,15 +203,20 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Colors.green,
         onPositiveQuestionClick: () async {
+          showLoadingDialog(tapDismiss: false);
+          await ApiRepository.setUserSeverity(-1);
+          hideLoadingDialog();
           LocationUpdates.stopLocationUpdates(context);
           _onPopScope();
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
-          await LocationUpdates.initiateLocationUpdates();
-          await ApiRepository.setUserSeverity(0);
+          var value = await LocationUpdates.initiateLocationUpdates(context);
+          if (value) {
+            await ApiRepository.setUserSeverity(0);
+            dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+          }
           hideLoadingDialog();
-          dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
         });
 
     return getBottomSheetWidget(
