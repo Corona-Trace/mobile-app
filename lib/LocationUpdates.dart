@@ -18,39 +18,46 @@ class LocationUpdates {
     await bg.BackgroundGeolocation.stop();
   }
 
-  static Future<void> initiateLocationUpdates() async {
-    await LocationUpdates.requestPermissions();
-    var userId = await AppConstants.getDeviceId();
-    await bg.BackgroundGeolocation.ready(bg.Config(
-            url: ApiRepository.USER_LOCATION_URL,
-            maxBatchSize: 50,
-            params: {"userId": userId},
-            extras: {"userId": userId},
-            locationsOrderDirection: "DESC",
-            maxDaysToPersist: 3,
-            desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
-            stopOnTerminate: false,
-            allowIdenticalLocations: false,
-            startOnBoot: true,
-            enableHeadless: true,
-            locationAuthorizationAlert: {
-              'titleWhenNotEnabled': 'Your location-services are disabled',
-              'titleWhenOff': 'Your location-services are disabled',
-              'instructions':
-                  'Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.',
-              'cancelButton': 'Cancel',
-              'settingsButton': 'Settings'
-            },
-            notification: bg.Notification(
-                title: "Corona Trace",
-                text:
-                    "Your location is being tracked, but all data will be anonymous."),
-            logLevel: bg.Config.LOG_LEVEL_VERBOSE))
-        .then((bg.State state) {
-      if (!state.enabled) {
-        bg.BackgroundGeolocation.start();
-      }
-    });
+  static initiateLocationUpdates() async {
+    try {
+      await LocationUpdates.requestPermissions();
+      var userId = await AppConstants.getDeviceId();
+      bg.BackgroundGeolocation.onHttp((bg.HttpEvent event) {
+        print(event);
+      });
+      await bg.BackgroundGeolocation.ready(bg.Config(
+              url: ApiRepository.USER_LOCATION_URL,
+              maxBatchSize: 50,
+              params: {"userId": userId},
+              extras: {"userId": userId},
+              locationsOrderDirection: "DESC",
+              maxDaysToPersist: 3,
+              debug: true,
+              autoSync: true,
+              desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
+              stopOnTerminate: false,
+              allowIdenticalLocations: false,
+              startOnBoot: true,
+              enableHeadless: true,
+              locationAuthorizationAlert: {
+                'titleWhenNotEnabled': 'Your location-services are disabled',
+                'titleWhenOff': 'Your location-services are disabled',
+                'instructions':
+                    'Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.',
+                'cancelButton': 'Cancel',
+                'settingsButton': 'Settings'
+              },
+              notification: bg.Notification(
+                  title: "Corona Trace",
+                  text:
+                      "Your location is being tracked, but all data will be anonymous."),
+              logLevel: bg.Config.LOG_LEVEL_VERBOSE))
+          .then((bg.State state) {
+        if (!state.enabled) {
+          bg.BackgroundGeolocation.start();
+        }
+      });
+    } catch (ex) {}
   }
 
   static Future<void> notifyUserStoppedLocationUpdates(
