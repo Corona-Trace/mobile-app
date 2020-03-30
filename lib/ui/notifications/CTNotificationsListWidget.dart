@@ -84,44 +84,42 @@ class _CTNotificationsListWidgetState extends State<CTNotificationsListWidget> {
     );
   }
 
-  SingleChildScrollView getNoNotificationsWidget() {
-    return SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                child: Text(
-                  AppLocalization.text("notifications.about.your.location"),
-                  style: TextStyle(fontSize: 15),
-                ),
-                padding: EdgeInsets.only(left: 20, right: 20),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Divider(
-                    color: Colors.grey,
-                  ),
-                  Padding(
-                    child: Text(
-                      AppLocalization.text("notifications.resources"),
-                      style: TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                  ),
-                  cdcDocumentation(emptyLeadingSpace: false),
-                  Divider(
-                    color: Colors.grey,
-                  ),
-                  cdcTesting(emptyLeadingSpace: false),
-                  Divider(
-                    color: Colors.grey,
-                  ),
-                ],
-              )
-            ],
+  Widget getNoNotificationsWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Padding(
+          child: Text(
+            AppLocalization.text("notifications.about.your.location"),
+            style: TextStyle(fontSize: 15),
           ),
-        );
+          padding: EdgeInsets.only(left: 20, right: 20),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Divider(
+              color: Colors.grey,
+            ),
+            Padding(
+              child: Text(
+                AppLocalization.text("notifications.resources"),
+                style: TextStyle(
+                    fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+            ),
+            cdcDocumentation(emptyLeadingSpace: false),
+            Divider(
+              color: Colors.grey,
+            ),
+            cdcTesting(emptyLeadingSpace: false),
+            Divider(
+              color: Colors.grey,
+            ),
+          ],
+        )
+      ],
+    );
   }
 }
