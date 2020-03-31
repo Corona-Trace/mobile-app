@@ -1,53 +1,46 @@
 import 'dart:async';
 
 import 'package:corona_trace/network/APIRepository.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
+import 'package:corona_trace/ui/notifications/blocs/NotificationsBlocEvent.dart';
+import 'package:corona_trace/ui/notifications/blocs/NotificationsBlocState.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CTNotificationsBloc {
-  final _suggestions = List<ResponseNotificationItem>();
+class CTNotificationsBloc
+    extends Bloc<NotificationsBloEvent, NotificationsBlocState> {
+  @override
+  NotificationsBlocState get initialState => NotificationsBlocState((b) => b
+    ..pageNo = 0
+    ..totalItems = 10
+    ..suggestions = []
+    ..loading = true);
 
-  final StreamController<List<ResponseNotificationItem>>
-      _notificationsController =
-      StreamController<List<ResponseNotificationItem>>();
+  @override
+  Stream<NotificationsBlocState> mapEventToState(
+      NotificationsBloEvent event) async* {
+    switch (event) {
+      case NotificationsBloEvent.fetch:
+        yield* _fetchNotificationsInternal();
+        break;
 
-  bool _isloading = false;
-
-  Stream<List<ResponseNotificationItem>> get notificationsStream =>
-      _notificationsController.stream;
-  int pageNo = 1;
-  int totalItems = 10;
-
-  void fetchNotifications() async {
-    pageNo = 1;
-    _suggestions.clear();
-    fetchNotificationsInternal();
-  }
-
-  void fetchNotificationsInternal() async {
-    _isloading = true;
-    var value = await ApiRepository.getNotificationsList(pageNo);
-    handleNotifications(value.data);
-    _isloading = false;
-  }
-
-  void dispose() {
-    _notificationsController.close();
-    _suggestions.clear();
-  }
-
-  void loadMore() {
-    pageNo += 1;
-    fetchNotificationsInternal();
-  }
-
-  handleNotifications(List<ResponseNotificationItem> data) {
-    if (!_notificationsController.isClosed) {
-      _suggestions.addAll(data);
-      _notificationsController.sink.add(_suggestions);
+      case NotificationsBloEvent.fetchMore:
+        yield* _fetchNotificationsInternal(pageNo: state.pageNo + 1);
+        break;
     }
   }
 
-  bool isInitialLoading() {
-    return pageNo == 1 && _isloading;
+  Stream<NotificationsBlocState> _fetchNotificationsInternal(
+      {int pageNo = 0}) async* {
+    yield state.rebuild((b) => b
+      ..loading = true
+      ..suggestions = []
+      ..pageNo = pageNo);
+
+    var notifications =
+        await ApiRepository.getNotificationsList(state.pageNo + 1);
+
+    yield state.rebuild((b) => b
+      ..loading = false
+      ..suggestions = notifications.data.toList(growable: false)
+      ..pageNo = state.pageNo + 1);
   }
 }
