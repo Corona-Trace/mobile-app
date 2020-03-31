@@ -7,11 +7,13 @@ class CTBottomSheetWidget extends StatelessWidget {
   const CTBottomSheetWidget(
       {this.mainQuestionText,
       this.subSectionDescription,
+      this.subHeaderTitleText,
       this.questionPairWidget,
       this.onTermsConditionsClick});
 
   final String mainQuestionText;
   final String subSectionDescription;
+  final String subHeaderTitleText;
   final CTQuestionPair questionPairWidget;
   final Function onTermsConditionsClick;
 
@@ -21,32 +23,48 @@ class CTBottomSheetWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Expanded(
-          child: SingleChildScrollView(child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                mainQuestionText,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                subSectionDescription,
-                style: TextStyle(fontSize: 15),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              questionPairWidget,
-              SizedBox(
-                height: 20,
-              ),
-            ],
-          ),),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  mainQuestionText,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  subSectionDescription,
+                  style: TextStyle(fontSize: 15),
+                ),
+                subHeaderTitleText != null
+                    ? Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Text(
+                            subHeaderTitleText,
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      )
+                    : Container(),
+                SizedBox(
+                  height: 25,
+                ),
+                questionPairWidget,
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
+          ),
         ),
         Column(
           children: <Widget>[

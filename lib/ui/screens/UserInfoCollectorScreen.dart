@@ -1,24 +1,18 @@
+import 'package:corona_trace/AppConstants.dart';
 import 'package:corona_trace/LocationUpdates.dart';
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/APIRepository.dart';
-import 'package:corona_trace/AppConstants.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
 import 'package:corona_trace/ui/BaseState.dart';
 import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
 import 'package:corona_trace/ui/notifications/NotificationsListScreen.dart';
 import 'package:corona_trace/ui/widgets/CTBottomSheetWidget.dart';
-import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
 import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
-import 'package:corona_trace/ui/widgets/CTTestingInformation.dart';
 import 'package:corona_trace/ui/widgets/CTThankYouDialog.dart';
 import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:corona_trace/utils/Stack.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserInfoCollectorScreen extends StatefulWidget {
   @override
@@ -127,6 +121,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     return getBottomSheetWidget(
         headerText: AppLocalization.text("Question.Test.Positive"),
         subHeaderText: AppLocalization.text("Answer.Anonymous"),
+        subHeaderTitleText: AppLocalization.text("Answer.select"),
         questionPair: questionPair);
   }
 
@@ -149,17 +144,25 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           hideLoadingDialog();
         },
         onPositiveQuestionClick: () async {
-          showLoadingDialog(tapDismiss: false);
-          await ApiRepository.setUserSeverity(-1);
-          hideLoadingDialog();
-          LocationUpdates.stopLocationUpdates(context);
-          _onPopScope();
+          await onClickCancel();
         });
 
     return getBottomSheetWidget(
         headerText: AppLocalization.text("Answer.Confirm"),
         subHeaderText: AppLocalization.text("Answer.Confirm.Location.Usage"),
         questionPair: questionPair);
+  }
+
+  Future onClickCancel() async {
+    var severity = await ApiRepository.getUserSeverity();
+    if (severity == null || (severity != null && severity == -1)) {
+    } else {
+      showLoadingDialog(tapDismiss: false);
+      await ApiRepository.setUserSeverity(-1);
+      hideLoadingDialog();
+      LocationUpdates.stopLocationUpdates(context);
+    }
+    _onPopScope();
   }
 
   Widget confirmDoHaveSymptomsCardContent() {
@@ -172,11 +175,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Color.fromRGBO(240, 193, 28, 1),
         onPositiveQuestionClick: () async {
-          showLoadingDialog(tapDismiss: false);
-          await ApiRepository.setUserSeverity(-1);
-          hideLoadingDialog();
-          LocationUpdates.stopLocationUpdates(context);
-          _onPopScope();
+          await onClickCancel();
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
@@ -203,11 +202,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Colors.green,
         onPositiveQuestionClick: () async {
-          showLoadingDialog(tapDismiss: false);
-          await ApiRepository.setUserSeverity(-1);
-          hideLoadingDialog();
-          LocationUpdates.stopLocationUpdates(context);
-          _onPopScope();
+          await onClickCancel();
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
@@ -243,10 +238,14 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   }
 
   CTBottomSheetWidget getBottomSheetWidget(
-      {CTQuestionPair questionPair, String headerText, String subHeaderText}) {
+      {CTQuestionPair questionPair,
+      String headerText,
+      String subHeaderText,
+      String subHeaderTitleText}) {
     return CTBottomSheetWidget(
         mainQuestionText: headerText,
         subSectionDescription: subHeaderText,
+        subHeaderTitleText: subHeaderTitleText,
         questionPairWidget: questionPair,
         onTermsConditionsClick: (String key) async {
           showLoadingDialog(tapDismiss: false);
