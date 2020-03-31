@@ -64,8 +64,9 @@ class ApiRepository {
   static Future<ResponseNotifications> getNotificationsList(int pageNo) async {
     try {
       var deviceID = await AppConstants.getDeviceId();
-      var response = await http
-          .get("$API_URL/notification/$deviceID/?page=$pageNo&perPage=10");
+      var url = "$API_URL/notification/$deviceID/?page=$pageNo&perPage=10";
+      var response = await http.get(url);
+      print(url);
       return ResponseNotifications.map(JSON.json.decode(response.body));
     } catch (ex) {
       throw ex;

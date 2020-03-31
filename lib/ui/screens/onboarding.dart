@@ -69,7 +69,6 @@ class _OnboardingScreenState extends BaseState<OnboardingScreen> {
                     physics: ClampingScrollPhysics(),
                     controller: _pageController,
                     onPageChanged: (int page) {
-                      print("pageChange");
                       setState(() {
                         _currentPage = page;
                       });
