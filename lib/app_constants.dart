@@ -8,7 +8,8 @@ class AppConstants {
 
   static const String TESTED_URL =
       "https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/testing.html";
-  static const String DOCUMENTATION_URL = "https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html";
+  static const String DOCUMENTATION_URL =
+      "https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html";
 
   static Future<String> getDeviceId() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();

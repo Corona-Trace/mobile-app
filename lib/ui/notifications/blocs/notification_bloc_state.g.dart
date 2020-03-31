@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'NotificationsBlocState.dart';
+part of 'notification_bloc_state.dart';
 
 // **************************************************************************
 // BuiltValueGenerator

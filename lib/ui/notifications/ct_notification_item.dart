@@ -1,9 +1,7 @@
-import 'package:corona_trace/network/ResponseNotifications.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/network/repository_notifications.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'CTNotificationMapDetail.dart';
 
 class CTNotificationItem extends StatelessWidget {
   final bool crossedPaths;
@@ -15,7 +13,9 @@ class CTNotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 4,),
+        SizedBox(
+          height: 4,
+        ),
         ListTile(
           leading: crossedPaths
               ? Icon(
@@ -75,8 +75,7 @@ class CTNotificationItem extends StatelessWidget {
           color: Colors.black,
         ),
         children: <TextSpan>[
-          new TextSpan(
-              text: AppLocalization.text("CrossedPaths.You")),
+          new TextSpan(text: AppLocalization.text("CrossedPaths.You")),
           new TextSpan(
               text: crossedPaths
                   ? AppLocalization.text("CrossedPaths.HaveCrossed")

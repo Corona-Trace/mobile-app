@@ -1,7 +1,7 @@
-import 'package:corona_trace/AppConstants.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationItem.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/app_constants.dart';
+import 'package:corona_trace/network/repository_notifications.dart';
+import 'package:corona_trace/ui/notifications/ct_notification_item.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class CTNotificationDetailCard extends StatelessWidget {
@@ -51,11 +51,9 @@ class CTNotificationDetailCard extends StatelessWidget {
                 )
               : Container(),
           crossedPaths
-              ? cdcDocumentation(emptyLeadingSpace:true)
+              ? cdcDocumentation(emptyLeadingSpace: true)
               : Container(),
-          crossedPaths
-              ? cdcTesting(emptyLeadingSpace:true)
-              : Container(),
+          crossedPaths ? cdcTesting(emptyLeadingSpace: true) : Container(),
           SizedBox(
             height: 20,
           ),
@@ -63,27 +61,26 @@ class CTNotificationDetailCard extends StatelessWidget {
       ),
     );
   }
-
 }
-
 
 ListTile cdcDocumentation({bool emptyLeadingSpace}) {
   return ListTile(
     onTap: () {
       AppConstants.launchUrl(AppConstants.DOCUMENTATION_URL);
     },
-    leading: emptyLeadingSpace?Icon(
-      Icons.info,
-      color: Colors.white,
-    ):null,
+    leading: emptyLeadingSpace
+        ? Icon(
+            Icons.info,
+            color: Colors.white,
+          )
+        : null,
     title: Text(
       AppLocalization.text("CrossedPaths.CDC.Title"),
-      style: TextStyle(
-          color: Colors.indigo, fontWeight: FontWeight.bold),
+      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
     ),
-    subtitle: Text(
-        AppLocalization.text("CrossedPaths.CDC.SubTitle")),
+    subtitle: Text(AppLocalization.text("CrossedPaths.CDC.SubTitle")),
     trailing: IconButton(
+      onPressed: null,
       icon: Icon(
         Icons.arrow_forward,
         color: Colors.indigo,
@@ -97,18 +94,19 @@ ListTile cdcTesting({bool emptyLeadingSpace}) {
     onTap: () {
       AppConstants.launchUrl(AppConstants.TESTED_URL);
     },
-    leading: emptyLeadingSpace?Icon(
-      Icons.info,
-      color: Colors.white,
-    ):null,
+    leading: emptyLeadingSpace
+        ? Icon(
+            Icons.info,
+            color: Colors.white,
+          )
+        : null,
     title: Text(
       AppLocalization.text("CrossedPaths.Testing.Title"),
-      style: TextStyle(
-          color: Colors.indigo, fontWeight: FontWeight.bold),
+      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
     ),
-    subtitle: Text(
-        AppLocalization.text("CrossedPaths.Testing.SubTitle")),
+    subtitle: Text(AppLocalization.text("CrossedPaths.Testing.SubTitle")),
     trailing: IconButton(
+      onPressed: null,
       icon: Icon(
         Icons.arrow_forward,
         color: Colors.indigo,

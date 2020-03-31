@@ -1,15 +1,12 @@
 import 'dart:io';
 
-import 'package:corona_trace/LocationUpdates.dart';
-import 'package:corona_trace/main.dart';
-import 'package:corona_trace/network/APIRepository.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
+import 'package:corona_trace/location_updates.dart';
+import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
-import 'package:corona_trace/ui/BaseState.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
-import 'package:corona_trace/ui/screens/Onboarding.dart';
-import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/ui/base_state.dart';
+import 'package:corona_trace/ui/screens/onboarding.dart';
+import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
