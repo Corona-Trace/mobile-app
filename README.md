@@ -11,6 +11,11 @@ It uses the device's current location to provide critical location-based push no
 
 As of now, when coupled with the CoronaTracker Firebase backend, the app anonymously shares your location data and allows push notifications to be received for all the users of this app who have visited the locations that an infected person visited in the past 7 days. An infected person can confirm an infection in the app, which will alert other users to take precautionary steps.
 
+## Getting started
+
+This project uses built_value. When you need to regenerate models, run this command
+
+> flutter packages pub run build_runner build
 
 ## Requirements
 
