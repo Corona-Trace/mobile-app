@@ -34,7 +34,7 @@ class CTNotificationDetailCard extends StatelessWidget {
                   ),
                   title: Text(
                     AppLocalization.text("CrossedPaths.NextSteps.Title"),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Padding(
                     child: Text(

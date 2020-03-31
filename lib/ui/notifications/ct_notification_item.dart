@@ -25,11 +25,11 @@ class CTNotificationItem extends StatelessWidget {
               : Image.asset("assets/images/green_circle.png"),
           title: Text(
             notification.address,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
           ),
           subtitle: Text(
             "${formattedDate()}",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black, fontSize: 15),
           ),
           trailing: crossedPaths
               ? Image.asset(
@@ -70,7 +70,7 @@ class CTNotificationItem extends StatelessWidget {
     return RichText(
       text: new TextSpan(
         style: new TextStyle(
-          fontSize: 16.0,
+          fontSize: 15.0,
           fontFamily: "Montserrat",
           color: Colors.black,
         ),

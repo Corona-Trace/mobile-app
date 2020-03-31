@@ -13,7 +13,6 @@ import 'package:corona_trace/utils/app_localization.dart';
 import 'package:corona_trace/utils/slack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 class UserInfoCollectorScreen extends StatefulWidget {
   @override
   _UserInfoCollectorScreenState createState() =>
@@ -121,6 +120,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     return getBottomSheetWidget(
         headerText: AppLocalization.text("Question.Test.Positive"),
         subHeaderText: AppLocalization.text("Answer.Anonymous"),
+        subHeaderTitleText: AppLocalization.text("Answer.select"),
         questionPair: questionPair);
   }
 
@@ -143,17 +143,25 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           hideLoadingDialog();
         },
         onPositiveQuestionClick: () async {
-          showLoadingDialog(tapDismiss: false);
-          await ApiRepository.setUserSeverity(-1);
-          hideLoadingDialog();
-          LocationUpdates.stopLocationUpdates(context);
-          _onPopScope();
+          await onClickCancel();
         });
 
     return getBottomSheetWidget(
         headerText: AppLocalization.text("Answer.Confirm"),
         subHeaderText: AppLocalization.text("Answer.Confirm.Location.Usage"),
         questionPair: questionPair);
+  }
+
+  Future onClickCancel() async {
+    var severity = await ApiRepository.getUserSeverity();
+    if (severity == null || (severity != null && severity == -1)) {
+    } else {
+      showLoadingDialog(tapDismiss: false);
+      await ApiRepository.setUserSeverity(-1);
+      hideLoadingDialog();
+      LocationUpdates.stopLocationUpdates(context);
+    }
+    _onPopScope();
   }
 
   Widget confirmDoHaveSymptomsCardContent() {
@@ -166,11 +174,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Color.fromRGBO(240, 193, 28, 1),
         onPositiveQuestionClick: () async {
-          showLoadingDialog(tapDismiss: false);
-          await ApiRepository.setUserSeverity(-1);
-          hideLoadingDialog();
-          LocationUpdates.stopLocationUpdates(context);
-          _onPopScope();
+          await onClickCancel();
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
@@ -197,11 +201,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         hasCustomColor: true,
         customColor: Colors.green,
         onPositiveQuestionClick: () async {
-          showLoadingDialog(tapDismiss: false);
-          await ApiRepository.setUserSeverity(-1);
-          hideLoadingDialog();
-          LocationUpdates.stopLocationUpdates(context);
-          _onPopScope();
+          await onClickCancel();
         },
         onNegativeQuestionClick: () async {
           showLoadingDialog(tapDismiss: false);
@@ -237,10 +237,14 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   }
 
   CTBottomSheetWidget getBottomSheetWidget(
-      {CTQuestionPair questionPair, String headerText, String subHeaderText}) {
+      {CTQuestionPair questionPair,
+      String headerText,
+      String subHeaderText,
+      String subHeaderTitleText}) {
     return CTBottomSheetWidget(
         mainQuestionText: headerText,
         subSectionDescription: subHeaderText,
+        subHeaderTitleText: subHeaderTitleText,
         questionPairWidget: questionPair,
         onTermsConditionsClick: (String key) async {
           showLoadingDialog(tapDismiss: false);
