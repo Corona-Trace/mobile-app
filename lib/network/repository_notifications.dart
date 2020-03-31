@@ -34,14 +34,14 @@ class ResponseNotifications {
 /// address : "qwertyuio"
 
 class ResponseNotificationItem {
-  String _Id;
+  String _id;
   String _userId;
   String _timestamp;
   String _address;
   double lat;
   double lng;
 
-  String get Id => _Id;
+  String get id => _id;
 
   String get userId => _userId;
 
@@ -50,10 +50,10 @@ class ResponseNotificationItem {
   String get address => _address;
 
   ResponseNotificationItem(
-      this._Id, this._userId, this._timestamp, this._address);
+      this._id, this._userId, this._timestamp, this._address);
 
   ResponseNotificationItem.map(dynamic obj) {
-    _Id = obj["id"];
+    _id = obj["id"];
     _userId = obj["userId"];
     _timestamp = obj["timestamp"];
     _address = obj["address"];
@@ -63,7 +63,7 @@ class ResponseNotificationItem {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
-    map["Id"] = _Id;
+    map["Id"] = _id;
     map["userId"] = _userId;
     map["timestamp"] = _timestamp;
     map["address"] = _address;

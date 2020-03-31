@@ -1,8 +1,6 @@
-import 'package:corona_trace/network/APIRepository.dart';
-import 'package:corona_trace/ui/BaseState.dart';
-import 'package:corona_trace/ui/screens/GettingStartedScreen.dart';
-import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/ui/base_state.dart';
+import 'package:corona_trace/ui/screens/getting_started_screen.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

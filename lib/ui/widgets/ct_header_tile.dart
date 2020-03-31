@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CTHeaderTile extends StatelessWidget {
-
   final String title;
   final String subtitle;
-  CTHeaderTile(this.title,this.subtitle);
+
+  CTHeaderTile(this.title, this.subtitle);
 
   @override
   Widget build(BuildContext context) {
