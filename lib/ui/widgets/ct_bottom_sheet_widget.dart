@@ -1,7 +1,6 @@
-import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
+import 'package:corona_trace/ui/widgets/ct_question_pair.dart';
+import 'package:corona_trace/ui/widgets/ct_terms_and_conditions.dart';
 import 'package:flutter/material.dart';
-
-import 'CTTermsAndConditions.dart';
 
 class CTBottomSheetWidget extends StatelessWidget {
   const CTBottomSheetWidget(

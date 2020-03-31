@@ -1,18 +1,14 @@
-import 'package:corona_trace/LocationUpdates.dart';
+import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/main.dart';
-import 'package:corona_trace/network/APIRepository.dart';
+import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
-import 'package:corona_trace/ui/BaseState.dart';
-import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
-import 'package:corona_trace/ui/CTStatusColor.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationsListWidget.dart';
-import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
-import 'package:corona_trace/ui/widgets/CTHeaderTile.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/ui/base_state.dart';
+import 'package:corona_trace/ui/ct_common_header.dart';
+import 'package:corona_trace/ui/notifications/ct_notifications_list_widget.dart';
+import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
+import 'package:corona_trace/ui/status_color.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
-
-import 'CTNotificationItem.dart';
 
 class NotificationsListScreen extends StatefulWidget {
   @override
