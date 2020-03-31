@@ -1,7 +1,7 @@
 import 'package:built_value/built_value.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
+import 'package:corona_trace/network/repository_notifications.dart';
 
-part 'NotificationsBlocState.g.dart';
+part 'notification_bloc_state.g.dart';
 
 abstract class NotificationsBlocState
     implements Built<NotificationsBlocState, NotificationsBlocStateBuilder> {

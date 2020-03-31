@@ -1,4 +1,4 @@
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -21,9 +21,7 @@ class TermsAndConditions extends StatelessWidget {
             color: Colors.black,
           ),
           children: <TextSpan>[
-            new TextSpan(
-                text: AppLocalization.text("Legal.I.Accept")
-                ),
+            new TextSpan(text: AppLocalization.text("Legal.I.Accept")),
             new TextSpan(
                 text: AppLocalization.text("Legal.Terms.Conditions"),
                 recognizer: new TapGestureRecognizer()

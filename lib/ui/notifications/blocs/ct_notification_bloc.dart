@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:corona_trace/network/APIRepository.dart';
-import 'package:corona_trace/ui/notifications/blocs/NotificationsBlocEvent.dart';
-import 'package:corona_trace/ui/notifications/blocs/NotificationsBlocState.dart';
+import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/ui/notifications/blocs/notification_bloc_event.dart';
+import 'package:corona_trace/ui/notifications/blocs/notification_bloc_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CTNotificationsBloc

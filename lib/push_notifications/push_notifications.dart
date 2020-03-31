@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert' as JSON;
 import 'dart:io';
-import 'package:corona_trace/AppConstants.dart';
+
 import 'package:corona_trace/main.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:corona_trace/network/APIRepository.dart';
+import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/network/repository_notifications.dart';
+import 'package:corona_trace/ui/notifications/ct_notification_map_detail.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class PushNotifications {

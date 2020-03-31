@@ -1,7 +1,7 @@
-import 'package:corona_trace/AppConstants.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationItem.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/app_constants.dart';
+import 'package:corona_trace/network/repository_notifications.dart';
+import 'package:corona_trace/ui/notifications/ct_notification_item.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class CTNotificationDetailCard extends StatelessWidget {
@@ -80,6 +80,7 @@ ListTile cdcDocumentation({bool emptyLeadingSpace}) {
     ),
     subtitle: Text(AppLocalization.text("CrossedPaths.CDC.SubTitle")),
     trailing: IconButton(
+      onPressed: null,
       icon: Icon(
         Icons.arrow_forward,
         color: Colors.indigo,
@@ -105,6 +106,7 @@ ListTile cdcTesting({bool emptyLeadingSpace}) {
     ),
     subtitle: Text(AppLocalization.text("CrossedPaths.Testing.SubTitle")),
     trailing: IconButton(
+      onPressed: null,
       icon: Icon(
         Icons.arrow_forward,
         color: Colors.indigo,
