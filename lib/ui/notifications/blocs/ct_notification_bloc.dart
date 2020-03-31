@@ -32,15 +32,18 @@ class CTNotificationsBloc
       {int pageNo = 0}) async* {
     yield state.rebuild((b) => b
       ..loading = true
-      ..suggestions = []
       ..pageNo = pageNo);
 
-    var notifications =
-        await ApiRepository.getNotificationsList(state.pageNo + 1);
-
-    yield state.rebuild((b) => b
-      ..loading = false
-      ..suggestions = notifications.data.toList(growable: false)
-      ..pageNo = state.pageNo + 1);
+    try {
+      var notifications = await ApiRepository.getNotificationsList(pageNo);
+      yield state.rebuild((b) => b
+        ..loading = false
+        ..suggestions.addAll(notifications.data)
+        ..pageNo = pageNo);
+    } catch (ex) {
+      yield state.rebuild((b) => b
+        ..loading = false
+        ..pageNo = pageNo == 0 ? pageNo : pageNo - 1);
+    }
   }
 }
