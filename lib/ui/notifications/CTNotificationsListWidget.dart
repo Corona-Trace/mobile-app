@@ -55,6 +55,7 @@ class __NotificationsBlocListWidgetState
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CTNotificationsBloc, NotificationsBlocState>(
+      bloc: _bloc,
       builder: (context, state) => _content(state),
     );
   }
