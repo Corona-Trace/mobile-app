@@ -22,6 +22,8 @@ Pair getSymptomData(int value) {
       }
       break;
   }
+
+  return null;
 }
 
 getColorIconForStatus(CTStatusColor ctStatusColor) {
