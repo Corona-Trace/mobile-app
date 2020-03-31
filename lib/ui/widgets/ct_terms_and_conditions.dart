@@ -16,10 +16,7 @@ class TermsAndConditions extends StatelessWidget {
       child: RichText(
         textAlign: TextAlign.center,
         text: new TextSpan(
-          style: new TextStyle(
-            fontSize: 14.0,
-            color: Colors.black,
-          ),
+          style: Theme.of(context).textTheme.caption.apply(color: Colors.black),
           children: <TextSpan>[
             new TextSpan(text: AppLocalization.text("Legal.I.Accept")),
             new TextSpan(
