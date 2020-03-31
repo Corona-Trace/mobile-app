@@ -3,8 +3,6 @@ import 'package:corona_trace/utils/AppLocalization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'CTNotificationMapDetail.dart';
-
 class CTNotificationItem extends StatelessWidget {
   final bool crossedPaths;
   final ResponseNotificationItem notification;
@@ -15,7 +13,9 @@ class CTNotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 4,),
+        SizedBox(
+          height: 4,
+        ),
         ListTile(
           leading: crossedPaths
               ? Icon(
@@ -25,11 +25,11 @@ class CTNotificationItem extends StatelessWidget {
               : Image.asset("assets/images/green_circle.png"),
           title: Text(
             notification.address,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
           ),
           subtitle: Text(
             "${formattedDate()}",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black, fontSize: 15),
           ),
           trailing: crossedPaths
               ? Image.asset(
@@ -70,13 +70,12 @@ class CTNotificationItem extends StatelessWidget {
     return RichText(
       text: new TextSpan(
         style: new TextStyle(
-          fontSize: 16.0,
+          fontSize: 15.0,
           fontFamily: "Montserrat",
           color: Colors.black,
         ),
         children: <TextSpan>[
-          new TextSpan(
-              text: AppLocalization.text("CrossedPaths.You")),
+          new TextSpan(text: AppLocalization.text("CrossedPaths.You")),
           new TextSpan(
               text: crossedPaths
                   ? AppLocalization.text("CrossedPaths.HaveCrossed")

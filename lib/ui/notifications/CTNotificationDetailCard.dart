@@ -34,7 +34,7 @@ class CTNotificationDetailCard extends StatelessWidget {
                   ),
                   title: Text(
                     AppLocalization.text("CrossedPaths.NextSteps.Title"),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Padding(
                     child: Text(
@@ -51,11 +51,9 @@ class CTNotificationDetailCard extends StatelessWidget {
                 )
               : Container(),
           crossedPaths
-              ? cdcDocumentation(emptyLeadingSpace:true)
+              ? cdcDocumentation(emptyLeadingSpace: true)
               : Container(),
-          crossedPaths
-              ? cdcTesting(emptyLeadingSpace:true)
-              : Container(),
+          crossedPaths ? cdcTesting(emptyLeadingSpace: true) : Container(),
           SizedBox(
             height: 20,
           ),
@@ -63,26 +61,24 @@ class CTNotificationDetailCard extends StatelessWidget {
       ),
     );
   }
-
 }
-
 
 ListTile cdcDocumentation({bool emptyLeadingSpace}) {
   return ListTile(
     onTap: () {
       AppConstants.launchUrl(AppConstants.DOCUMENTATION_URL);
     },
-    leading: emptyLeadingSpace?Icon(
-      Icons.info,
-      color: Colors.white,
-    ):null,
+    leading: emptyLeadingSpace
+        ? Icon(
+            Icons.info,
+            color: Colors.white,
+          )
+        : null,
     title: Text(
       AppLocalization.text("CrossedPaths.CDC.Title"),
-      style: TextStyle(
-          color: Colors.indigo, fontWeight: FontWeight.bold),
+      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
     ),
-    subtitle: Text(
-        AppLocalization.text("CrossedPaths.CDC.SubTitle")),
+    subtitle: Text(AppLocalization.text("CrossedPaths.CDC.SubTitle")),
     trailing: IconButton(
       icon: Icon(
         Icons.arrow_forward,
@@ -97,17 +93,17 @@ ListTile cdcTesting({bool emptyLeadingSpace}) {
     onTap: () {
       AppConstants.launchUrl(AppConstants.TESTED_URL);
     },
-    leading: emptyLeadingSpace?Icon(
-      Icons.info,
-      color: Colors.white,
-    ):null,
+    leading: emptyLeadingSpace
+        ? Icon(
+            Icons.info,
+            color: Colors.white,
+          )
+        : null,
     title: Text(
       AppLocalization.text("CrossedPaths.Testing.Title"),
-      style: TextStyle(
-          color: Colors.indigo, fontWeight: FontWeight.bold),
+      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
     ),
-    subtitle: Text(
-        AppLocalization.text("CrossedPaths.Testing.SubTitle")),
+    subtitle: Text(AppLocalization.text("CrossedPaths.Testing.SubTitle")),
     trailing: IconButton(
       icon: Icon(
         Icons.arrow_forward,
