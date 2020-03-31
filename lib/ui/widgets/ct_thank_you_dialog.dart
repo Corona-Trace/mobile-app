@@ -1,10 +1,7 @@
-import 'package:corona_trace/main.dart';
-import 'package:corona_trace/ui/widgets/CTTermsAndConditions.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class CTThankYouDialog extends StatelessWidget {
-
   CTThankYouDialog({this.onButtonClick});
 
   final Function onButtonClick;

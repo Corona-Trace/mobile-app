@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:corona_trace/network/APIRepository.dart';
+import 'package:corona_trace/network/api_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
-
-import 'AppConstants.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'app_constants.dart';
 
 class LocationUpdates {
   static requestPermissions() async {

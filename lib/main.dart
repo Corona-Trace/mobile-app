@@ -1,26 +1,18 @@
-import 'dart:io';
-
-import 'package:corona_trace/LocationUpdates.dart';
-import 'package:corona_trace/network/APIRepository.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
-import 'package:corona_trace/push_notifications/push_notifications.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
-import 'package:corona_trace/ui/notifications/NotificationsListScreen.dart';
-import 'package:corona_trace/ui/screens/Onboarding.dart';
-import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
+import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/ui/notifications/notification_list_screen.dart';
+import 'package:corona_trace/ui/screens/onboarding.dart';
+import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'utils/AppLocalization.dart';
+import 'utils/app_localization.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   ApiRepository.getIsOnboardingDone().then((onboardingDone) {
     ApiRepository.getUserSeverity().then((userSeverity) {
-      var isOnboardinDone =
-          onboardingDone == null ? false : onboardingDone as bool;
-      var severity = userSeverity == null ? -1 : userSeverity as int;
+      var isOnboardinDone = onboardingDone == null ? false : onboardingDone;
+      var severity = userSeverity == null ? -1 : userSeverity;
       runApp(MyApp(isOnboardinDone, severity));
     });
   });

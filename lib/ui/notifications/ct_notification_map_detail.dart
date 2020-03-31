@@ -1,12 +1,11 @@
 import 'dart:async';
 
-import 'package:corona_trace/network/ResponseNotifications.dart';
-import 'package:corona_trace/ui/BaseState.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationDetailCard.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/network/repository_notifications.dart';
+import 'package:corona_trace/ui/base_state.dart';
+import 'package:corona_trace/ui/notifications/ct_notification_detail_card.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 
 class CTNotificationMapDetail extends StatefulWidget {
   final bool crossedPaths;
@@ -21,7 +20,7 @@ class CTNotificationMapDetail extends StatefulWidget {
 class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
   Completer<GoogleMapController> _controller = Completer();
   CameraPosition inititalCameraPosition;
-  Set<Marker> _markers = {};
+  Set<Marker> _markers = new Set<Marker>();
 
   @override
   void initState() {
@@ -31,7 +30,7 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
       zoom: 16,
     );
     _markers.add(Marker(
-        markerId: MarkerId(widget.notification.Id.toString()),
+        markerId: MarkerId(widget.notification.id.toString()),
         position: LatLng(widget.notification.lat, widget.notification.lng)));
   }
 

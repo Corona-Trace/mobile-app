@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'CTQuestion.dart';
+import 'ct_question.dart';
 
 class CTQuestionPair extends StatelessWidget {
   const CTQuestionPair(

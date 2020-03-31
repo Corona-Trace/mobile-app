@@ -1,15 +1,13 @@
 import 'dart:convert' as JSON;
 
-import 'package:corona_trace/AppConstants.dart';
-import 'package:corona_trace/LocationUpdates.dart';
-import 'package:corona_trace/network/ResponseNotifications.dart';
-import 'package:corona_trace/ui/screens/UserInfoCollectorScreen.dart';
+import 'package:corona_trace/app_constants.dart';
+import 'package:corona_trace/network/repository_notifications.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiRepository {
   static Dio _dio = Dio();
@@ -50,7 +48,6 @@ class ApiRepository {
 
   static Map<String, String> tokenRequestBody(String token, String deviceID) =>
       {"token": token, "userId": deviceID};
-
 
   static Future<void> setUserSeverity(int severity) async {
     var instance = await SharedPreferences.getInstance();
@@ -146,5 +143,4 @@ class ApiRepository {
     var sharedPrefs = await SharedPreferences.getInstance();
     await sharedPrefs.setBool(IS_ONBOARDING_DONE, isDone);
   }
-
 }

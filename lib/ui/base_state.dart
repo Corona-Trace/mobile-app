@@ -1,4 +1,4 @@
-import 'package:corona_trace/ui/notifications/CTLoader.dart';
+import 'package:corona_trace/ui/notifications/ct_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

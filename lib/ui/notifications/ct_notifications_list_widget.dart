@@ -1,11 +1,11 @@
-import 'package:corona_trace/ui/notifications/CTLoader.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationDetailCard.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationItem.dart';
-import 'package:corona_trace/ui/notifications/CTNotificationMapDetail.dart';
-import 'package:corona_trace/ui/notifications/blocs/CTNotificationsBloc.dart';
-import 'package:corona_trace/ui/notifications/blocs/NotificationsBlocEvent.dart';
-import 'package:corona_trace/ui/notifications/blocs/NotificationsBlocState.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/ui/notifications/blocs/ct_notification_bloc.dart';
+import 'package:corona_trace/ui/notifications/blocs/notification_bloc_event.dart';
+import 'package:corona_trace/ui/notifications/blocs/notification_bloc_state.dart';
+import 'package:corona_trace/ui/notifications/ct_loader.dart';
+import 'package:corona_trace/ui/notifications/ct_notification_detail_card.dart';
+import 'package:corona_trace/ui/notifications/ct_notification_item.dart';
+import 'package:corona_trace/ui/notifications/ct_notification_map_detail.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -55,6 +55,7 @@ class __NotificationsBlocListWidgetState
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CTNotificationsBloc, NotificationsBlocState>(
+      bloc: _bloc,
       builder: (context, state) => _content(state),
     );
   }
