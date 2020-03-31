@@ -1,8 +1,8 @@
-import 'package:corona_trace/AppConstants.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
+import 'package:corona_trace/app_constants.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'CTQuestion.dart';
+import 'ct_question.dart';
 
 class CTTestingInformation extends StatelessWidget {
   @override

@@ -1,19 +1,18 @@
-import 'package:corona_trace/AppConstants.dart';
-import 'package:corona_trace/LocationUpdates.dart';
+import 'package:corona_trace/app_constants.dart';
+import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/main.dart';
-import 'package:corona_trace/network/APIRepository.dart';
+import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/push_notifications/push_notifications.dart';
-import 'package:corona_trace/ui/BaseState.dart';
-import 'package:corona_trace/ui/CTCoronaTraceCommonHeader.dart';
-import 'package:corona_trace/ui/notifications/NotificationsListScreen.dart';
-import 'package:corona_trace/ui/widgets/CTBottomSheetWidget.dart';
-import 'package:corona_trace/ui/widgets/CTQuestionPair.dart';
-import 'package:corona_trace/ui/widgets/CTThankYouDialog.dart';
-import 'package:corona_trace/utils/AppLocalization.dart';
-import 'package:corona_trace/utils/Stack.dart';
+import 'package:corona_trace/ui/base_state.dart';
+import 'package:corona_trace/ui/ct_common_header.dart';
+import 'package:corona_trace/ui/notifications/notification_list_screen.dart';
+import 'package:corona_trace/ui/widgets/ct_bottom_sheet_widget.dart';
+import 'package:corona_trace/ui/widgets/ct_question_pair.dart';
+import 'package:corona_trace/ui/widgets/ct_thank_you_dialog.dart';
+import 'package:corona_trace/utils/app_localization.dart';
+import 'package:corona_trace/utils/slack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 class UserInfoCollectorScreen extends StatefulWidget {
   @override
   _UserInfoCollectorScreenState createState() =>
