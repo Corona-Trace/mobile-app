@@ -29,7 +29,7 @@ class CTNotificationsBloc
   }
 
   Stream<NotificationsBlocState> _fetchNotificationsInternal(
-      {int pageNo = 0}) async* {
+      {int pageNo = 1}) async* {
     yield state.rebuild((b) => b
       ..loading = true
       ..pageNo = pageNo);
@@ -43,7 +43,7 @@ class CTNotificationsBloc
     } catch (ex) {
       yield state.rebuild((b) => b
         ..loading = false
-        ..pageNo = pageNo == 0 ? pageNo : pageNo - 1);
+        ..pageNo = pageNo == 1 ? pageNo : pageNo - 1);
     }
   }
 }
