@@ -76,7 +76,8 @@ ListTile cdcDocumentation({bool emptyLeadingSpace}) {
         : null,
     title: Text(
       AppLocalization.text("CrossedPaths.CDC.Title"),
-      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
+      style: TextStyle(
+          color: Colors.indigo, fontWeight: FontWeight.bold, fontSize: 17),
     ),
     subtitle: Text(AppLocalization.text("CrossedPaths.CDC.SubTitle")),
     trailing: IconButton(
@@ -102,7 +103,7 @@ ListTile cdcTesting({bool emptyLeadingSpace}) {
         : null,
     title: Text(
       AppLocalization.text("CrossedPaths.Testing.Title"),
-      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
+      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold, fontSize: 17),
     ),
     subtitle: Text(AppLocalization.text("CrossedPaths.Testing.SubTitle")),
     trailing: IconButton(
