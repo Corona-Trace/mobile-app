@@ -2,6 +2,7 @@
   "YES": "YES",
   "NO": "NO",
   "CANCEL": "CANCEL",
+  "cancel_camel": "Cancel",
   "Location": "Location",
   "NOTIFICATIONS": "NOTIFICATIONS",
   "notifications_camel": "Notifications",
@@ -9,6 +10,7 @@
   "Continue": "Continue",
   "notifications.resources": "RESOURCES",
   "Ok": "OK",
+  "Settings": "Settings",
   "give.access": "Give Access",
   "notifications.about.your.location": "Notifications about your location and possible contact with someone who has tested positive for COVID-19 will appear here.",
   "not.now": "Not Now",
@@ -65,5 +67,9 @@
   "Onboarding.SeeHow": "See How it Works",
   "Onboarding.GetStarted": "Get Started",
   "Response.ThankYou": "Thank you for your response!",
-  "Response.ReportingHelps": "Reporting your status is helping everyone stay safe and slowing the spread of COVID-19.\n\nYour location will be used anonymously to help stop the spread of COVID-19.\n\nRemember, we will never store or share any personal information. "
+  "Response.ReportingHelps": "Reporting your status is helping everyone stay safe and slowing the spread of COVID-19.\n\nYour location will be used anonymously to help stop the spread of COVID-19.\n\nRemember, we will never store or share any personal information. ",
+  "Location.Authorization.Alert.Permission.Always":"Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.",
+  "Location.Authorization.Alert.Disabled":"Your location-services are disabled",
+  "Location.Authorization.Stopped":"We won't track your location and no anonymous location-based information will be sent to you",
+  "Location.Tray.Notification":"Your location is being tracked, but all data will be anonymous."
 }
