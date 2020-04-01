@@ -36,7 +36,7 @@ class _GettingStartedState extends BaseState<GettingStarted> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
                       Text(
                         AppLocalization.text("GettingStarted"),
@@ -53,16 +53,12 @@ class _GettingStartedState extends BaseState<GettingStarted> {
                         height: 40,
                       ),
                       ListTile(
-                        leading: Image.asset("assets/images/map_pin.png"),
-                        title: Text(
-                          AppLocalization.text(
-                            "location.info",
-                          ),
-                          style: kMainTextStyle,
-                        ),
+                        leading: Image.asset("assets/images/bell1.png"),
+                        title: Text(AppLocalization.text("notifications_camel"),
+                            style: kMainTextStyle),
                         subtitle: Padding(
                           child: Text(
-                              AppLocalization.text("corona.anonymous.infected"),
+                              AppLocalization.text("coronatrace.will.send"),
                               style: kMainTextStyle),
                           padding: EdgeInsets.only(top: 10, bottom: 20),
                         ),
@@ -75,12 +71,16 @@ class _GettingStartedState extends BaseState<GettingStarted> {
                         height: 20,
                       ),
                       ListTile(
-                        leading: Image.asset("assets/images/bell1.png"),
-                        title: Text(AppLocalization.text("notifications_camel"),
-                            style: kMainTextStyle),
+                        leading: Image.asset("assets/images/map_pin.png"),
+                        title: Text(
+                          AppLocalization.text(
+                            "location.info",
+                          ),
+                          style: kMainTextStyle,
+                        ),
                         subtitle: Padding(
                           child: Text(
-                              AppLocalization.text("coronatrace.will.send"),
+                              AppLocalization.text("corona.anonymous.infected"),
                               style: kMainTextStyle),
                           padding: EdgeInsets.only(top: 10, bottom: 20),
                         ),
@@ -113,31 +113,25 @@ class _GettingStartedState extends BaseState<GettingStarted> {
                             ],
                           ),
                           onPressed: () async {
-                            var selected = await showDialogForLocation();
                             await PushNotifications.registerNotification();
-                            if (selected) {
-                              try {
-                                await LocationUpdates.requestPermissions();
-                                var denied = await LocationUpdates
-                                    .arePermissionsDenied();
-                                if (denied) {
-                                  LocationUpdates
-                                      .showLocationPermissionsNotAvailableDialog(
-                                          context);
-                                } else {
-                                  showLoadingDialog(tapDismiss: false);
-                                  await ApiRepository.setOnboardingDone(true);
-                                  hideLoadingDialog();
-                                  navigateCollectInformation(context);
-                                }
-                              } catch (ex) {
+                            try {
+                              await LocationUpdates.requestPermissions();
+                              var denied =
+                                  await LocationUpdates.arePermissionsDenied();
+                              if (denied) {
                                 LocationUpdates
                                     .showLocationPermissionsNotAvailableDialog(
                                         context);
+                              } else {
+                                showLoadingDialog(tapDismiss: false);
+                                await ApiRepository.setOnboardingDone(true);
+                                hideLoadingDialog();
+                                navigateCollectInformation(context);
                               }
-                            } else {
-                              await ApiRepository.setOnboardingDone(true);
-                              navigateCollectInformation(context);
+                            } catch (ex) {
+                              LocationUpdates
+                                  .showLocationPermissionsNotAvailableDialog(
+                                      context);
                             }
                           },
                         )),
@@ -164,21 +158,24 @@ class _GettingStartedState extends BaseState<GettingStarted> {
     if (Platform.isIOS) {
       return showCupertinoDialog(
           context: context,
-          builder: (BuildContext context) {
+          builder: (BuildContext contextDialog) {
             return CupertinoAlertDialog(
-              title: Text(AppLocalization.text("let.coronatrace.access")),
+              title: Text(
+                AppLocalization.text("let.coronatrace.access"),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               content: Text(AppLocalization.text("this.helps.us.spread")),
               actions: <Widget>[
                 CupertinoDialogAction(
                   child: Text(AppLocalization.text("not.now")),
                   onPressed: () {
-                    Navigator.pop(context, false);
+                    Navigator.of(context).pop(false);
                   },
                 ),
                 CupertinoDialogAction(
                   child: Text(AppLocalization.text("give.access")),
                   onPressed: () {
-                    Navigator.pop(context, true);
+                    Navigator.of(context).pop(true);
                   },
                 ),
               ],
@@ -188,21 +185,24 @@ class _GettingStartedState extends BaseState<GettingStarted> {
       return showDialog<bool>(
         context: context,
         barrierDismissible: false,
-        builder: (BuildContext context) {
+        builder: (BuildContext contextDialog) {
           return AlertDialog(
-            title: Text(AppLocalization.text("let.coronatrace.access")),
+            title: Text(
+              AppLocalization.text("let.coronatrace.access"),
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             content: Text(AppLocalization.text("this.helps.us.spread")),
             actions: <Widget>[
               FlatButton(
                 child: Text(AppLocalization.text("not.now")),
                 onPressed: () {
-                  Navigator.pop(context, false);
+                  Navigator.of(context).pop(false);
                 },
               ),
               FlatButton(
                 child: Text(AppLocalization.text("give.access")),
                 onPressed: () {
-                  Navigator.pop(context, true);
+                  Navigator.of(context).pop(true);
                 },
               ),
             ],

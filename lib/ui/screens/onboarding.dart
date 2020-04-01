@@ -6,12 +6,12 @@ import 'package:flutter/services.dart';
 
 final kMainTitleStyle = TextStyle(
   color: Color.fromRGBO(227, 203, 228, 1),
-  fontSize: 32.0,
+  fontSize: 28.0,
 );
 
 final kSubtitleStyle = TextStyle(
   color: Color.fromRGBO(227, 203, 228, 1),
-  fontSize: 24.0,
+  fontSize: 22.0,
 );
 
 final kMainTextStyle = TextStyle(
