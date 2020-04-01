@@ -179,7 +179,7 @@ class _GettingStartedState extends BaseState<GettingStarted> {
               CupertinoDialogAction(
                 child: Text(AppLocalization.text("give.access")),
                 onPressed: () {
-                  Navigator.pop(context, true);
+                  Navigator.of(context, rootNavigator: true).pop();
                 },
               ),
             ],
