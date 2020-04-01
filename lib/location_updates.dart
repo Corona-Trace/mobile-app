@@ -41,8 +41,14 @@ class LocationUpdates {
     await bg.BackgroundGeolocation.ready(bg.Config(
             url: ApiRepository.USER_LOCATION_URL,
             maxBatchSize: 50,
-            params: {"userId": userId},
-            extras: {"userId": userId},
+            params: {
+              "userId": userId,
+              "offset": DateTime.now().timeZoneOffset.inMilliseconds
+            },
+            extras: {
+              "userId": userId,
+              "offset": DateTime.now().timeZoneOffset.inMilliseconds
+            },
             locationsOrderDirection: "DESC",
             maxDaysToPersist: 3,
             debug: false,
