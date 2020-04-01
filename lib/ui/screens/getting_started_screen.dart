@@ -161,30 +161,32 @@ class _GettingStartedState extends BaseState<GettingStarted> {
   }
 
   Future<bool> showDialogForLocation() {
-    return showDialog<bool>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        if (Platform.isIOS) {
-          return CupertinoAlertDialog(
-            title: Text(AppLocalization.text("let.coronatrace.access")),
-            content: Text(AppLocalization.text("this.helps.us.spread")),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text(AppLocalization.text("not.now")),
-                onPressed: () {
-                  Navigator.pop(context, false);
-                },
-              ),
-              CupertinoDialogAction(
-                child: Text(AppLocalization.text("give.access")),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop();
-                },
-              ),
-            ],
-          );
-        } else {
+    if (Platform.isIOS) {
+      return showCupertinoDialog(context: context, builder: (BuildContext context){
+        return CupertinoAlertDialog(
+          title: Text(AppLocalization.text("let.coronatrace.access")),
+          content: Text(AppLocalization.text("this.helps.us.spread")),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text(AppLocalization.text("not.now")),
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+            ),
+            CupertinoDialogAction(
+              child: Text(AppLocalization.text("give.access")),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            ),
+          ],
+        );
+      });
+    } else {
+      return showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
           return AlertDialog(
             title: Text(AppLocalization.text("let.coronatrace.access")),
             content: Text(AppLocalization.text("this.helps.us.spread")),
@@ -203,8 +205,7 @@ class _GettingStartedState extends BaseState<GettingStarted> {
               ),
             ],
           );
-        }
-      },
-    );
-  }
+        },
+      );
+    }
 }

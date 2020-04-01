@@ -129,7 +129,7 @@ class __NotificationsBlocListWidgetState
                       ),
                       padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
                     ),
-                    cdcDocumentation(emptyLeadingSpace: false, context: context),
+                    cdcDocumentation(emptyLeadingSpace: false),
                     Divider(
                       color: Colors.grey,
                     ),
