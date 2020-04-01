@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
@@ -52,17 +53,16 @@ class LocationUpdates {
             startOnBoot: true,
             enableHeadless: true,
             locationAuthorizationAlert: {
-              'titleWhenNotEnabled': 'Your location-services are disabled',
-              'titleWhenOff': 'Your location-services are disabled',
-              'instructions':
-                  'Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.',
-              'cancelButton': 'Cancel',
-              'settingsButton': 'Settings'
+              "titleWhenNotEnabled": AppLocalization.text("Location.Authorization.Alert.Disabled"),
+              "titleWhenOff": AppLocalization.text("Location.Authorization.Alert.Disabled"),
+              "instructions":
+                  AppLocalization.text("Location.Authorization.Alert.Permission.Always"),
+              "cancelButton": AppLocalization.text("cancel_camel"),
+              "settingsButton": AppLocalization.text("Settings")
             },
             notification: bg.Notification(
-                title: "Corona Trace",
-                text:
-                    "Your location is being tracked, but all data will be anonymous."),
+                title: "CoronaTrace",
+                text: AppLocalization.text("Location.Tray.Notification")),
             logLevel: bg.Config.LOG_LEVEL_OFF))
         .then((bg.State state) {
       if (!state.enabled) {
@@ -85,10 +85,10 @@ class LocationUpdates {
         if (Platform.isIOS) {
           return CupertinoAlertDialog(
             content: Text(
-                "We won't track your location and no anonymous location-based information will be sent to you"),
+                AppLocalization.text("Location.Authorization.Stopped")),
             actions: <Widget>[
               CupertinoDialogAction(
-                child: Text('Ok'),
+                child: Text(AppLocalization.text("Ok")),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -98,10 +98,10 @@ class LocationUpdates {
         } else {
           return AlertDialog(
             content: Text(
-                "We won't track your location and no anonymous location-based information will be sent to you"),
+                AppLocalization.text("Location.Authorization.Stopped")),
             actions: <Widget>[
               FlatButton(
-                child: Text('Ok'),
+                child: Text(AppLocalization.text("Ok")),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -121,20 +121,20 @@ class LocationUpdates {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(
-              "Your location-services are disabled",
+              AppLocalization.text("Location.Authorization.Alert.Disabled"),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             content: Text(
-                "Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications."),
+                AppLocalization.text("Location.Authorization.Alert.Permission.Always")),
             actions: <Widget>[
               FlatButton(
-                child: Text('Cancel'),
+                child: Text(AppLocalization.text("cancel_camel")),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               FlatButton(
-                child: Text('Settings'),
+                child: Text(AppLocalization.text("Settings")),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   openAppSettings();
