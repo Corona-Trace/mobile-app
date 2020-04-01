@@ -75,6 +75,8 @@ flutter:
     - assets/images/Illustration_ClearStatus.png
     - assets/locales/en.json
     - assets/locales/es.json
+    - assets/locales/it.json
+    - assets/locales/fr.json
 
   fonts:
     - family: Montserrat
