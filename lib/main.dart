@@ -1,5 +1,6 @@
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui/notifications/notification_list_screen.dart';
+import 'package:corona_trace/ui/screens/getting_started_screen.dart';
 import 'package:corona_trace/ui/screens/onboarding.dart';
 import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
         home: isOnboardinDone
             ? severity == -1
-                ? UserInfoCollectorScreen()
+                ? GettingStarted()
                 : NotificationsListScreen()
             : OnboardingScreen(),
       ),
