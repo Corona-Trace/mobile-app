@@ -51,7 +51,7 @@ class CTNotificationDetailCard extends StatelessWidget {
                 )
               : Container(),
           crossedPaths
-              ? cdcDocumentation(emptyLeadingSpace: true)
+              ? cdcDocumentation(emptyLeadingSpace: true, context: context)
               : Container(),
           crossedPaths ? cdcTesting(emptyLeadingSpace: true) : Container(),
           SizedBox(
@@ -63,7 +63,7 @@ class CTNotificationDetailCard extends StatelessWidget {
   }
 }
 
-ListTile cdcDocumentation({bool emptyLeadingSpace}) {
+ListTile cdcDocumentation({bool emptyLeadingSpace, BuildContext context}) {
   return ListTile(
     onTap: () {
       AppConstants.launchUrl(AppConstants.DOCUMENTATION_URL);
@@ -76,7 +76,7 @@ ListTile cdcDocumentation({bool emptyLeadingSpace}) {
         : null,
     title: Text(
       AppLocalization.text("CrossedPaths.CDC.Title"),
-      style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),
+      style: Theme.of(context).textTheme.title.apply(color: Colors.indigo),
     ),
     subtitle: Text(AppLocalization.text("CrossedPaths.CDC.SubTitle")),
     trailing: IconButton(
