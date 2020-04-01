@@ -1,3 +1,4 @@
+import 'package:corona_trace/main.dart';
 import 'package:flutter/material.dart';
 
 class CTLoader extends StatelessWidget {
@@ -15,6 +16,7 @@ class CTLoader extends StatelessWidget {
           width: width,
           height: height,
           child: CircularProgressIndicator(
+            backgroundColor: appColor,
             strokeWidth: 3.0,
           ),
         ),
