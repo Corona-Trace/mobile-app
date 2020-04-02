@@ -1,7 +1,7 @@
 import 'dart:convert' as JSON;
 
 import 'package:corona_trace/app_constants.dart';
-import 'package:corona_trace/network/repository_notifications.dart';
+import 'package:corona_trace/network/notification/response_notification.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';

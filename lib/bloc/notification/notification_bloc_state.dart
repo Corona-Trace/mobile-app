@@ -1,5 +1,5 @@
 import 'package:built_value/built_value.dart';
-import 'package:corona_trace/network/repository_notifications.dart';
+import 'package:corona_trace/network/notification/response_notification_item.dart';
 
 part 'notification_bloc_state.g.dart';
 

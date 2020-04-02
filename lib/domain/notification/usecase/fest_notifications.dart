@@ -1,5 +1,5 @@
 import 'package:corona_trace/network/api_repository.dart';
-import 'package:corona_trace/network/repository_notifications.dart';
+import 'package:corona_trace/network/notification/response_notification.dart';
 
 class FetchNotificationsUseCase {
   // TODO add DI to handle this for us

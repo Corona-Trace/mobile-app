@@ -1,6 +1,6 @@
-import 'package:corona_trace/ui/notifications/blocs/ct_notification_bloc.dart';
-import 'package:corona_trace/ui/notifications/blocs/notification_bloc_event.dart';
-import 'package:corona_trace/ui/notifications/blocs/notification_bloc_state.dart';
+import 'package:corona_trace/bloc/notification/ct_notification_bloc.dart';
+import 'package:corona_trace/bloc/notification/notification_bloc_event.dart';
+import 'package:corona_trace/bloc/notification/notification_bloc_state.dart';
 import 'package:corona_trace/ui/notifications/ct_loader.dart';
 import 'package:corona_trace/ui/notifications/ct_notification_detail_card.dart';
 import 'package:corona_trace/ui/notifications/ct_notification_item.dart';
