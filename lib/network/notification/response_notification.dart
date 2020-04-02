@@ -14,7 +14,6 @@ class ResponseNotifications {
   ResponseNotifications(this._data, this._message);
 
   ResponseNotifications.map(dynamic obj) {
-    debugPrint(obj);
     _data = obj["data"] == null
         ? null
         : new List<ResponseNotificationItem>.from(
