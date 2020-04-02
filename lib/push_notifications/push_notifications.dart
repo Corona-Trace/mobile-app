@@ -121,7 +121,6 @@ class PushNotifications {
   }
 
   static Future<void> registerNotification() async {
-    await firebaseMessaging.requestNotificationPermissions();
     await firebaseMessaging.requestNotificationPermissions(
       const IosNotificationSettings(
           sound: true, badge: true, alert: true, provisional: false),
