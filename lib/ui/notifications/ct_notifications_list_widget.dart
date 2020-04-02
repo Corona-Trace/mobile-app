@@ -56,11 +56,11 @@ class __NotificationsBlocListWidgetState
   Widget build(BuildContext context) {
     return BlocBuilder<CTNotificationsBloc, NotificationsBlocState>(
       bloc: _bloc,
-      builder: (context, state) => _content(state),
+      builder: _content,
     );
   }
 
-  Widget _content(NotificationsBlocState state) {
+  Widget _content(BuildContext context, NotificationsBlocState state) {
     if (state.isInitialLoading()) {
       return Center(
         child: CTLoader(50, 50),
