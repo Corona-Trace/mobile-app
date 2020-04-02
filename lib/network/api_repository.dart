@@ -10,6 +10,14 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiRepository {
+  static final ApiRepository _instance = ApiRepository._internal();
+
+  factory ApiRepository() => _instance;
+
+  static ApiRepository get instance => _instance;
+
+  ApiRepository._internal() {}
+
   static Dio _dio = Dio();
   static const TOKEN = "TOKEN";
   static const API_URL =
@@ -61,7 +69,7 @@ class ApiRepository {
     }
   }
 
-  static Future<ResponseNotifications> getNotificationsList(int pageNo) async {
+  Future<ResponseNotifications> getNotificationsList(int pageNo) async {
     try {
       var deviceID = await AppConstants.getDeviceId();
       var url = "$API_URL/notification/$deviceID/?page=$pageNo&perPage=10";
