@@ -13,7 +13,7 @@ class CTNotificationsBloc
 
   @override
   NotificationsBlocState get initialState => NotificationsBlocState((b) => b
-    ..pageNo = 0
+    ..pageNo = 1
     ..totalItems = 10
     ..suggestions = []
     ..loading = true);
@@ -33,14 +33,14 @@ class CTNotificationsBloc
   }
 
   Stream<NotificationsBlocState> _fetchNotificationsInternal(
-      {int pageNo = 0}) async* {
+      {int pageNo = 1}) async* {
     yield state.rebuild((b) => b
       ..loading = true
       ..pageNo = pageNo);
 
     try {
       var notifications =
-          await _fetchNotificationsUseCase.execute(pageIndex: pageNo);
+          await _fetchNotificationsUseCase.execute(pageNo: pageNo);
       yield state.rebuild((b) => b
         ..loading = false
         ..suggestions.addAll(notifications.data)
@@ -48,7 +48,7 @@ class CTNotificationsBloc
     } catch (ex) {
       yield state.rebuild((b) => b
         ..loading = false
-        ..pageNo = pageNo > 0 ? pageNo - 1 : 0);
+        ..pageNo = pageNo > 1 ? pageNo - 1 : 1);
     }
   }
 }
