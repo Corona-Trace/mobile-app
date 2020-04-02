@@ -7,6 +7,7 @@ import 'package:flutter_background_geolocation/flutter_background_geolocation.da
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 
 class ApiRepository {
   static final ApiRepository _instance = ApiRepository._internal();
@@ -54,7 +55,7 @@ class ApiRepository {
       var body = getSeverityBody(severity, deviceID);
       await _dio.patch("$API_URL/users", data: JSON.jsonEncode(body));
     } catch (ex) {
-      print(ex);
+      debugPrint(ex);
     }
   }
 
@@ -63,7 +64,7 @@ class ApiRepository {
       var deviceID = await AppConstants.getDeviceId();
       var url = "$API_URL/notification/$deviceID/?page=$pageNo&perPage=10";
       var response = await http.get(url);
-      print(url);
+      debugPrint(url);
       return ResponseNotifications.map(JSON.json.decode(response.body));
     } catch (ex) {
       throw ex;
