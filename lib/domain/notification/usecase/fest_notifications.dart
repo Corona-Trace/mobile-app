@@ -7,8 +7,9 @@ class FetchNotificationsUseCase {
 
   /// Will return a [Future] of type [ResponseNotifications] when called.
   ///
-  /// Optional [pageIndex] starting at 0 for paginated notification lists.
-  Future<ResponseNotifications> execute({int pageIndex = 0}) async {
-    return _repository.getNotificationsList(pageIndex + 1);
+  /// Optional [pageNo] starting at 0 for paginated notification lists. The page stats at 1
+  Future<ResponseNotifications> execute({int pageNo = 1}) async {
+    assert(pageNo > 0);
+    return _repository.getNotificationsList(pageNo);
   }
 }
