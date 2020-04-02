@@ -63,7 +63,6 @@ class MyApp extends StatelessWidget {
         ],
         localeResolutionCallback:
             (Locale locale, Iterable<Locale> supportedLocales) {
-          print(locale);
           if (locale == null) {
             debugPrint("*language locale is null!!!");
             return supportedLocales.first;

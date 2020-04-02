@@ -253,7 +253,6 @@ class _OnboardingScreenState extends BaseState<OnboardingScreen> {
           buttonTitle = AppLocalization.text("Continue");
         }
     }
-    print(_currentPage);
     return Padding(
         padding: const EdgeInsets.fromLTRB(12.0, 36.0, 12.0, 0.0),
         child: MaterialButton(

@@ -26,34 +26,35 @@ class PushNotifications {
           onBackgroundMessage:
               Platform.isAndroid ? myBackgroundMessageHandler : null,
           onMessage: (Map<String, dynamic> message) async {
-            print("on message called");
-            showNotification(message["data"]);
+            debugPrint("on message called $message");
+            showNotification(message);
           },
           onResume: (Map<String, dynamic> message) async {
-            print("on onResume called");
-            navigateToMapDetail(message["data"]);
+            debugPrint("on onResume called $message");
+            myBackgroundMessageHandler(message);
           },
           onLaunch: (Map<String, dynamic> message) async {
-            print("on onLaunch called");
-            navigateToMapDetail(message["data"]);
+            debugPrint("on onLaunch called");
+            myBackgroundMessageHandler(message);
           });
     }
   }
 
   static Future<dynamic> myBackgroundMessageHandler(
       Map<String, dynamic> message) async {
-    if (message.containsKey('data')) {
-      // Handle data message
-      final dynamic data = message['data'];
-      await navigateToMapDetail(data);
-    }
+    if (Platform.isIOS) {
+      await navigateToMapDetail(message);
+    } else {
+      if (message.containsKey('data')) {
+        // Handle data message
+        final dynamic data = message['data'];
+        await navigateToMapDetail(data);
+      }
 
-    if (message.containsKey('notification')) {
-      // Handle notification message
-      final dynamic notification = message['notification'];
-      await navigateToMapDetail(notification);
+      if (message.containsKey('notification')) {
+        showNotification(message);
+      }
     }
-
     // Or do other work.
     return Future<void>.value();
   }
@@ -65,7 +66,7 @@ class PushNotifications {
           builder: (BuildContext context) =>
               CTNotificationMapDetail(crossedPaths: true, notification: item)));
     } catch (ex) {
-      print(ex);
+      debugPrint(ex);
     }
   }
 
@@ -90,7 +91,7 @@ class PushNotifications {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
     }
-    print("json data $jsonData");
+    debugPrint("json data $jsonData");
     if (Platform.isIOS) {
       navigateToMapDetail(jsonData);
     } else {
@@ -112,9 +113,25 @@ class PushNotifications {
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
-        message['body'].toString(), platformChannelSpecifics,
-        payload: JSON.jsonEncode(message));
+    if (Platform.isAndroid) {
+      if (message != null &&
+          message.containsKey("notification") &&
+          message["notification"]['title']?.toString()?.isNotEmpty == true) {
+        await flutterLocalNotificationsPlugin.show(
+            0,
+            message["notification"]['title'].toString(),
+            message["notification"]['body'].toString(),
+            platformChannelSpecifics,
+            payload: JSON.jsonEncode(message));
+      }
+    } else {
+      await flutterLocalNotificationsPlugin.show(
+          0,
+          message['aps']["alert"]['title'].toString(),
+          message['aps']["alert"]['body'].toString(),
+          platformChannelSpecifics,
+          payload: JSON.jsonEncode(message));
+    }
   }
 
   static Future<void> registerNotification() async {
@@ -129,6 +146,7 @@ class PushNotifications {
 
   static Future<void> saveTokenForLoggedInUser() async {
     var token = await firebaseMessaging.getToken();
+    debugPrint(token);
     await ApiRepository.updateTokenForUser(token);
   }
 }
