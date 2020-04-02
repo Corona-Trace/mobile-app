@@ -28,7 +28,6 @@ dependencies:
   dio: ^3.0.9
 
   firebase_messaging: ^6.0.12
-  firebase_remote_config: ^0.3.0+3
   flutter_local_notifications: ^1.2.0+3
   shared_preferences: ^0.5.6+3
   geolocator: ^5.3.0

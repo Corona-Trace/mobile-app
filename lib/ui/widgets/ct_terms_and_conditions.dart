@@ -1,9 +1,8 @@
+import 'package:corona_trace/app_constants.dart';
+import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-const TERMS_AND_CONDITIONS = "TERMS_AND_CONDITIONS";
-const PRIVACY_POLICY = "PRIVACY_POLICY";
 
 class TermsAndConditions extends StatelessWidget {
   TermsAndConditions({this.onTermsConditionsClick});
@@ -23,7 +22,7 @@ class TermsAndConditions extends StatelessWidget {
                 text: AppLocalization.text("Legal.Terms.Conditions"),
                 recognizer: new TapGestureRecognizer()
                   ..onTap = () {
-                    onTermsConditionsClick(TERMS_AND_CONDITIONS);
+                    onTermsConditionsClick(ApiRepository.TERMS_AND_CONDITIONS);
                   },
                 style: new TextStyle(fontWeight: FontWeight.bold)),
             new TextSpan(text: AppLocalization.text("Legal.And")),
@@ -31,7 +30,7 @@ class TermsAndConditions extends StatelessWidget {
                 text: AppLocalization.text("Legal.Privacy.Policy"),
                 recognizer: new TapGestureRecognizer()
                   ..onTap = () {
-                    onTermsConditionsClick(PRIVACY_POLICY);
+                    onTermsConditionsClick(ApiRepository.PRIVACY_POLICY);
                   },
                 style: new TextStyle(fontWeight: FontWeight.bold)),
           ],
