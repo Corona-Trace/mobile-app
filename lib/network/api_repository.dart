@@ -3,7 +3,6 @@ import 'dart:convert' as JSON;
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/notification/response_notification.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +21,8 @@ class ApiRepository {
   static const TOKEN = "TOKEN";
   static const API_URL =
       "http://coronatrace-env.eba-rzwsytyk.us-east-2.elasticbeanstalk.com";
+  static const TERMS_AND_CONDITIONS = "https://www.coronatrace.org/legal/terms-of-service";
+  static const PRIVACY_POLICY = "https://www.coronatrace.org/legal/privacy-policy";
   static const LAT_CONST = "LAT";
   static const LNG_CONST = "LNG";
   static const SEVERITY = "SEVERITY";
@@ -39,18 +40,6 @@ class ApiRepository {
         await _dio.post("$API_URL/users", data: JSON.jsonEncode(body));
     if (response.statusCode == 200) {
       await instance.setString(TOKEN, token);
-    }
-  }
-
-  static Future<String> getRemoteConfigValue(String key) async {
-    try {
-      final RemoteConfig remoteConfig = await RemoteConfig.instance;
-      await remoteConfig.fetch(expiration: Duration(minutes: 1));
-      await remoteConfig.activateFetched();
-      var url = remoteConfig.getString(key);
-      return url;
-    } catch (ex) {
-      return "";
     }
   }
 
@@ -87,31 +76,6 @@ class ApiRepository {
   static Future<int> getUserSeverity() async {
     var instance = await SharedPreferences.getInstance();
     return instance.getInt(SEVERITY);
-  }
-
-  static Future<void> updateLocationForUserHistory(Location location) async {
-    var lat = location.coords.latitude;
-    var lng = location.coords.longitude;
-
-    var instance = await SharedPreferences.getInstance();
-    var cacheLat = instance.getDouble(LAT_CONST);
-    var cacheLng = instance.getDouble(LNG_CONST);
-    if (cacheLat != null && cacheLng != null) {
-      var distance =
-          await Geolocator().distanceBetween(lat, lng, cacheLat, cacheLng);
-      //less than 100 metres return !
-      var displacement =
-          await getRemoteConfigValue(AppConstants.DISTANCE_DISPLACEMENT_FACTOR);
-      if (displacement != null &&
-          displacement.isNotEmpty &&
-          distance < double.parse(displacement)) {
-        // dont do anythinh
-      } else {
-        await sendLocationUpdateInternal(lat, lng, instance);
-      }
-    } else {
-      await sendLocationUpdateInternal(lat, lng, instance);
-    }
   }
 
   static Future sendLocationUpdateInternal(

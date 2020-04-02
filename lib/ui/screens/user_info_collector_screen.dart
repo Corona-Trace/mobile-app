@@ -247,11 +247,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         subSectionDescription: subHeaderText,
         subHeaderTitleText: subHeaderTitleText,
         questionPairWidget: questionPair,
-        onTermsConditionsClick: (String key) async {
-          showLoadingDialog(tapDismiss: false);
-          String url = await ApiRepository.getRemoteConfigValue(key);
-          print(url);
-          hideLoadingDialog();
+        onTermsConditionsClick: (String url) async {
           AppConstants.launchUrl(url);
         });
   }
