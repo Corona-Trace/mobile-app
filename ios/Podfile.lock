@@ -14,20 +14,10 @@ PODS:
   - Firebase/Messaging (6.20.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 4.3.0)
-  - Firebase/RemoteConfig (6.20.0):
-    - Firebase/CoreOnly
-    - FirebaseRemoteConfig (~> 4.4.9)
   - firebase_messaging (0.0.1):
     - Firebase/Core
     - Firebase/Messaging
     - Flutter
-  - firebase_remote_config (0.0.1):
-    - Firebase/RemoteConfig
-    - Flutter
-  - FirebaseABTesting (3.2.0):
-    - FirebaseAnalyticsInterop (~> 1.3)
-    - FirebaseCore (~> 6.1)
-    - Protobuf (>= 3.9.2, ~> 3.9)
   - FirebaseAnalytics (6.3.1):
     - FirebaseCore (~> 6.6)
     - FirebaseInstallations (~> 1.1)
@@ -67,14 +57,6 @@ PODS:
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/Reachability (~> 6.5)
     - GoogleUtilities/UserDefaults (~> 6.5)
-    - Protobuf (>= 3.9.2, ~> 3.9)
-  - FirebaseRemoteConfig (4.4.9):
-    - FirebaseABTesting (~> 3.1)
-    - FirebaseAnalyticsInterop (~> 1.4)
-    - FirebaseCore (~> 6.2)
-    - FirebaseInstanceID (~> 4.2)
-    - GoogleUtilities/Environment (~> 6.2)
-    - "GoogleUtilities/NSData+zlib (~> 6.2)"
     - Protobuf (>= 3.9.2, ~> 3.9)
   - Flutter (1.0.0)
   - flutter_background_geolocation (1.7.1):
@@ -162,7 +144,6 @@ DEPENDENCIES:
   - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
-  - firebase_remote_config (from `.symlinks/plugins/firebase_remote_config/ios`)
   - Flutter (from `Flutter`)
   - flutter_background_geolocation (from `.symlinks/plugins/flutter_background_geolocation/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
@@ -186,7 +167,6 @@ SPEC REPOS:
   trunk:
     - CocoaLumberjack
     - Firebase
-    - FirebaseABTesting
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
     - FirebaseCore
@@ -195,7 +175,6 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseMessaging
-    - FirebaseRemoteConfig
     - FMDB
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -213,8 +192,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/device_info/ios"
   firebase_messaging:
     :path: ".symlinks/plugins/firebase_messaging/ios"
-  firebase_remote_config:
-    :path: ".symlinks/plugins/firebase_remote_config/ios"
   Flutter:
     :path: Flutter
   flutter_background_geolocation:
@@ -258,8 +235,6 @@ SPEC CHECKSUMS:
   device_info: cbf09d2ec12aa7110e0b09fabe54b5bd6c8efe74
   Firebase: fe7f74012742ab403451dd283e6909b8f1fb348a
   firebase_messaging: cffb57ce40958c6204f03fb0c81713e4cd1e240c
-  firebase_remote_config: f3581c5addecc691a968f2a7f2bcdf0878509bfd
-  FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
   FirebaseAnalytics: 572e467f3d977825266e8ccd52674aa3e6f47eac
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
   FirebaseCore: ed0a24c758a57c2b88c5efa8e6a8195e868af589
@@ -268,7 +243,6 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
   FirebaseInstanceID: 7ee0d6777013bb952f377b41965bf132b6a075be
   FirebaseMessaging: 4ec33842d36b3319e062e51fb8b35a74f726950d
-  FirebaseRemoteConfig: 47abf7a04a9082091955ea555aa79cfdd249b19c
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_background_geolocation: 003af3f973a6a6cc8d7b19ddedad13210083466f
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186

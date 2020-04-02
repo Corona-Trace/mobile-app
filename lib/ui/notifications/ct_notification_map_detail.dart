@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:corona_trace/network/repository_notifications.dart';
+import 'package:corona_trace/network/notification/response_notification_item.dart';
 import 'package:corona_trace/ui/base_state.dart';
 import 'package:corona_trace/ui/notifications/ct_notification_detail_card.dart';
 import 'package:corona_trace/utils/app_localization.dart';
