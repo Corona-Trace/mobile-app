@@ -27,7 +27,7 @@ class PushNotifications {
               Platform.isAndroid ? myBackgroundMessageHandler : null,
           onMessage: (Map<String, dynamic> message) async {
             print("on message called");
-            showNotification(message);
+            showNotification(message["data"]);
           },
           onResume: (Map<String, dynamic> message) async {
             print("on onResume called");
@@ -112,11 +112,8 @@ class PushNotifications {
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(
-        0,
-        message["notification"]['title'].toString(),
-        message["notification"]['body'].toString(),
-        platformChannelSpecifics,
+    await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
+        message['body'].toString(), platformChannelSpecifics,
         payload: JSON.jsonEncode(message));
   }
 
