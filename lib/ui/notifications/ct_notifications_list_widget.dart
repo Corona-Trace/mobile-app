@@ -1,6 +1,6 @@
-import 'package:corona_trace/ui/notifications/blocs/ct_notification_bloc.dart';
-import 'package:corona_trace/ui/notifications/blocs/notification_bloc_event.dart';
-import 'package:corona_trace/ui/notifications/blocs/notification_bloc_state.dart';
+import 'package:corona_trace/bloc/notification/ct_notification_bloc.dart';
+import 'package:corona_trace/bloc/notification/notification_bloc_event.dart';
+import 'package:corona_trace/bloc/notification/notification_bloc_state.dart';
 import 'package:corona_trace/ui/notifications/ct_loader.dart';
 import 'package:corona_trace/ui/notifications/ct_notification_detail_card.dart';
 import 'package:corona_trace/ui/notifications/ct_notification_item.dart';
@@ -56,11 +56,11 @@ class __NotificationsBlocListWidgetState
   Widget build(BuildContext context) {
     return BlocBuilder<CTNotificationsBloc, NotificationsBlocState>(
       bloc: _bloc,
-      builder: (context, state) => _content(state),
+      builder: _content,
     );
   }
 
-  Widget _content(NotificationsBlocState state) {
+  Widget _content(BuildContext context, NotificationsBlocState state) {
     if (state.isInitialLoading()) {
       return Center(
         child: CTLoader(50, 50),

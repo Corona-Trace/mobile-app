@@ -2,7 +2,7 @@ import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/api_repository.dart';
-import 'package:corona_trace/push_notifications/push_notifications.dart';
+import 'package:corona_trace/service/push_notifications/push_notifications.dart';
 import 'package:corona_trace/ui/base_state.dart';
 import 'package:corona_trace/ui/ct_common_header.dart';
 import 'package:corona_trace/ui/notifications/notification_list_screen.dart';
@@ -13,6 +13,7 @@ import 'package:corona_trace/utils/app_localization.dart';
 import 'package:corona_trace/utils/slack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 class UserInfoCollectorScreen extends StatefulWidget {
   @override
   _UserInfoCollectorScreenState createState() =>
@@ -246,11 +247,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         subSectionDescription: subHeaderText,
         subHeaderTitleText: subHeaderTitleText,
         questionPairWidget: questionPair,
-        onTermsConditionsClick: (String key) async {
-          showLoadingDialog(tapDismiss: false);
-          String url = await ApiRepository.getRemoteConfigValue(key);
-          print(url);
-          hideLoadingDialog();
+        onTermsConditionsClick: (String url) async {
           AppConstants.launchUrl(url);
         });
   }

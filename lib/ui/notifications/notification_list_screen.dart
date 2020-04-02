@@ -1,7 +1,7 @@
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/api_repository.dart';
-import 'package:corona_trace/push_notifications/push_notifications.dart';
+import 'package:corona_trace/service/push_notifications/push_notifications.dart';
 import 'package:corona_trace/ui/base_state.dart';
 import 'package:corona_trace/ui/ct_common_header.dart';
 import 'package:corona_trace/ui/notifications/ct_notifications_list_widget.dart';
