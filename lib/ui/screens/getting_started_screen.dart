@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/service/push_notifications/push_notifications.dart';
@@ -119,26 +120,7 @@ class _GettingStartedState extends BaseState<GettingStarted> {
                             ],
                           ),
                           onPressed: () async {
-                            await PushNotifications.registerNotification();
-                            try {
-                              await LocationUpdates.requestPermissions();
-                              var denied =
-                                  await LocationUpdates.arePermissionsDenied();
-                              if (denied) {
-                                LocationUpdates
-                                    .showLocationPermissionsNotAvailableDialog(
-                                        context);
-                              } else {
-                                showLoadingDialog(tapDismiss: false);
-                                await ApiRepository.setOnboardingDone(true);
-                                hideLoadingDialog();
-                                navigateCollectInformation(context);
-                              }
-                            } catch (ex) {
-                              LocationUpdates
-                                  .showLocationPermissionsNotAvailableDialog(
-                                      context);
-                            }
+                            await handleGetStarted(context);
                           },
                         )),
                     margin: EdgeInsets.only(bottom: 20),
@@ -150,6 +132,36 @@ class _GettingStartedState extends BaseState<GettingStarted> {
         ),
       ),
     );
+  }
+
+  Future handleGetStarted(BuildContext context) async {
+    await PushNotifications.registerNotification();
+    try {
+      await LocationUpdates.requestPermissions();
+      var denied =
+          await LocationUpdates.arePermissionsDenied();
+      if (denied) {
+        onPermissionsDenied(context);
+      } else {
+        await onPremissionAvailable(context);
+        await CTAnalyticsManager.instance.logPermissionsGranted();
+    }
+    } catch (ex) {
+      onPermissionsDenied(context);
+    }
+  }
+
+  void onPermissionsDenied(BuildContext context) {
+    LocationUpdates
+        .showLocationPermissionsNotAvailableDialog(
+            context);
+  }
+
+  Future onPremissionAvailable(BuildContext context) async {
+           showLoadingDialog(tapDismiss: false);
+    await ApiRepository.setOnboardingDone(true);
+    hideLoadingDialog();
+    navigateCollectInformation(context);
   }
 
   void navigateCollectInformation(BuildContext context) {
