@@ -1,3 +1,4 @@
+import 'package:corona_trace/analytics/CTAnalyticsEvents.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 
@@ -13,9 +14,20 @@ class CTAnalyticsManager {
 
   CTAnalyticsManager._internal() {
     _analytics = FirebaseAnalytics();
-    _firebaseAnalyticsObserver = FirebaseAnalyticsObserver(analytics: _analytics);
+    _firebaseAnalyticsObserver =
+        FirebaseAnalyticsObserver(analytics: _analytics);
   }
 
-  getFBAnalytics() => _analytics;
-  getFBAnalyticsObserver() => _firebaseAnalyticsObserver;
+  FirebaseAnalytics getFBAnalytics() => _analytics;
+
+  FirebaseAnalyticsObserver getFBAnalyticsObserver() =>
+      _firebaseAnalyticsObserver;
+
+  logPermissionsGranted() {
+    getFBAnalytics()
+        .logEvent(name: CTAnalyticsEvents.PERMISSIONS_GRANTED_INITIAL)
+        .catchError((error) {
+      print(error);
+    });
+  }
 }
