@@ -1,3 +1,4 @@
+import 'package:corona_trace/CTAnalyticsManager.dart';
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/ui/notifications/ct_loader.dart';
 import 'package:firebase_analytics/observer.dart';
@@ -11,7 +12,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
   @override
   void initState() {
     super.initState();
-    MyApp.analytics.setCurrentScreen(screenName: screenName()).catchError(
+    CTAnalyticsManager.instance.getFBAnalytics().setCurrentScreen(screenName: screenName()).catchError(
       (Object error) {
         debugPrint('$FirebaseAnalyticsObserver: $error');
       },

@@ -1,3 +1,4 @@
+import 'package:corona_trace/CTAnalyticsManager.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui/notifications/notification_list_screen.dart';
 import 'package:corona_trace/ui/screens/onboarding.dart';
@@ -40,8 +41,6 @@ final GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   final bool isOnboardinDone;
   final int severity;
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver firebaseAnalyticsObserver = FirebaseAnalyticsObserver(analytics: analytics);
 
   MyApp(this.isOnboardinDone, this.severity);
 
@@ -55,7 +54,7 @@ class MyApp extends StatelessWidget {
     return MediaQuery(
       child: MaterialApp(
           navigatorObservers: [
-            firebaseAnalyticsObserver,
+            CTAnalyticsManager.instance.getFBAnalyticsObserver(),
           ],
         localizationsDelegates: [
           const AppLocalizationsDelegate(),
