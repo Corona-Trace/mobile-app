@@ -296,4 +296,9 @@ class _OnboardingScreenState extends BaseState<OnboardingScreen> {
           },
         ));
   }
+
+  @override
+  String screenName() {
+    return "screen_onboarding";
+  }
 }
