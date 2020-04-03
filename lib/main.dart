@@ -2,6 +2,8 @@ import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui/notifications/notification_list_screen.dart';
 import 'package:corona_trace/ui/screens/onboarding.dart';
 import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -38,6 +40,8 @@ final GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
   final bool isOnboardinDone;
   final int severity;
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver firebaseAnalyticsObserver = FirebaseAnalyticsObserver(analytics: analytics);
 
   MyApp(this.isOnboardinDone, this.severity);
 
@@ -50,6 +54,9 @@ class MyApp extends StatelessWidget {
   MediaQuery getMaterialApp(bool isOnboardinDone, int severity) {
     return MediaQuery(
       child: MaterialApp(
+          navigatorObservers: [
+            firebaseAnalyticsObserver,
+          ],
         localizationsDelegates: [
           const AppLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,

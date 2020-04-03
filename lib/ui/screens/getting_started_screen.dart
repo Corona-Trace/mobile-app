@@ -16,6 +16,12 @@ class GettingStarted extends StatefulWidget {
 }
 
 class _GettingStartedState extends BaseState<GettingStarted> {
+
+  @override
+  String screenName() {
+    return "screen_getting_started";
+  }
+
   @override
   Widget prepareWidget(BuildContext context) {
     return Scaffold(
