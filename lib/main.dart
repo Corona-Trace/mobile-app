@@ -5,6 +5,7 @@ import 'package:corona_trace/ui/screens/onboarding.dart';
 import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -12,6 +13,11 @@ import 'utils/app_localization.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Crashlytics.instance.enableInDevMode = true;
+
+  // Pass all uncaught errors from the framework to Crashlytics.
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+
   ApiRepository.getIsOnboardingDone().then((onboardingDone) {
     ApiRepository.getUserSeverity().then((userSeverity) {
       var isOnboardinDone = onboardingDone == null ? false : onboardingDone;
