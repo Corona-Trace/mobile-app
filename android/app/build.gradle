@@ -104,4 +104,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
 }
 
+apply plugin: 'io.fabric'
 apply plugin: 'com.google.gms.google-services'  // Google Services plugin
