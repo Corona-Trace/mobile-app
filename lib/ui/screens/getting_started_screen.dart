@@ -120,7 +120,7 @@ class _GettingStartedState extends BaseState<GettingStarted> {
                             ],
                           ),
                           onPressed: () async {
-                            await handleGetStarted(context);
+                            await onPressedBtnGetStarted(context);
                           },
                         )),
                     margin: EdgeInsets.only(bottom: 20),
@@ -134,7 +134,7 @@ class _GettingStartedState extends BaseState<GettingStarted> {
     );
   }
 
-  Future handleGetStarted(BuildContext context) async {
+  Future onPressedBtnGetStarted(BuildContext context) async {
     await PushNotifications.registerNotification();
     try {
       await LocationUpdates.requestPermissions();
