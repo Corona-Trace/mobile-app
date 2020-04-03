@@ -23,6 +23,11 @@ class _NotificationMapDetailState extends BaseState<CTNotificationMapDetail> {
   Set<Marker> _markers = new Set<Marker>();
 
   @override
+  String screenName() {
+    return "screen_notification_map_detail";
+  }
+
+  @override
   void initState() {
     super.initState();
     inititalCameraPosition = CameraPosition(

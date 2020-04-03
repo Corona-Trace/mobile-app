@@ -30,6 +30,11 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
   var stack = StackCollect();
 
   @override
+  String screenName() {
+    return "screen_user_info_collector";
+  }
+
+  @override
   void initState() {
     super.initState();
     stack.push(SCREEN_FEELING_TODAY);

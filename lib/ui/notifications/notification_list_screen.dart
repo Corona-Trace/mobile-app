@@ -17,6 +17,12 @@ class NotificationsListScreen extends StatefulWidget {
 }
 
 class _NotificationsListScreenState extends BaseState<NotificationsListScreen> {
+
+  @override
+  String screenName() {
+    return "notifications_list_screen";
+  }
+
   @override
   void initState() {
     super.initState();

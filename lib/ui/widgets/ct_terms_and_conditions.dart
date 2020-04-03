@@ -1,3 +1,4 @@
+import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/utils/app_localization.dart';
@@ -22,6 +23,7 @@ class TermsAndConditions extends StatelessWidget {
                 text: AppLocalization.text("Legal.Terms.Conditions"),
                 recognizer: new TapGestureRecognizer()
                   ..onTap = () {
+                    CTAnalyticsManager.instance.logClickTermsAndConditions();
                     onTermsConditionsClick(ApiRepository.TERMS_AND_CONDITIONS);
                   },
                 style: new TextStyle(fontWeight: FontWeight.bold)),
@@ -30,6 +32,7 @@ class TermsAndConditions extends StatelessWidget {
                 text: AppLocalization.text("Legal.Privacy.Policy"),
                 recognizer: new TapGestureRecognizer()
                   ..onTap = () {
+                    CTAnalyticsManager.instance.logClickPrivacyPolicy();
                     onTermsConditionsClick(ApiRepository.PRIVACY_POLICY);
                   },
                 style: new TextStyle(fontWeight: FontWeight.bold)),
