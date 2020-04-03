@@ -24,9 +24,19 @@ class CTAnalyticsManager {
       _firebaseAnalyticsObserver;
 
   logPermissionsGranted() {
-    getFBAnalytics()
-        .logEvent(name: CTAnalyticsEvents.PERMISSIONS_GRANTED_INITIAL)
-        .catchError((error) {
+    _logEventInternal(CTAnalyticsEvents.PERMISSIONS_GRANTED_INITIAL);
+  }
+
+  void logClickTermsAndConditions() {
+    _logEventInternal(CTAnalyticsEvents.CLICK_TERMS_CONDITIONS);
+  }
+
+  void logClickPrivacyPolicy() {
+    _logEventInternal(CTAnalyticsEvents.CLICK_PRIVACY_POLICY);
+  }
+
+  void _logEventInternal(eventName) {
+    getFBAnalytics().logEvent(name: eventName).catchError((error) {
       print(error);
     });
   }
