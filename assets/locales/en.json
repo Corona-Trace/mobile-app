@@ -71,5 +71,7 @@
   "Location.Authorization.Alert.Permission.Always":"Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.",
   "Location.Authorization.Alert.Disabled":"Your location-services are disabled",
   "Location.Authorization.Stopped":"We won't track your location and no anonymous location-based information will be sent to you",
-  "Location.Tray.Notification":"Your location is being tracked, but all data will be anonymous."
+  "Location.Tray.Notification":"Your location is being tracked, but all data will be anonymous.",
+  "Network.NotConnected":"You are not connected to the internet!",
+  "Network.Error":"Network Error"
 }
