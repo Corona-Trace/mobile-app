@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/main.dart';
@@ -316,16 +317,19 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     return Container();
   }
 
-  static Future<void> notifyNetworkError(
-      BuildContext context) async {
+  static Future<void> notifyNetworkError(BuildContext context) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    var dialogTextString = 
+        connectivityResult == ConnectivityResult.none ? 
+        AppLocalization.text("Network.NotConnected") : 
+        AppLocalization.text("Network.Error");
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
         if (Platform.isIOS) {
           return CupertinoAlertDialog(
-            content: Text(
-                AppLocalization.text("Network.Error")),
+            content: Text(dialogTextString),
             actions: <Widget>[
               CupertinoDialogAction(
                 child: Text(AppLocalization.text("Ok")),
@@ -337,8 +341,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           );
         } else {
           return AlertDialog(
-            content: Text(
-                AppLocalization.text("Network.Error")),
+            content: Text(dialogTextString),
             actions: <Widget>[
               FlatButton(
                 child: Text(AppLocalization.text("Ok")),
