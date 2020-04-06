@@ -4,6 +4,11 @@ PODS:
   - CocoaLumberjack (3.6.1):
     - CocoaLumberjack/Core (= 3.6.1)
   - CocoaLumberjack/Core (3.6.1)
+  - connectivity (0.0.1):
+    - Flutter
+    - Reachability
+  - connectivity_macos (0.0.1):
+    - Flutter
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - device_info (0.0.1):
@@ -138,6 +143,7 @@ PODS:
     - Flutter
   - PromisesObjC (1.2.8)
   - Protobuf (3.11.4)
+  - Reachability (3.2)
   - shared_preferences (0.0.1):
     - Flutter
   - shared_preferences_macos (0.0.1):
@@ -156,6 +162,8 @@ PODS:
 
 DEPENDENCIES:
   - background_fetch (from `.symlinks/plugins/background_fetch/ios`)
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - connectivity_macos (from `.symlinks/plugins/connectivity_macos/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
@@ -202,10 +210,15 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Protobuf
+    - Reachability
 
 EXTERNAL SOURCES:
   background_fetch:
     :path: ".symlinks/plugins/background_fetch/ios"
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
+  connectivity_macos:
+    :path: ".symlinks/plugins/connectivity_macos/ios"
   device_info:
     :path: ".symlinks/plugins/device_info/ios"
   firebase_analytics:
@@ -254,6 +267,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   background_fetch: 733393ca9893eadff0f7297a3818afe57fd68cb1
   CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
+  connectivity: 6e94255659cc86dcbef1d452ad3e0491bb1b3e75
+  connectivity_macos: e2e9731b6b22dda39eb1b128f6969d574460e191
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   device_info: cbf09d2ec12aa7110e0b09fabe54b5bd6c8efe74
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
@@ -289,6 +304,7 @@ SPEC CHECKSUMS:
   permission_handler: 496f0ca3b9af54bbba8ecb8c734cb694903536e5
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
   shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
   shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
