@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/main.dart';
@@ -143,10 +146,17 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           showLoadingDialog(tapDismiss: false);
           var value = await LocationUpdates.initiateLocationUpdates(context);
           if (value) {
-            await ApiRepository.setUserSeverity(1);
-            dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+            try {
+              await ApiRepository.setUserSeverity(1);
+              dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+              hideLoadingDialog();
+            } catch(ex) {
+              debugPrint('setUserSeverity Failed: $ex');
+              notifyNetworkError(context);
+              hideLoadingDialog();
+              _onPopScope();
+            }
           }
-          hideLoadingDialog();
         },
         onPositiveQuestionClick: () async {
           await onClickCancel();
@@ -163,9 +173,15 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
     if (severity == null || (severity != null && severity == -1)) {
     } else {
       showLoadingDialog(tapDismiss: false);
-      await ApiRepository.setUserSeverity(-1);
-      hideLoadingDialog();
-      LocationUpdates.stopLocationUpdates(context);
+      try {
+        await ApiRepository.setUserSeverity(-1);
+        hideLoadingDialog();
+        LocationUpdates.stopLocationUpdates(context);
+      } catch(ex) {
+        debugPrint('setUserSeverity Failed: $ex');
+        hideLoadingDialog();
+        notifyNetworkError(context);
+      }
     }
     _onPopScope();
   }
@@ -186,10 +202,17 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           showLoadingDialog(tapDismiss: false);
           var value = await LocationUpdates.initiateLocationUpdates(context);
           if (value) {
-            await ApiRepository.setUserSeverity(2);
-            dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+            try {
+              await ApiRepository.setUserSeverity(2);
+              dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+              hideLoadingDialog();
+            } catch(ex) {
+              debugPrint('setUserSeverity Failed: $ex');
+              notifyNetworkError(context);
+              hideLoadingDialog();
+              _onPopScope();
+            }
           }
-          hideLoadingDialog();
         });
 
     return getBottomSheetWidget(
@@ -213,10 +236,17 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
           showLoadingDialog(tapDismiss: false);
           var value = await LocationUpdates.initiateLocationUpdates(context);
           if (value) {
-            await ApiRepository.setUserSeverity(0);
-            dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+            try {
+              await ApiRepository.setUserSeverity(0);
+              dialogOnResponse(SCREEN_ACKNOWLEDGEMENT);
+              hideLoadingDialog();
+            } catch(ex) {
+              debugPrint('setUserSeverity Failed: $ex');
+              notifyNetworkError(context);
+              hideLoadingDialog();
+              _onPopScope();
+            }
           }
-          hideLoadingDialog();
         });
 
     return getBottomSheetWidget(
@@ -285,5 +315,44 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
         }
     }
     return Container();
+  }
+
+  static Future<void> notifyNetworkError(BuildContext context) async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    var dialogTextString = 
+        connectivityResult == ConnectivityResult.none ? 
+        AppLocalization.text("Network.NotConnected") : 
+        AppLocalization.text("Network.Error");
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        if (Platform.isIOS) {
+          return CupertinoAlertDialog(
+            content: Text(dialogTextString),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text(AppLocalization.text("Ok")),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        } else {
+          return AlertDialog(
+            content: Text(dialogTextString),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(AppLocalization.text("Ok")),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      },
+    );
   }
 }

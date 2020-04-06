@@ -66,7 +66,7 @@ class PushNotifications {
           builder: (BuildContext context) =>
               CTNotificationMapDetail(crossedPaths: true, notification: item)));
     } catch (ex) {
-      debugPrint(ex);
+      debugPrint('navigateToMapDetail Failed: $ex');
     }
   }
 
