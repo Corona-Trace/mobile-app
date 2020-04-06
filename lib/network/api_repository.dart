@@ -18,7 +18,8 @@ class ApiRepository {
 
   ApiRepository._internal() {}
 
-  static Dio _dio = Dio();
+  static BaseOptions dioOptions = new BaseOptions(connectTimeout: 15000, receiveTimeout: 30000);
+  static Dio _dio = Dio(dioOptions);
   static const TOKEN = "TOKEN";
   static const API_URL =
       "http://coronatrace-env.eba-pq4gc2ry.us-east-2.elasticbeanstalk.com";
@@ -55,7 +56,8 @@ class ApiRepository {
       var body = getSeverityBody(severity, deviceID);
       await _dio.patch("$API_URL/users", data: JSON.jsonEncode(body));
     } catch (ex) {
-      debugPrint(ex);
+      debugPrint('setUserSeverity Failed: $ex');
+      throw ex;
     }
   }
 
@@ -67,6 +69,7 @@ class ApiRepository {
       debugPrint(url);
       return ResponseNotifications.map(JSON.json.decode(response.body));
     } catch (ex) {
+      debugPrint('getNotificationsList Failed: $ex');
       throw ex;
     }
   }
