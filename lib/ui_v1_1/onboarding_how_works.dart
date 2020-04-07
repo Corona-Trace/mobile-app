@@ -1,8 +1,11 @@
-import 'package:corona_trace/main.dart';
+import 'package:corona_trace/ui_v1_1/onboarding_zip_pages/page_app_availability.dart';
+import 'package:corona_trace/ui_v1_1/onboarding_zip_pages/page_enter_zip_one.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingCheckAvailability extends StatelessWidget {
+  final PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,7 +63,7 @@ class OnboardingCheckAvailability extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
                 onPressed: () {
-                  btnCheckAvailability();
+                  btnCheckAvailability(context);
                 },
               ),
             ),
@@ -71,7 +74,25 @@ class OnboardingCheckAvailability extends StatelessWidget {
     ));
   }
 
-  void btnCheckAvailability() {
-
+  void btnCheckAvailability(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        builder: (context) {
+          return FractionallySizedBox(
+            child: PageView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              children: <Widget>[
+                OnboardingCheckAvailabilityCheckZip(_pageController),
+                PageAppAvailability(_pageController)
+              ],
+            ),
+            heightFactor: 0.85,
+          );
+        });
   }
 }

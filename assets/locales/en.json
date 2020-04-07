@@ -76,5 +76,14 @@
   "Location.Authorization.Stopped":"We won't track your location and no anonymous location-based information will be sent to you",
   "Location.Tray.Notification":"Your location is being tracked, but all data will be anonymous.",
   "Network.NotConnected":"You are not connected to the internet!",
-  "Network.Error":"Network Error"
+  "Network.Error":"Network Error",
+
+  "submit": "Submit",
+  "onboarding.enter.zip": "Enter your ZIP Code to see if CoronaTrace is available in your area.",
+  "onboarding.looks.like.not.available": "It looks like CoronaTrace is not available in your area yet. ",
+  "onboarding.notavailable.subtitle": "It is taking some extra time for our team to meet the privacy laws and standards in your area. As soon as CoronaTrace is ready for you would you like to be notified?",
+  "hint.onboarding.enter.email": "Enter Email Address",
+  "notify.me": "Notify Me",
+  "not.right.now": "Not Right Now",
+  "hint.onboarding.enter.zip": "Enter ZIP Code"
 }
