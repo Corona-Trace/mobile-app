@@ -9,6 +9,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'ui_v1_1/onboarding_how_works.dart';
 import 'utils/app_localization.dart';
 
 void main() {
@@ -62,41 +63,42 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [
             CTAnalyticsManager.instance.getFBAnalyticsObserver(),
           ],
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('en'),
-          const Locale('es'),
-          const Locale('it'),
-          const Locale('fr'),
-        ],
-        localeResolutionCallback:
-            (Locale locale, Iterable<Locale> supportedLocales) {
-          if (locale == null) {
-            debugPrint("*language locale is null!!!");
-            return supportedLocales.first;
-          }
-          for (Locale supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode ||
-                supportedLocale.countryCode == locale.countryCode) {
-              return supportedLocale;
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: [
+            const Locale('en'),
+            const Locale('es'),
+            const Locale('it'),
+            const Locale('fr'),
+          ],
+          localeResolutionCallback:
+              (Locale locale, Iterable<Locale> supportedLocales) {
+            if (locale == null) {
+              debugPrint("*language locale is null!!!");
+              return supportedLocales.first;
             }
-          }
-          return supportedLocales.first;
-        },
-        debugShowCheckedModeBanner: false,
-        title: 'CoronaTrace',
-        navigatorKey: globalKey,
-        theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
-        home: isOnboardinDone
+            for (Locale supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode ||
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
+          },
+          debugShowCheckedModeBanner: false,
+          title: 'CoronaTrace',
+          navigatorKey: globalKey,
+          theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
+          home: OnboardingCheckAvailability()
+          /* home: isOnboardinDone
             ? severity == -1
                 ? UserInfoCollectorScreen()
                 : NotificationsListScreen()
-            : OnboardingScreen(),
-      ),
+            : OnboardingScreen(),*/
+          ),
       data: MediaQueryData(),
     );
   }
