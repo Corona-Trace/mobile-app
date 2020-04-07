@@ -1,10 +1,22 @@
+import 'package:corona_trace/ui_v1_1/OnboardingStatus.dart';
 import 'package:corona_trace/ui_v1_1/onboarding_zip_pages/page_app_availability.dart';
+import 'package:corona_trace/ui_v1_1/onboarding_zip_pages/page_app_available_status.dart';
 import 'package:corona_trace/ui_v1_1/onboarding_zip_pages/page_enter_zip_one.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingCheckAvailability extends StatelessWidget {
+class OnboardingCheckAvailability extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return OnboardingCheckAvailabilityState();
+  }
+}
+
+class OnboardingCheckAvailabilityState
+    extends State<OnboardingCheckAvailability> {
   final PageController _pageController = PageController();
+
+  bool _isAvailable = false;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +87,7 @@ class OnboardingCheckAvailability extends StatelessWidget {
   }
 
   void btnCheckAvailability(BuildContext context) {
+    print("refreshed");
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -87,12 +100,35 @@ class OnboardingCheckAvailability extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               controller: _pageController,
               children: <Widget>[
-                OnboardingCheckAvailabilityCheckZip(_pageController),
-                PageAppAvailability(_pageController)
+                OnboardingCheckAvailabilityCheckZip(onBoardStatusUpdate),
+                PageAppAvailability(onBoardStatusUpdate),
+                PageAppAvailabilityStatus(_isAvailable)
               ],
             ),
             heightFactor: 0.85,
           );
         });
+  }
+
+  void onBoardStatusUpdate(OnboaringStatus status) {
+    if (status is OnboaringStatusZip) {
+      // TODO validate the status.zip;
+      if (status.zip == "111111") {
+        print("value true");
+        _isAvailable = true;
+        setState(() {});
+        _pageController.jumpToPage(2);
+      } else {
+        setState(() {});
+        print("value false");
+        _pageController.nextPage(
+            duration: Duration(milliseconds: 250),
+            curve: Curves.easeInToLinear);
+      }
+    } else if (status is OnboaringStatusEmail) {
+      // TODO validate the status.email and send post API to save it with the zip code;
+      _pageController.nextPage(
+          duration: Duration(milliseconds: 250), curve: Curves.easeInToLinear);
+    }
   }
 }

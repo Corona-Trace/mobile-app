@@ -1,11 +1,12 @@
+import 'package:corona_trace/ui_v1_1/OnboardingStatus.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PageAppAvailability extends StatefulWidget {
-  final PageController pageController;
+  final Function(OnboaringStatus status) onboardStatusUpdate;
 
-  PageAppAvailability(this.pageController);
+  PageAppAvailability(this.onboardStatusUpdate);
 
   @override
   State<StatefulWidget> createState() {
@@ -57,9 +58,9 @@ class PageAppAvailabilityState extends State<PageAppAvailability> {
                 style: TextStyle(color: Colors.white, fontSize: 17),
               ),
               onPressed: () {
-                widget.pageController.nextPage(
-                    duration: Duration(milliseconds: 250),
-                    curve: Curves.easeInToLinear);
+                FocusScope.of(context).unfocus();
+                widget.onboardStatusUpdate
+                    .call(OnboaringStatusEmail(_emailController.value.text));
               },
             ),
           ),
@@ -79,9 +80,7 @@ class PageAppAvailabilityState extends State<PageAppAvailability> {
               style: TextStyle(color: Color(0xff475DF3), fontSize: 17),
             ),
             onPressed: () {
-              widget.pageController.nextPage(
-                  duration: Duration(milliseconds: 250),
-                  curve: Curves.easeInToLinear);
+             Navigator.pop(context);
             },
           ),
           margin: EdgeInsets.only(bottom: 20),

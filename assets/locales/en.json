@@ -85,5 +85,7 @@
   "hint.onboarding.enter.email": "Enter Email Address",
   "notify.me": "Notify Me",
   "not.right.now": "Not Right Now",
-  "hint.onboarding.enter.zip": "Enter ZIP Code"
+  "hint.onboarding.enter.zip": "Enter ZIP Code",
+  "app.available.area": "CoronaTrace is available in your area. Let’s get setup so that you can start fighting back!",
+  "onboarding.app.we.willsendemail": "We will send you a notification at name@email.com when CoronaTrace is available in your area."
 }

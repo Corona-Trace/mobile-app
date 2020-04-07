@@ -1,10 +1,11 @@
+import 'package:corona_trace/ui_v1_1/OnboardingStatus.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingCheckAvailabilityCheckZip extends StatefulWidget {
-  final PageController pageController;
+  final Function(OnboaringStatus status) onboardStatusUpdate;
 
-  OnboardingCheckAvailabilityCheckZip(this.pageController);
+  OnboardingCheckAvailabilityCheckZip(this.onboardStatusUpdate);
 
   @override
   State<StatefulWidget> createState() {
@@ -51,9 +52,8 @@ class OnboardingCheckAvailabilityCheckZipState
           onPressed: () {
             if (zipAvailable()) {
               FocusScope.of(context).unfocus();
-              widget.pageController.nextPage(
-                  duration: Duration(milliseconds: 250),
-                  curve: Curves.easeInToLinear);
+              widget.onboardStatusUpdate
+                  .call(OnboaringStatusZip(_zipController.value.text));
             }
           },
         ),
