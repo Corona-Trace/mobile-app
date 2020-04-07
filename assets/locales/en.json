@@ -87,5 +87,13 @@
   "not.right.now": "Not Right Now",
   "hint.onboarding.enter.zip": "Enter ZIP Code",
   "app.available.area": "CoronaTrace is available in your area. Let’s get setup so that you can start fighting back!",
-  "onboarding.app.we.willsendemail": "We will send you a notification at name@email.com when CoronaTrace is available in your area."
+  "onboarding.app.we.willsendemail": "We will send you a notification at name@email.com when CoronaTrace is available in your area.",
+  "onboarding.permissions.location.title": "Power-up Your Safety Using Your Phone’s Location",
+  "onboarding.permissions.location.subtitle": "CoronaTrace securely matches other participant’s status and location with yours to determine if you might have crossed paths with someone who has been infected.",
+  "onboarding.permissions.location.button": "Allow Location",
+  "onboarding.permissions.notification.title": "Stay Informed through Notifications",
+  "onboarding.permissions.notification.subtitle": "We’ll seend you notifications to assess your risk of contracting or spreading COVID-19 and what to do next.",
+  "onboarding.permissions.notification.button": "Allow Notifications",
+  "onboarding.checkin.beresponsible.title": "Check-In & Be Responsible",
+  "onboarding.checkin.beresponsible.subtitle": "Update your status if anything changes and follow the latest safety guidelines."
 }
