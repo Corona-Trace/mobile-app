@@ -16,6 +16,7 @@ import 'package:corona_trace/utils/app_localization.dart';
 import 'package:corona_trace/utils/slack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instabug_flutter/Surveys.dart';
 
 class UserInfoCollectorScreen extends StatefulWidget {
   @override
@@ -261,6 +262,11 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
       dialogOnResponse(SCREEN_FEELING_TODAY);
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (BuildContext context) {
+            Surveys.hasRespondedToSurvey("IL6LGhyFAkbvrTnOrs2WLw", (bool hasResponded){
+              if (!hasResponded) {
+                Surveys.showSurvey("IL6LGhyFAkbvrTnOrs2WLw");
+              }
+            });
         return NotificationsListScreen();
       }), (route) => false);
     });

@@ -38,7 +38,7 @@ class HomeFirstTimeCheckInScreen extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => PrivacyTermsAndConditionsScreen()),
+                    builder: (BuildContext context) => UserInfoCollectorScreen()),
                     (route) => false);
           },
         ),

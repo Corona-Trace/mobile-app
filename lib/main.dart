@@ -8,6 +8,8 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:instabug_flutter/Instabug.dart';
+import 'package:instabug_flutter/Surveys.dart';
 
 import 'ui_v1_1/onboarding_how_works.dart';
 import 'utils/app_localization.dart';
@@ -18,6 +20,9 @@ void main() {
 
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
+
+  Instabug.start('d8d9d6c113ba17e5d515d3581726c9a0', [InvocationEvent.none]);
+  Surveys.setAutoShowingEnabled(false);
 
   ApiRepository.getIsOnboardingDone().then((onboardingDone) {
     ApiRepository.getUserSeverity().then((userSeverity) {
