@@ -21,6 +21,47 @@ class AtRiskNotificationDetail extends StatelessWidget {
               getWatchForSymptomsColumn(),
               getWhenToSeekMedical(),
               SizedBox(height: 20),
+              ListTile(
+                title: Text(
+                  "Learn how to protect yourself",
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                ),
+                trailing: Icon(Icons.arrow_forward_ios),
+              ),
+              Divider(
+                height: 0.5,
+                color: Color(0xffBAC8E1),
+                indent: 20,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              ListTile(
+                title: Text("How to care for someone who is sick",
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                trailing: Icon(Icons.arrow_forward_ios),
+              ),
+              Divider(
+                height: 0.5,
+                color: Color(0xffBAC8E1),
+                indent: 20,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              ListTile(
+                title: Text("What to do if you are sick",
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                trailing: Icon(Icons.arrow_forward_ios),
+              ),
+              Divider(
+                height: 0.5,
+                color: Color(0xffBAC8E1),
+                indent: 20,
+              ),
+              SizedBox(
+                height: 30,
+              ),
               Container(
                 child: MaterialButton(
                   height: 50,
