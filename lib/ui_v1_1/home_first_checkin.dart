@@ -1,4 +1,5 @@
 import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
+import 'package:corona_trace/ui_v1_1/privacy/privacy_screen.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,7 @@ class HomeFirstTimeCheckInScreen extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => UserInfoCollectorScreen()),
+                    builder: (BuildContext context) => PrivacyTermsAndConditionsScreen()),
                     (route) => false);
           },
         ),
