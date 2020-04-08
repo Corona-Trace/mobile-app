@@ -77,7 +77,9 @@ flutter:
     - assets/images/Illustration_ClearStatus.png
     - assets/images/onboarding_location_permission.png
     - assets/images/onboarding_checkin_beresponsible.png
-    - assets/images/onboarding_notification_permission.png 
+    - assets/images/onboarding_notification_permission.png
+    - assets/images/checkin_dash.png
+    - assets/images/status.png
     - assets/locales/en.json
     - assets/locales/es.json
     - assets/locales/it.json
