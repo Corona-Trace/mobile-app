@@ -101,5 +101,11 @@
   "answers.to.next.few.help": "Your answers to the next few questions will help you and your community fight back against the spread of COVID-19 by tracing the steps of the virus through your status and anonymous location information.  ",
   "confirm.delete.data": "Please confirm that you would like CoronaTrace to delete all of your data",
   "delete.my.data": "Delete My Data",
-  "privacy": "Privacy"
+  "privacy": "Privacy",
+  "Status": "Status",
+  "you.maybe.risk": "You may be at risk",
+  "last.checkin": "Last Check-In",
+  "not.feeling.sick": "I am not feeling sick",
+  "next.steps": "Next Steps",
+  "notify.someone": "Notify Someone"
 }
