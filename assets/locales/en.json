@@ -107,5 +107,6 @@
   "last.checkin": "Last Check-In",
   "not.feeling.sick": "I am not feeling sick",
   "next.steps": "Next Steps",
-  "notify.someone": "Notify Someone"
+  "notify.someone": "Notify Someone",
+  "your.location.data.suggest": "Your location data suggests that you may have crossed paths with someone who tested positive for COVID-19 at the following location."
 }

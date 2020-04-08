@@ -1,3 +1,4 @@
+import 'package:corona_trace/ui_v1_1/home_checkin/home_atrisk_notificationdetail.dart';
 import 'package:corona_trace/ui_v1_1/privacy/privacy_screen.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,7 @@ class HomeCheckinDashboard extends StatelessWidget {
         SizedBox(
           height: 50,
         ),
-        getRiskListTile(),
+        getRiskListTile(context, showTrailing: true),
         SizedBox(
           height: 30,
         ),
@@ -183,45 +184,64 @@ class HomeCheckinDashboard extends StatelessWidget {
       ],
     );
   }
+}
 
-  ListTile getRiskListTile() {
-    return ListTile(
-      trailing: Icon(Icons.arrow_forward_ios),
-      leading: SizedBox(
-        child: Image.asset("assets/images/status.png"),
-        width: 50,
-        height: 50,
-      ),
-      title: Text(
-        AppLocalization.text("Status"),
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(AppLocalization.text("you.maybe.risk"),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          Text("March 31, 2020 5:30pm",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
-        ],
-      ),
-    );
-  }
+ListTile getRiskListTile(BuildContext context, {bool showTrailing}) {
+  return ListTile(
+    onTap: () {
+      if (showTrailing) {
+        showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            builder: (context) {
+              return FractionallySizedBox(
+                child: AtRiskNotificationDetail(),
+                heightFactor: 0.85,
+              );
+            });
+      }
+    },
+    trailing: Icon(
+      Icons.arrow_forward_ios,
+      color: showTrailing ? Colors.grey : Colors.white,
+    ),
+    leading: SizedBox(
+      child: Image.asset("assets/images/status.png"),
+      width: 50,
+      height: 50,
+    ),
+    title: Text(
+      AppLocalization.text("Status"),
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    ),
+    subtitle: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(AppLocalization.text("you.maybe.risk"),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Text("March 31, 2020 5:30pm",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+      ],
+    ),
+  );
+}
 
-  ListTile lastCheckinListTile() {
-    return ListTile(
-      trailing: Icon(Icons.arrow_forward_ios),
-      leading: SizedBox(
-        child: Image.asset(
-          "assets/images/checkin_dash.png",
-        ),
-        width: 50,
-        height: 50,
+ListTile lastCheckinListTile() {
+  return ListTile(
+    trailing: Icon(Icons.arrow_forward_ios),
+    leading: SizedBox(
+      child: Image.asset(
+        "assets/images/checkin_dash.png",
       ),
-      title: Text(AppLocalization.text("last.checkin"),
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-      subtitle: Text("March 31, 2020 5:30pm",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-    );
-  }
+      width: 50,
+      height: 50,
+    ),
+    title: Text(AppLocalization.text("last.checkin"),
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+    subtitle: Text("March 31, 2020 5:30pm",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+  );
 }
