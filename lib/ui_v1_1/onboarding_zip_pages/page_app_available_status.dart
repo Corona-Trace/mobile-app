@@ -1,3 +1,4 @@
+import 'package:corona_trace/ui_v1_1/onboarding_location_permission.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +61,15 @@ class PageAppAvailabilityStatus extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 17),
           ),
           onPressed: () {
-            Navigator.pop(context);
+            if (isAvailable) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => OnboardingLocationPermission()),
+                (route) => false);
+            } else {
+              Navigator.pop(context);
+            }
           },
         ),
       ),
