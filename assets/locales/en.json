@@ -38,9 +38,9 @@
   "Answer.Confirm": "Please confirm your answer to continue.",
   "Answer.Confirm.Location.Usage": "Confirm your answer and CoronaTrace will timestamp and use your location anonymously to help stop the spread of COVID-19.",
   "Legal.I.Accept": "By responding, I accept the\n",
-  "Legal.Terms.Conditions": "Terms and Conditions ",
+  "Legal.Terms.Conditions": "Terms & Conditions ",
   "Legal.And": " and ",
-  "Legal.Privacy.Policy": " Privacy Policy.",
+  "Legal.Privacy.Policy": " Privacy Policy",
   "Testing.How": "How to get tested",
   "Testing.Resources": "COVID-19 Testing Resources",
   "Documentation.How": "How to get documentation",
@@ -98,6 +98,8 @@
   "onboarding.checkin.beresponsible.subtitle": "Update your status if anything changes and follow the latest safety guidelines.",
   "check.in": "Check-In",
   "check.in.start.fight": "Check-in to start \nfighting back.",
-  "answers.to.next.few.help": "Your answers to the next few questions will help you and your community fight back against the spread of COVID-19 by tracing the steps of the virus through your status and anonymous location information.  "
-
+  "answers.to.next.few.help": "Your answers to the next few questions will help you and your community fight back against the spread of COVID-19 by tracing the steps of the virus through your status and anonymous location information.  ",
+  "confirm.delete.data": "Please confirm that you would like CoronaTrace to delete all of your data",
+  "delete.my.data": "Delete My Data",
+  "privacy": "Privacy"
 }
