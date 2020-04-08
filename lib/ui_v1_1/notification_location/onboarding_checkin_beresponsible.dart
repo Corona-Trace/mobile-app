@@ -1,18 +1,18 @@
-import 'package:corona_trace/service/push_notifications/push_notifications.dart';
-import 'package:corona_trace/ui_v1_1/onboarding_checkin_beresponsible.dart';
+import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
+import 'package:corona_trace/ui_v1_1/home_first_checkin.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingNotificationPermission extends StatefulWidget {
+class OnboardingCheckinBeResponsible extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return OnboardingNotificationPermissionState();
+    return OnboardingCheckinBeResponsibleState();
   }
 }
 
-class OnboardingNotificationPermissionState
-    extends State<OnboardingNotificationPermission> {
+class OnboardingCheckinBeResponsibleState
+    extends State<OnboardingCheckinBeResponsible> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,7 +38,7 @@ class OnboardingNotificationPermissionState
                       Align(
                         child: Image(
                           image: AssetImage(
-                            "assets/images/onboarding_notification_permission.png",
+                            "assets/images/onboarding_checkin_beresponsible.png",
                           ),
                         ),
                         alignment: Alignment.center,
@@ -58,7 +58,7 @@ class OnboardingNotificationPermissionState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  AppLocalization.text("onboarding.permissions.notification.title"),
+                  AppLocalization.text("onboarding.checkin.beresponsible.title"),
                   style: TextStyle(
                       fontSize: 28,
                       color: Color(0xff1A1D4A),
@@ -67,7 +67,7 @@ class OnboardingNotificationPermissionState
                 SizedBox(
                   height: 8,
                 ),
-                Text(AppLocalization.text("onboarding.permissions.notification.subtitle"),
+                Text(AppLocalization.text("onboarding.checkin.beresponsible.subtitle"),
                     style: TextStyle(fontSize: 17))
               ],
             ),
@@ -83,12 +83,12 @@ class OnboardingNotificationPermissionState
                     borderRadius: BorderRadius.all(Radius.circular(8))),
                 child: Text(
                   AppLocalization.text(
-                    "onboarding.permissions.notification.button",
+                    "Onboarding.GetStarted",
                   ),
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
                 onPressed: () {
-                  onPressedBtnAllowNotification(context);
+                  onPressedBtnGetStarted(context);
                 },
               ),
             ),
@@ -99,16 +99,12 @@ class OnboardingNotificationPermissionState
     ));
   }
 
-  Future onPressedBtnAllowNotification(BuildContext context) async {
-    await PushNotifications.registerNotification();
-    navigateCheckinBeResponsible(context);
-  }
-
-  void navigateCheckinBeResponsible(BuildContext context) {
+  void onPressedBtnGetStarted(BuildContext context) {
+    print("permission button clicked");
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => OnboardingCheckinBeResponsible()),
+            builder: (BuildContext context) => HomeFirstTimeCheckInScreen()),
         (route) => false);
   }
 }

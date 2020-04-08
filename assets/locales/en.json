@@ -71,12 +71,12 @@
   "Onboarding.GetStarted": "Get Started",
   "Response.ThankYou": "Thank you for your response!",
   "Response.ReportingHelps": "Reporting your status is helping everyone stay safe and slowing the spread of COVID-19.\n\nYour location will be used anonymously to help stop the spread of COVID-19.\n\nRemember, we will never store or share any personal information. ",
-  "Location.Authorization.Alert.Permission.Always":"Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.",
-  "Location.Authorization.Alert.Disabled":"Your location-services are disabled",
-  "Location.Authorization.Stopped":"We won't track your location and no anonymous location-based information will be sent to you",
-  "Location.Tray.Notification":"Your location is being tracked, but all data will be anonymous.",
-  "Network.NotConnected":"You are not connected to the internet!",
-  "Network.Error":"Network Error",
+  "Location.Authorization.Alert.Permission.Always": "Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.",
+  "Location.Authorization.Alert.Disabled": "Your location-services are disabled",
+  "Location.Authorization.Stopped": "We won't track your location and no anonymous location-based information will be sent to you",
+  "Location.Tray.Notification": "Your location is being tracked, but all data will be anonymous.",
+  "Network.NotConnected": "You are not connected to the internet!",
+  "Network.Error": "Network Error",
 
   "submit": "Submit",
   "onboarding.enter.zip": "Enter your ZIP Code to see if CoronaTrace is available in your area.",
@@ -95,5 +95,9 @@
   "onboarding.permissions.notification.subtitle": "We’ll seend you notifications to assess your risk of contracting or spreading COVID-19 and what to do next.",
   "onboarding.permissions.notification.button": "Allow Notifications",
   "onboarding.checkin.beresponsible.title": "Check-In & Be Responsible",
-  "onboarding.checkin.beresponsible.subtitle": "Update your status if anything changes and follow the latest safety guidelines."
+  "onboarding.checkin.beresponsible.subtitle": "Update your status if anything changes and follow the latest safety guidelines.",
+  "check.in": "Check-In",
+  "check.in.start.fight": "Check-in to start \nfighting back.",
+  "answers.to.next.few.help": "Your answers to the next few questions will help you and your community fight back against the spread of COVID-19 by tracing the steps of the virus through your status and anonymous location information.  "
+
 }
