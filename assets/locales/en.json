@@ -101,5 +101,20 @@
   "answers.to.next.few.help": "Your answers to the next few questions will help you and your community fight back against the spread of COVID-19 by tracing the steps of the virus through your status and anonymous location information.  ",
   "confirm.delete.data": "Please confirm that you would like CoronaTrace to delete all of your data",
   "delete.my.data": "Delete My Data",
-  "privacy": "Privacy"
+  "privacy": "Privacy",
+  "Status": "Status",
+  "you.maybe.risk": "You may be at risk",
+  "last.checkin": "Last Check-In",
+  "not.feeling.sick": "I am not feeling sick",
+  "next.steps": "Next Steps",
+  "notify.someone": "Notify Someone",
+  "your.location.data.suggest": "Your location data suggests that you may have crossed paths with someone who tested positive for COVID-19 at the following location.",
+  "watch.for.symptoms": "Watch for these \nsymptoms",
+  "this.guidance.was": "This guidance was sourced from the Center for Disease Control",
+  "these.symptoms.may.appear": "These symptoms may appear 2-14 days after exposure (based on the incubation period of MERS-CoV viruses).",
+  "Fever": "Fever",
+  "Cough": "Cough",
+  "shortness.breath": "Shortness of breath",
+  "when.seek.medical": "When to seek medical attention",
+  "if.you.develop": "If you develop emergency warning signs for COVID-19 get medical attention immediately. Emergency warning signs include*:"
 }
