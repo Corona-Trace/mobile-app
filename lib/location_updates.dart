@@ -53,16 +53,19 @@ class LocationUpdates {
             maxDaysToPersist: 3,
             debug: false,
             autoSync: true,
+            triggerActivities: 'on_foot, walking, running',
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
             stopOnTerminate: false,
             allowIdenticalLocations: false,
             startOnBoot: true,
             enableHeadless: true,
             locationAuthorizationAlert: {
-              "titleWhenNotEnabled": AppLocalization.text("Location.Authorization.Alert.Disabled"),
-              "titleWhenOff": AppLocalization.text("Location.Authorization.Alert.Disabled"),
-              "instructions":
-                  AppLocalization.text("Location.Authorization.Alert.Permission.Always"),
+              "titleWhenNotEnabled":
+                  AppLocalization.text("Location.Authorization.Alert.Disabled"),
+              "titleWhenOff":
+                  AppLocalization.text("Location.Authorization.Alert.Disabled"),
+              "instructions": AppLocalization.text(
+                  "Location.Authorization.Alert.Permission.Always"),
               "cancelButton": AppLocalization.text("cancel_camel"),
               "settingsButton": AppLocalization.text("Settings")
             },
@@ -90,8 +93,8 @@ class LocationUpdates {
       builder: (BuildContext context) {
         if (Platform.isIOS) {
           return CupertinoAlertDialog(
-            content: Text(
-                AppLocalization.text("Location.Authorization.Stopped")),
+            content:
+                Text(AppLocalization.text("Location.Authorization.Stopped")),
             actions: <Widget>[
               CupertinoDialogAction(
                 child: Text(AppLocalization.text("Ok")),
@@ -103,8 +106,8 @@ class LocationUpdates {
           );
         } else {
           return AlertDialog(
-            content: Text(
-                AppLocalization.text("Location.Authorization.Stopped")),
+            content:
+                Text(AppLocalization.text("Location.Authorization.Stopped")),
             actions: <Widget>[
               FlatButton(
                 child: Text(AppLocalization.text("Ok")),
@@ -130,8 +133,8 @@ class LocationUpdates {
               AppLocalization.text("Location.Authorization.Alert.Disabled"),
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            content: Text(
-                AppLocalization.text("Location.Authorization.Alert.Permission.Always")),
+            content: Text(AppLocalization.text(
+                "Location.Authorization.Alert.Permission.Always")),
             actions: <Widget>[
               FlatButton(
                 child: Text(AppLocalization.text("cancel_camel")),
