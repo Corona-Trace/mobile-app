@@ -90,6 +90,7 @@ class PrivacyTermsAndConditionsScreen extends StatelessWidget {
           ),
           Divider(
             height: 0.5,
+            color: Colors.grey,
           ),
           ListTile(
             title: Text(
@@ -104,6 +105,7 @@ class PrivacyTermsAndConditionsScreen extends StatelessWidget {
           ),
           Divider(
             height: 0.5,
+            color: Colors.grey,
           ),
         ],
       ),
