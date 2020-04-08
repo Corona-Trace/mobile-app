@@ -64,7 +64,7 @@ class AtRiskNotificationDetail extends StatelessWidget {
           shape: CircleBorder(side: BorderSide(color: Color(0xff475DF3))),
         ),
         Text(
-          "Next Steps",
+          AppLocalization.text("next.steps"),
           style: TextStyle(
               color: Color(0xff1A1D4A),
               fontSize: 20,
@@ -124,12 +124,12 @@ class AtRiskNotificationDetail extends StatelessWidget {
       children: <Widget>[
         ListTile(
           title: Text(
-            "Watch for these \nsymptoms",
+            AppLocalization.text("watch.for.symptoms"),
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
           subtitle: Padding(
             child: Text(
-              "This guidance was sourced from the Center for Disease Control",
+              AppLocalization.text("this.guidance.was"),
               style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
@@ -139,14 +139,13 @@ class AtRiskNotificationDetail extends StatelessWidget {
           ),
         ),
         ListTile(
-          title: Text(
-              "These symptoms may appear 2-14 days after exposure (based on the incubation period of MERS-CoV viruses).",
+          title: Text(AppLocalization.text("these.symptoms.may.appear"),
               style: TextStyle(fontSize: 17, color: Color(0xff1A1D4A))),
         ),
         SizedBox(height: 10),
         ListTile(
           title: Text(
-            "•  Fever",
+            "•  "+AppLocalization.text("Fever"),
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
@@ -157,7 +156,7 @@ class AtRiskNotificationDetail extends StatelessWidget {
         ),
         ListTile(
           title: Text(
-            "•  Cough",
+            "•  "+AppLocalization.text("Cough"),
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
@@ -168,7 +167,7 @@ class AtRiskNotificationDetail extends StatelessWidget {
         ),
         ListTile(
           title: Text(
-            "•  Shortness of breath",
+            "•  "+AppLocalization.text("shortness.breath"),
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         )
@@ -183,19 +182,19 @@ class AtRiskNotificationDetail extends StatelessWidget {
         children: <Widget>[
           SizedBox(height: 20),
           Text(
-            "When to seek medical attention",
+            AppLocalization.text("when.seek.medical"),
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 10),
           Text(
-              "If you develop emergency warning signs for COVID-19 get medical attention immediately. Emergency warning signs include*:",
-              style: TextStyle(fontSize: 17)
-          ),
+              AppLocalization.text("if.you.develop"),
+              style: TextStyle(fontSize: 17)),
           SizedBox(height: 10),
           ListTile(
             title: Text(
               "•  Trouble breathing",
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ),
           Divider(
@@ -206,7 +205,8 @@ class AtRiskNotificationDetail extends StatelessWidget {
           ListTile(
             title: Text(
               "•  Persistent pain or pressure in the chest",
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ),
           Divider(
@@ -217,7 +217,8 @@ class AtRiskNotificationDetail extends StatelessWidget {
           ListTile(
             title: Text(
               "•  New confusion or inability to around",
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ),
           Divider(
@@ -228,7 +229,8 @@ class AtRiskNotificationDetail extends StatelessWidget {
           ListTile(
             title: Text(
               "•  Bluish lips or face",
-              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           )
         ],
