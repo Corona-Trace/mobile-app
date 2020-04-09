@@ -1,9 +1,7 @@
-import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
-import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_questions.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
-class HomeFirstTimeCheckInScreen extends StatelessWidget {
+class ThanksDoingPartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,16 +28,12 @@ class HomeFirstTimeCheckInScreen extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(8))),
           child: Text(
             AppLocalization.text(
-              "check.in",
+              "done",
             ),
             style: TextStyle(color: Colors.white, fontSize: 17),
           ),
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => HomeCheckinQuestions()),
-                    (route) => false);
+
           },
         ),
       ),
@@ -57,7 +51,7 @@ class HomeFirstTimeCheckInScreen extends StatelessWidget {
             height: 16,
           ),
           Text(
-            AppLocalization.text("check.in.start.fight"),
+            AppLocalization.text("thank.you.for.part"),
             style: TextStyle(
                 fontSize: 28,
                 color: Color(0xff1A1D4A),
@@ -67,7 +61,7 @@ class HomeFirstTimeCheckInScreen extends StatelessWidget {
             height: 16,
           ),
           Text(
-            AppLocalization.text("answers.to.next.few.help"),
+            AppLocalization.text("we.will.now.cross"),
             style: TextStyle(fontSize: 17),
           ),
         ],
