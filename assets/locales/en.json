@@ -116,5 +116,21 @@
   "Cough": "Cough",
   "shortness.breath": "Shortness of breath",
   "when.seek.medical": "When to seek medical attention",
-  "if.you.develop": "If you develop emergency warning signs for COVID-19 get medical attention immediately. Emergency warning signs include*:"
+  "if.you.develop": "If you develop emergency warning signs for COVID-19 get medical attention immediately. Emergency warning signs include*:",
+  "have.you.been.tested": "Have you been tested for COVID-19?",
+  "yes.tested.for": "Yes, I have been tested for COVID-19",
+  "not.tested.for": "No, I have not been tested for COVID-19",
+  "next": "Next",
+  "are.feeling.sick": "Are you feeling sick?",
+  "yes.feel.sick": "Yes, I feel sick",
+  "not.feel.sick": "No, I don’t feel sick",
+  "yes.feel.sick.message": "I feel sick and have not tested for COVID-19",
+  "confirm.your.answer": "Confirm your answer & submit your check-in status",
+  "go.back": "Go Back",
+  "prev.ques": "Previous Question",
+  "by.responding": "By Responding, I accept the ",
+  "thank.you.for.part": "Thank you for doing your part in the fight against COVID-19.",
+  "we.will.now.cross": "We will now cross-reference your location information with existing location information and notify you if you could be at risk.",
+  "done": "Done",
+  "is.sick.not.tested.message": "Please make sure you monitor your symptoms and update your status if you stop experiencing symptoms or test for COVID-19."
 }

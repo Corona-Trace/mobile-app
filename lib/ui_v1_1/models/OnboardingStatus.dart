@@ -1,6 +1,4 @@
-class OnboaringStatus{
-
-}
+class OnboaringStatus{}
 
 
 class OnboaringStatusZip extends OnboaringStatus{
