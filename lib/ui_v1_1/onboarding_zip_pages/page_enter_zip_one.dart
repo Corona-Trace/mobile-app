@@ -1,4 +1,4 @@
-import 'package:corona_trace/ui_v1_1/OnboardingStatus.dart';
+import 'package:corona_trace/ui_v1_1/models/OnboardingStatus.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 

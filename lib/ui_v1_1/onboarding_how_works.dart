@@ -1,4 +1,4 @@
-import 'package:corona_trace/ui_v1_1/OnboardingStatus.dart';
+import 'package:corona_trace/ui_v1_1/models/OnboardingStatus.dart';
 import 'package:corona_trace/ui_v1_1/onboarding_zip_pages/page_app_availability.dart';
 import 'package:corona_trace/ui_v1_1/onboarding_zip_pages/page_app_available_status.dart';
 import 'package:corona_trace/ui_v1_1/onboarding_zip_pages/page_enter_zip_one.dart';
@@ -128,6 +128,7 @@ class OnboardingCheckAvailabilityState
         _pageController.jumpToPage(2);
       } else {
         setState(() {});
+        _isAvailable = false;
         print("value false");
         _pageController.nextPage(
             duration: Duration(milliseconds: 250),

@@ -1,23 +1,32 @@
-import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
-import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
-import 'package:corona_trace/ui_v1_1/privacy/privacy_screen.dart';
+import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_questions.dart';
 import 'package:corona_trace/utils/app_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeFirstTimeCheckInScreen extends StatelessWidget {
+class HomeFirstTimeCheckInScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return HomeFirstTimeCheckInScreenState();
+  }
+}
+
+class HomeFirstTimeCheckInScreenState
+    extends State<HomeFirstTimeCheckInScreen> {
+  final List<Widget> _pageList = List<Widget>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              topContent(),
-              bottomContent(context),
-            ],
-          ),
-        ));
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          topContent(),
+          bottomContent(context),
+        ],
+      ),
+    ));
   }
 
   Container bottomContent(BuildContext context) {
@@ -36,11 +45,7 @@ class HomeFirstTimeCheckInScreen extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 17),
           ),
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => HomeCheckinDashboard()),
-                    (route) => false);
+            bottomSheetQuestions(context);
           },
         ),
       ),
@@ -75,5 +80,50 @@ class HomeFirstTimeCheckInScreen extends StatelessWidget {
       ),
       margin: EdgeInsets.all(20),
     );
+  }
+
+  void bottomSheetQuestions(context) {
+    print("cleared pages");
+    _pageList.clear();
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        useRootNavigator: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        builder: (context) {
+          print("building bottom sheet again");
+          return BottomSheet(
+            onClosing: () {},
+            builder: (context) {
+              return StatefulBuilder(builder: (builder, setState) {
+                void onNextScreen(Widget response) {
+                  if (response == null) {
+                    _pageList.removeLast();
+                    setState(() {});
+                  } else {
+                    _pageList.add(response);
+                    setState(() {});
+                  }
+                  print(_pageList.length);
+                }
+
+                if (_pageList.isEmpty) {
+                  _pageList
+                      .add(HomeCheckinQuestions(onNextScreen: onNextScreen));
+                }
+
+                return FractionallySizedBox(
+                  child: _pageList.last,
+                  heightFactor: 0.85,
+                );
+              });
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          );
+        });
   }
 }
