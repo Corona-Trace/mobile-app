@@ -128,6 +128,7 @@ class OnboardingCheckAvailabilityState
         _pageController.jumpToPage(2);
       } else {
         setState(() {});
+        _isAvailable = false;
         print("value false");
         _pageController.nextPage(
             duration: Duration(milliseconds: 250),
