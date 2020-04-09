@@ -1,5 +1,6 @@
 import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_questions.dart';
 import 'package:corona_trace/utils/app_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeFirstTimeCheckInScreen extends StatefulWidget {
@@ -11,8 +12,6 @@ class HomeFirstTimeCheckInScreen extends StatefulWidget {
 
 class HomeFirstTimeCheckInScreenState
     extends State<HomeFirstTimeCheckInScreen> {
-  final PageController _pageController = PageController();
-
   final List<Widget> _pageList = List<Widget>();
 
   @override
@@ -84,35 +83,47 @@ class HomeFirstTimeCheckInScreenState
   }
 
   void bottomSheetQuestions(context) {
+    print("cleared pages");
     _pageList.clear();
-    _pageList.add(HomeCheckinQuestions(onNextScreen: onNextScreen));
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
+        useRootNavigator: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         builder: (context) {
           print("building bottom sheet again");
-          return FractionallySizedBox(
-            child: PageView(
-              physics: NeverScrollableScrollPhysics(),
-              controller: _pageController,
-              children: _pageList,
+          return BottomSheet(
+            onClosing: () {},
+            builder: (context) {
+              return StatefulBuilder(builder: (builder, setState) {
+                void onNextScreen(Widget response) {
+                  if (response == null) {
+                    _pageList.removeLast();
+                    setState(() {});
+                  } else {
+                    _pageList.add(response);
+                    setState(() {});
+                  }
+                  print(_pageList.length);
+                }
+
+                if (_pageList.isEmpty) {
+                  _pageList
+                      .add(HomeCheckinQuestions(onNextScreen: onNextScreen));
+                }
+
+                return FractionallySizedBox(
+                  child: _pageList.last,
+                  heightFactor: 0.85,
+                );
+              });
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            heightFactor: 0.85,
           );
         });
-  }
-
-  void onNextScreen(Widget response) {
-    if (response == null) {
-      _pageList.removeLast();
-      _pageController.jumpToPage(_pageList.length - 1);
-    } else {
-      _pageList.add(response);
-      setState(() {});
-      _pageController.jumpToPage(_pageList.length - 1);
-    }
   }
 }

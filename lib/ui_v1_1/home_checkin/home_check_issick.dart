@@ -78,12 +78,14 @@ class _HomeCheckIsSickState extends State<HomeCheckIsSick> {
               onPressed: () {
                 if (_selectedItem != null) {
                   if (_selectedItem == 0) {
+                    print("gone watch for symptoms");
                     widget.onNextScreen.call(WatchForSymptomsWidget(
                             showBottomButtons: true,
                             onNextScreen: widget.onNextScreen,
                             needsScroll: true)
                         .get(context));
                   } else {
+                    print("HomeConfirmProcessSick 1");
                     widget.onNextScreen.call(HomeConfirmProcessSick(
                         isSick: false, onNextScreen: widget.onNextScreen));
                   }
