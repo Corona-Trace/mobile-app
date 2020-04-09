@@ -1,22 +1,33 @@
-import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_questions.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
-class HomeFirstTimeCheckInScreen extends StatelessWidget {
+class HomeFirstTimeCheckInScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return HomeFirstTimeCheckInScreenState();
+  }
+}
+
+class HomeFirstTimeCheckInScreenState
+    extends State<HomeFirstTimeCheckInScreen> {
+  final PageController _pageController = PageController();
+
+  final List<Widget> _pageList = List<Widget>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              topContent(),
-              bottomContent(context),
-            ],
-          ),
-        ));
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          topContent(),
+          bottomContent(context),
+        ],
+      ),
+    ));
   }
 
   Container bottomContent(BuildContext context) {
@@ -35,11 +46,7 @@ class HomeFirstTimeCheckInScreen extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 17),
           ),
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => HomeCheckinQuestions()),
-                    (route) => false);
+            bottomSheetQuestions(context);
           },
         ),
       ),
@@ -74,5 +81,38 @@ class HomeFirstTimeCheckInScreen extends StatelessWidget {
       ),
       margin: EdgeInsets.all(20),
     );
+  }
+
+  void bottomSheetQuestions(context) {
+    _pageList.clear();
+    _pageList.add(HomeCheckinQuestions(onNextScreen: onNextScreen));
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        builder: (context) {
+          print("building bottom sheet again");
+          return FractionallySizedBox(
+            child: PageView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              children: _pageList,
+            ),
+            heightFactor: 0.85,
+          );
+        });
+  }
+
+  void onNextScreen(Widget response) {
+    if (response == null) {
+      _pageList.removeLast();
+      _pageController.jumpToPage(_pageList.length - 1);
+    } else {
+      _pageList.add(response);
+      setState(() {});
+      _pageController.jumpToPage(_pageList.length - 1);
+    }
   }
 }

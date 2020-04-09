@@ -3,15 +3,26 @@ import 'package:flutter/material.dart';
 
 import 'home_confirm_not_sick.dart';
 
-class WatchForSymptomsWidget extends StatelessWidget {
+class WatchForSymptomsWidget {
   final bool showBottomButtons;
+  final Function(Widget response) onNextScreen;
+  final bool needsScroll;
 
-  WatchForSymptomsWidget({this.showBottomButtons});
+  WatchForSymptomsWidget(
+      {this.showBottomButtons, this.onNextScreen, this.needsScroll});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(child: Column(
+  Widget get(context) {
+    if (needsScroll) {
+      return SingleChildScrollView(
+        child: getInnerContent(context),
+      );
+    }
+    return getInnerContent(context);
+  }
+
+  Container getInnerContent(context) {
+    return Container(
+      child: Column(
         children: <Widget>[
           SizedBox(height: 32),
           getWatchForSymptomsColumn(),
@@ -20,7 +31,7 @@ class WatchForSymptomsWidget extends StatelessWidget {
           getHowToProtect(),
           showBottomButtons ? bottomContent(context) : Container()
         ],
-      ),),
+      ),
     );
   }
 
@@ -83,7 +94,7 @@ class WatchForSymptomsWidget extends StatelessWidget {
 
   getWhenToSeekMedical() {
     return Container(
-      padding: EdgeInsets.only(left: 20,right: 20),
+      padding: EdgeInsets.only(left: 20, right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -191,7 +202,6 @@ class WatchForSymptomsWidget extends StatelessWidget {
     );
   }
 
-
   Widget bottomContent(BuildContext context) {
     return Column(
       children: <Widget>[
@@ -211,10 +221,10 @@ class WatchForSymptomsWidget extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 17),
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HomeConfirmProcessSick(isSick: true,)));
+                onNextScreen.call(HomeConfirmProcessSick(
+                  isSick: true,
+                  onNextScreen: onNextScreen,
+                ));
               },
             ),
           ),
@@ -234,7 +244,7 @@ class WatchForSymptomsWidget extends StatelessWidget {
               style: TextStyle(color: Color(0xff475DF3), fontSize: 17),
             ),
             onPressed: () {
-              Navigator.pop(context);
+              onNextScreen.call(null);
             },
           ),
           margin: EdgeInsets.only(bottom: 20),

@@ -1,10 +1,14 @@
 import 'package:corona_trace/ui_v1_1/common/ui/CTCommonRadioGroup.dart';
+import 'package:corona_trace/ui_v1_1/home_checkin/WatchForSymptomsWidget.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_check_issick.dart';
-import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeCheckinQuestions extends StatefulWidget {
+  final Function(Widget response) onNextScreen;
+
+  HomeCheckinQuestions({this.onNextScreen});
+
   @override
   State<StatefulWidget> createState() {
     return HomeCheckinQuestionsState();
@@ -72,11 +76,14 @@ class HomeCheckinQuestionsState extends State<HomeCheckinQuestions> {
           onPressed: () {
             if (_selectedItem != null) {
               if (_selectedItem == 0) {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeCheckinDashboard()));
+                widget.onNextScreen.call(WatchForSymptomsWidget(
+                        showBottomButtons: true,
+                        onNextScreen: widget.onNextScreen,
+                        needsScroll: true)
+                    .get(context));
               } else {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeCheckIsSick()));
+                widget.onNextScreen
+                    .call(HomeCheckIsSick(onNextScreen: widget.onNextScreen));
               }
             }
           },

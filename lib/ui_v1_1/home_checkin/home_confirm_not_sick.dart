@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 
 class HomeConfirmProcessSick extends StatelessWidget {
   final bool isSick;
+  final Function(Widget response) onNextScreen;
 
-  HomeConfirmProcessSick({this.isSick});
+  HomeConfirmProcessSick({this.isSick,this.onNextScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -152,10 +153,7 @@ class HomeConfirmProcessSick extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 17),
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (builder) => ThanksDoingPartScreen()));
+                onNextScreen.call(ThanksDoingPartScreen());
               },
             ),
           ),
@@ -175,7 +173,7 @@ class HomeConfirmProcessSick extends StatelessWidget {
               style: TextStyle(color: Color(0xff475DF3), fontSize: 17),
             ),
             onPressed: () {
-              Navigator.pop(context);
+              onNextScreen.call(null);
             },
           ),
           margin: EdgeInsets.only(bottom: 20),

@@ -1,3 +1,5 @@
+import 'package:corona_trace/ui_v1_1/home_checkin/home_atrisk_notificationdetail.dart';
+import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -6,15 +8,15 @@ class ThanksDoingPartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              topContent(),
-              bottomContent(context),
-            ],
-          ),
-        ));
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          topContent(),
+          bottomContent(context),
+        ],
+      ),
+    ));
   }
 
   Container bottomContent(BuildContext context) {
@@ -33,7 +35,11 @@ class ThanksDoingPartScreen extends StatelessWidget {
             style: TextStyle(color: Colors.white, fontSize: 17),
           ),
           onPressed: () {
-
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (builder) => HomeCheckinDashboard()),
+                (route) => false);
           },
         ),
       ),

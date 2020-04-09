@@ -5,6 +5,10 @@ import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeCheckIsSick extends StatefulWidget {
+  final Function(Widget response) onNextScreen;
+
+  HomeCheckIsSick({this.onNextScreen});
+
   @override
   _HomeCheckIsSickState createState() => _HomeCheckIsSickState();
 }
@@ -74,15 +78,14 @@ class _HomeCheckIsSickState extends State<HomeCheckIsSick> {
               onPressed: () {
                 if (_selectedItem != null) {
                   if (_selectedItem == 0) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => WatchForSymptomsWidget(showBottomButtons: true,)));
+                    widget.onNextScreen.call(WatchForSymptomsWidget(
+                            showBottomButtons: true,
+                            onNextScreen: widget.onNextScreen,
+                            needsScroll: true)
+                        .get(context));
                   } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HomeConfirmProcessSick(isSick: false,)));
+                    widget.onNextScreen.call(HomeConfirmProcessSick(
+                        isSick: false, onNextScreen: widget.onNextScreen));
                   }
                 }
               },
@@ -104,7 +107,7 @@ class _HomeCheckIsSickState extends State<HomeCheckIsSick> {
               style: TextStyle(color: Color(0xff475DF3), fontSize: 17),
             ),
             onPressed: () {
-              Navigator.pop(context);
+              widget.onNextScreen.call(null);
             },
           ),
           margin: EdgeInsets.only(bottom: 20),
