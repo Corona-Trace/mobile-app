@@ -13,6 +13,7 @@ import 'package:corona_trace/ui/widgets/ct_bottom_sheet_widget.dart';
 import 'package:corona_trace/ui/widgets/ct_question_pair.dart';
 import 'package:corona_trace/ui/widgets/ct_thank_you_dialog.dart';
 import 'package:corona_trace/utils/app_localization.dart';
+import 'package:corona_trace/utils/app_surveys.dart';
 import 'package:corona_trace/utils/slack.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -261,6 +262,7 @@ class _UserInfoCollectorScreenState extends BaseState<UserInfoCollectorScreen> {
       dialogOnResponse(SCREEN_FEELING_TODAY);
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (BuildContext context) {
+            AppSurveys.triggerCheckInFinishedSurvey();
         return NotificationsListScreen();
       }), (route) => false);
     });

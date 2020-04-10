@@ -6,6 +6,7 @@ import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/network/notification/response_notification_item.dart';
 import 'package:corona_trace/ui/notifications/ct_notification_map_detail.dart';
+import 'package:corona_trace/utils/app_surveys.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -63,8 +64,10 @@ class PushNotifications {
     try {
       var item = ResponseNotificationItem.map(obj);
       globalKey.currentState.push(MaterialPageRoute(
-          builder: (BuildContext context) =>
-              CTNotificationMapDetail(crossedPaths: true, notification: item)));
+          builder: (BuildContext context) {
+            AppSurveys.triggerCrossedPathsNotificationSurvey();
+            return CTNotificationMapDetail(crossedPaths: true, notification: item);
+          }));
     } catch (ex) {
       debugPrint('navigateToMapDetail Failed: $ex');
     }
@@ -132,6 +135,7 @@ class PushNotifications {
           platformChannelSpecifics,
           payload: JSON.jsonEncode(message));
     }
+    AppSurveys.triggerCrossedPathsNotificationSurvey();
   }
 
   static Future<void> registerNotification() async {

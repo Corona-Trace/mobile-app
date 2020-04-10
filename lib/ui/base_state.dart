@@ -1,5 +1,4 @@
 import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
-import 'package:corona_trace/main.dart';
 import 'package:corona_trace/ui/notifications/ct_loader.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
