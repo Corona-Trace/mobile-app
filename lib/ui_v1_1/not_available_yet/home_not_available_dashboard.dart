@@ -5,13 +5,13 @@ import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeNotAvailableDashboard extends StatelessWidget {
+  
+  final bool notifyMeEnabled;
+  final bool locationInfoDenied;
+  HomeNotAvailableDashboard({this.notifyMeEnabled, this.locationInfoDenied});
+  
   @override
   Widget build(BuildContext context) {
-
-    //TODO: Update these to get respective widgets
-    bool locationInfoDenied = false;
-    bool notifyMeEnabled = true;
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,

@@ -1,3 +1,4 @@
+import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/ui_v1_1/not_available_yet/home_not_available_dashboard.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
@@ -115,12 +116,15 @@ class OnboardingNotAvailableYetState
   }
 
   void onPressedBtn(BuildContext context, bool shouldNotify) async {
-    //TODO: Utilize shouldNotify to display content in next screen
+    bool locationInfoDenied = await LocationUpdates.arePermissionsDenied();
     print("next button clicked");
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => HomeNotAvailableDashboard()),
+            builder: (BuildContext context) => 
+              HomeNotAvailableDashboard(
+                notifyMeEnabled: shouldNotify,
+                locationInfoDenied: locationInfoDenied)),
         (route) => false);
   }
 }
