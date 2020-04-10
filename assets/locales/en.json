@@ -132,5 +132,8 @@
   "thank.you.for.part": "Thank you for doing your part in the fight against COVID-19.",
   "we.will.now.cross": "We will now cross-reference your location information with existing location information and notify you if you could be at risk.",
   "done": "Done",
-  "is.sick.not.tested.message": "Please make sure you monitor your symptoms and update your status if you stop experiencing symptoms or test for COVID-19."
+  "is.sick.not.tested.message": "Please make sure you monitor your symptoms and update your status if you stop experiencing symptoms or test for COVID-19.",
+  "View": "View",
+  "manual.contact.tracing": "Manual Contact Tracing",
+  "meanwhile.guide.waiting": "Meanwhile, we’ve created a manual contact tracing guide to help you stay safe while you wait."
 }

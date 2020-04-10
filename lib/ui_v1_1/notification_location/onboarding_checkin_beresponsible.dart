@@ -1,7 +1,6 @@
 import 'package:corona_trace/location_updates.dart';
-import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_first_checkin.dart';
-import 'package:corona_trace/ui_v1_1/onboarding_not_available_yet.dart';
+import 'package:corona_trace/ui_v1_1/not_available_yet/onboarding_not_available_yet.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

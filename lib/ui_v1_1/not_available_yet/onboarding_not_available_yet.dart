@@ -1,5 +1,4 @@
-import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
-import 'package:corona_trace/ui_v1_1/models/OnboardingStatus.dart';
+import 'package:corona_trace/ui_v1_1/not_available_yet/home_not_available_dashboard.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -121,7 +120,7 @@ class OnboardingNotAvailableYetState
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => HomeCheckinDashboard()),
+            builder: (BuildContext context) => HomeNotAvailableDashboard()),
         (route) => false);
   }
 }
