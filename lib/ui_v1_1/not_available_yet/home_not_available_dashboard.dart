@@ -3,6 +3,7 @@ import 'package:corona_trace/ui_v1_1/home_checkin/home_atrisk_notificationdetail
 import 'package:corona_trace/ui_v1_1/privacy/privacy_screen.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeNotAvailableDashboard extends StatelessWidget {
   
@@ -237,7 +238,15 @@ getNotifyMeWidget(BuildContext context) {
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
                 onPressed: () {
-                  //TODO: implement
+                  //TODO: Implmenet Logic to handle notify me
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => 
+                            HomeNotAvailableDashboard(
+                              notifyMeEnabled: true,
+                              locationInfoDenied: false)),
+                      (route) => false);
                 },
               ),
             ),
@@ -293,7 +302,7 @@ getLocationInformationNotAvailableWidget(BuildContext context) {
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
                 onPressed: () {
-                  //TODO: implement
+                  openAppSettings();
                 },
               ),
             ),

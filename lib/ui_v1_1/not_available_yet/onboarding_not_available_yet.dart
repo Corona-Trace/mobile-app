@@ -117,6 +117,7 @@ class OnboardingNotAvailableYetState
 
   void onPressedBtn(BuildContext context, bool shouldNotify) async {
     bool locationInfoDenied = await LocationUpdates.arePermissionsDenied();
+    //TODO: Implmenet Logic to handle notify me
     print("next button clicked");
     Navigator.pushAndRemoveUntil(
         context,
