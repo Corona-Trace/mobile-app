@@ -1,3 +1,4 @@
+import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_atrisk_notificationdetail.dart';
 import 'package:corona_trace/ui_v1_1/privacy/privacy_screen.dart';
 import 'package:corona_trace/utils/app_localization.dart';
@@ -6,6 +7,11 @@ import 'package:flutter/material.dart';
 class HomeNotAvailableDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    //TODO: Update these to get respective widgets
+    bool locationInfoDenied = false;
+    bool notifyMeEnabled = true;
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -15,7 +21,7 @@ class HomeNotAvailableDashboard extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: SingleChildScrollView(
-                  child: topContent(context),
+                  child: topContent(context, locationInfoDenied, notifyMeEnabled),
                 ),
               ),
             ],
@@ -25,7 +31,12 @@ class HomeNotAvailableDashboard extends StatelessWidget {
     );
   }
 
-  topContent(BuildContext context) {
+  topContent(BuildContext context, bool locationInfoDenied, bool allowedNotify) {
+    dynamic locationWidget = locationInfoDenied ? 
+      getLocationInformationNotAvailableWidget(context) : SizedBox(height: 0);
+    dynamic notifyWidget = locationInfoDenied ?
+      SizedBox(height: 0) : (allowedNotify ? 
+      getAllSetWidget() : getNotifyMeWidget(context));
     return Column(
       children: <Widget>[
         Container(
@@ -34,10 +45,11 @@ class HomeNotAvailableDashboard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               SizedBox(
-                height: 50,
+                height: 34,
               ),
               // TODO: Need to add one of 3 widgets here based on notify vs location permission state
-              //getRiskListTile(context, showTrailing: true),
+              locationWidget,
+              notifyWidget,
               SizedBox(
                 height: 30,
               ),
@@ -145,47 +157,151 @@ class HomeNotAvailableDashboard extends StatelessWidget {
   }
 }
 
-ListTile getRiskListTile(BuildContext context, {bool showTrailing}) {
-  return ListTile(
-    onTap: () {
-      if (showTrailing) {
-        showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+getAllSetWidget() {
+  return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.fromLTRB(28, 10, 10, 16),
+            child: Text(
+              AppLocalization.text("all.set"),
+              style: TextStyle(
+                  fontSize: 28,
+                  color: Color(0xff1A1D4A),
+                  fontWeight: FontWeight.bold),
             ),
-            builder: (context) {
-              return FractionallySizedBox(
-                child: AtRiskNotificationDetail(),
-                heightFactor: 0.85,
-              );
-            });
-      }
-    },
-    trailing: Icon(
-      Icons.arrow_forward_ios,
-      color: showTrailing ? Colors.grey : Colors.white,
-    ),
-    leading: SizedBox(
-      child: Image.asset("assets/images/status.png"),
-      width: 50,
-      height: 50,
-    ),
-    title: Text(
-      AppLocalization.text("Status"),
-      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    ),
-    subtitle: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(AppLocalization.text("you.maybe.risk"),
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        Text("March 31, 2020 5:30pm",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
-      ],
-    ),
-  );
+          ),
+          ListTile(
+            onTap: () {
+              //TODO: implement
+            },
+            leading: SizedBox(
+              child: Image.asset("assets/images/status.png"),
+              width: 50,
+              height: 50,
+            ),
+            title: Text(
+              AppLocalization.text("all.set.description"),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+            ),
+          )
+        ],
+      )
+    );
+}
+
+getNotifyMeWidget(BuildContext context) {
+  return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.fromLTRB(28, 10, 10, 16),
+            child: Text(
+              AppLocalization.text("stay.safe.while.wait"),
+              style: TextStyle(
+                  fontSize: 28,
+                  color: Color(0xff1A1D4A),
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              //TODO: implement
+            },
+            leading: SizedBox(
+              child: Image.asset("assets/images/status.png"),
+              width: 50,
+              height: 50,
+            ),
+            title: Text(
+              AppLocalization.text("stay.safe.while.wait.description"),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+            ),
+          ),
+          Container(
+            child: Material(
+              child: MaterialButton(
+                height: 50,
+                minWidth: MediaQuery.of(context).size.width,
+                color: Color(0xff475DF3),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                child: Text(
+                  AppLocalization.text(
+                    "notify.me",
+                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+                onPressed: () {
+                  //TODO: implement
+                },
+              ),
+            ),
+            margin: EdgeInsets.all(20),
+          ),
+        ],
+      )
+    );
+}
+
+getLocationInformationNotAvailableWidget(BuildContext context) {
+  return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.fromLTRB(28, 10, 10, 16),
+            child: Text(
+              AppLocalization.text("location.information.notavailable"),
+              style: TextStyle(
+                  fontSize: 22,
+                  color: Color(0xff1A1D4A),
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              //TODO: implement
+            },
+            leading: SizedBox(
+              child: Image.asset("assets/images/status.png"),
+              width: 50,
+              height: 50,
+            ),
+            title: Text(
+              AppLocalization.text("location.information.notavailable.description"),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+            ),
+          ),
+          Container(
+            child: Material(
+              child: MaterialButton(
+                height: 50,
+                minWidth: MediaQuery.of(context).size.width,
+                color: Color(0xff475DF3),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                child: Text(
+                  AppLocalization.text(
+                    "go.to.settings",
+                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 17),
+                ),
+                onPressed: () {
+                  //TODO: implement
+                },
+              ),
+            ),
+            margin: EdgeInsets.all(20),
+          ),
+        ],
+      )
+    );
 }
 
 ListTile meanwhileManualGuideListTile() {
