@@ -28,58 +28,66 @@ class HomeNotAvailableDashboard extends StatelessWidget {
   topContent(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(
-          height: 50,
-        ),
-        // TODO: Need to add one of 3 widgets here based on notify vs location permission state
-        //getRiskListTile(context, showTrailing: true),
-        SizedBox(
-          height: 30,
-        ),
-        meanwhileManualGuideListTile(),
-        SizedBox(
-          height: 30,
-        ),
         Container(
-          child: Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    AppLocalization.text("manual.contact.tracing"),
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+          color: Color.fromRGBO(237, 239, 254, 0.4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              SizedBox(
+                height: 50,
+              ),
+              // TODO: Need to add one of 3 widgets here based on notify vs location permission state
+              //getRiskListTile(context, showTrailing: true),
+              SizedBox(
+                height: 30,
+              ),
+              meanwhileManualGuideListTile(),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text(
+                          AppLocalization.text("manual.contact.tracing"),
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        child: MaterialButton(
+                          color: Color(0xffDFE3FF),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          child: Text(
+                            AppLocalization.text(
+                              "View",
+                            ),
+                            style: TextStyle(
+                                color: Color(0xff475DF3),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {},
+                        ),
+                        padding: EdgeInsets.only(right: 20),
+                      )
+                    ],
                   ),
                 ),
-                Padding(
-                  child: MaterialButton(
-                    color: Color(0xffDFE3FF),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Text(
-                      AppLocalization.text(
-                        "View",
-                      ),
-                      style: TextStyle(
-                          color: Color(0xff475DF3),
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () {},
-                  ),
-                  padding: EdgeInsets.only(right: 20),
-                )
-              ],
-            ),
+                margin: EdgeInsets.only(left: 20, right: 20),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+            ],
           ),
-          margin: EdgeInsets.only(left: 20, right: 20),
-        ),
-        SizedBox(
-          height: 30,
         ),
         ListTile(
           title: Text(
