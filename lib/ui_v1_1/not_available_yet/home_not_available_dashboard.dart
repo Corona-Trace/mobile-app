@@ -48,7 +48,6 @@ class HomeNotAvailableDashboard extends StatelessWidget {
               SizedBox(
                 height: 34,
               ),
-              // TODO: Need to add one of 3 widgets here based on notify vs location permission state
               locationWidget,
               notifyWidget,
               SizedBox(
