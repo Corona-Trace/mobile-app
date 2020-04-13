@@ -179,7 +179,7 @@ getAllSetWidget() {
               //TODO: implement
             },
             leading: SizedBox(
-              child: Image.asset("assets/images/status.png"),
+              child: Image.asset("assets/images/not_available_allset_circle.png"),
               width: 50,
               height: 50,
             ),
@@ -214,7 +214,7 @@ getNotifyMeWidget(BuildContext context) {
               //TODO: implement
             },
             leading: SizedBox(
-              child: Image.asset("assets/images/status.png"),
+              child: Image.asset("assets/images/not_available_notify_circle.png"),
               width: 50,
               height: 50,
             ),
@@ -278,7 +278,7 @@ getLocationInformationNotAvailableWidget(BuildContext context) {
               //TODO: implement
             },
             leading: SizedBox(
-              child: Image.asset("assets/images/status.png"),
+              child: Image.asset("assets/images/not_available_location_circle.png"),
               width: 50,
               height: 50,
             ),

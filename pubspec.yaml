@@ -80,6 +80,9 @@ flutter:
     - assets/images/onboarding_notification_permission.png
     - assets/images/checkin_dash.png
     - assets/images/status.png
+    - assets/images/not_available_allset_circle.png
+    - assets/images/not_available_location_circle.png
+    - assets/images/not_available_notify_circle.png
     - assets/locales/en.json
     - assets/locales/es.json
     - assets/locales/it.json
