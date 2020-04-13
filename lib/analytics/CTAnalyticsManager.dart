@@ -40,4 +40,12 @@ class CTAnalyticsManager {
       print(error);
     });
   }
+
+  void setFirstSeverityCheck(int severity) {
+    _logEventInternal(CTAnalyticsEvents.EVENT_first_check_in);
+  }
+
+  void setSeverityCheck(int severity) {
+    _logEventInternal(CTAnalyticsEvents.EVENT_update_check_in);
+  }
 }
