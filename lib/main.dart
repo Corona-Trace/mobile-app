@@ -1,17 +1,12 @@
 import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/network/api_repository.dart';
-import 'package:corona_trace/ui/notifications/notification_list_screen.dart';
-import 'package:corona_trace/ui/screens/onboarding.dart';
-import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
+import 'package:corona_trace/ui_v1_1/onboarding_get_started.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:instabug_flutter/Instabug.dart';
 import 'package:instabug_flutter/Surveys.dart';
 
-import 'ui_v1_1/onboarding_how_works.dart';
 import 'utils/app_localization.dart';
 
 void main() {
@@ -97,7 +92,7 @@ class MyApp extends StatelessWidget {
           title: 'CoronaTrace',
           navigatorKey: globalKey,
           theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
-          home: OnboardingCheckAvailability()
+          home: OnboardingGetStarted()
           /* home: isOnboardinDone
             ? severity == -1
                 ? UserInfoCollectorScreen()

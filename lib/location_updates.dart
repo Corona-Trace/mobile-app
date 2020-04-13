@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
+import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'app_constants.dart';
@@ -79,6 +80,12 @@ class LocationUpdates {
       }
     });
   }
+
+  static Future<bool> isWithinAvailableGeoLocation() async {
+    Location current = await bg.BackgroundGeolocation.getCurrentPosition();
+    // TODO: Implement when API is available, send current location
+    return false;
+  } 
 
   static Future<bool> arePermissionsDenied() async =>
       !await Permission.locationAlways.isGranted ||

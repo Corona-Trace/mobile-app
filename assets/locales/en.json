@@ -132,5 +132,15 @@
   "thank.you.for.part": "Thank you for doing your part in the fight against COVID-19.",
   "we.will.now.cross": "We will now cross-reference your location information with existing location information and notify you if you could be at risk.",
   "done": "Done",
-  "is.sick.not.tested.message": "Please make sure you monitor your symptoms and update your status if you stop experiencing symptoms or test for COVID-19."
+  "is.sick.not.tested.message": "Please make sure you monitor your symptoms and update your status if you stop experiencing symptoms or test for COVID-19.",
+  "View": "View",
+  "manual.contact.tracing": "Manual Contact Tracing",
+  "meanwhile.guide.waiting": "Meanwhile, we’ve created a manual contact tracing guide to help you stay safe while you wait.",
+  "all.set": "You're all set!",
+  "all.set.description": "You will receive a push notification as soon as CoronaTrace is available in your area.",
+  "stay.safe.while.wait": "Stay safe while you wait",
+  "stay.safe.while.wait.description": "Check back often to find out when CoronaTrace is available in your area.",
+  "location.information.notavailable": "CoronaTrace requires location information to keep you informed about your risk. ",
+  "location.information.notavailable.description": "When you are ready to allow access to location go to your device settings.",
+  "go.to.settings": "Go to Settings"
 }

@@ -29,6 +29,9 @@ class HomeCheckinDashboard extends StatelessWidget {
   Widget bottomContent(BuildContext context) {
     return Column(
       children: <Widget>[
+        SizedBox(
+          height: 16,
+        ),
         Container(
           child: Material(
             child: MaterialButton(
