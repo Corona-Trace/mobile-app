@@ -23,8 +23,8 @@ class ApiRepository {
   static const TOKEN = "TOKEN";
   static const API_URL =
       "http://coronatrace-env.eba-pq4gc2ry.us-east-2.elasticbeanstalk.com";
-  static const TERMS_AND_CONDITIONS = "https://www.coronatrace.org/legal/terms-of-service";
-  static const PRIVACY_POLICY = "https://www.coronatrace.org/legal/privacy-policy";
+  static const TERMS_AND_CONDITIONS = "https://www.tracetozero.org/legal/terms-of-service";
+  static const PRIVACY_POLICY = "https://www.tracetozero.org/legal/privacy-policy";
   static const LAT_CONST = "LAT";
   static const LNG_CONST = "LNG";
   static const SEVERITY = "SEVERITY";

@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
           return supportedLocales.first;
         },
         debugShowCheckedModeBanner: false,
-        title: 'CoronaTrace',
+        title: 'Zero',
         navigatorKey: globalKey,
         theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
         home: isOnboardinDone
