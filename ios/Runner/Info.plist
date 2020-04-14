@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>CoronaTrace</string>
+	<string>Zero</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -34,21 +34,21 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>CoronaTrace would like to access your music library.</string>
+	<string>Zero would like to access your music library.</string>
 	<key>NSCalendarsUsageDescription</key>
-	<string>CoronaTrace would like to access your calendar.</string>
+	<string>Zero would like to access your calendar.</string>
 	<key>NSContactsUsageDescription</key>
-	<string>CoronaTrace would like to access your contacts.</string>
+	<string>Zero would like to access your contacts.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>CoronaTrace would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
+	<string>Zero would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>CoronaTrace would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
+	<string>Zero would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>CoronaTrace would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
+	<string>Zero would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
 	<key>NSMotionUsageDescription</key>
-	<string>CoronaTrace would like to use your phone's motion sensors to optimize location tracking. Permitting access to your device motion sensors is essential to provide accurate COVID-19 notifications.</string>
+	<string>Zero would like to use your phone's motion sensors to optimize location tracking. Permitting access to your device motion sensors is essential to provide accurate COVID-19 notifications.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>CoronaTrace would like to access your speech recognition.</string>
+	<string>Zero would like to access your speech recognition.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

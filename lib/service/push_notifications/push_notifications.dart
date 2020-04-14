@@ -104,9 +104,9 @@ class PushNotifications {
 
   static void showNotification(message) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-      Platform.isAndroid ? 'coronatrace-android' : 'coronatrace-ios',
-      'coronatrace',
-      'coronatrace channel',
+      Platform.isAndroid ? 'Zero-android' : 'Zero-ios',
+      'Zero',
+      'Zero channel',
       playSound: false,
       enableVibration: false,
       style: AndroidNotificationStyle.BigText,

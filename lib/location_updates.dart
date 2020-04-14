@@ -71,7 +71,7 @@ class LocationUpdates {
               "settingsButton": AppLocalization.text("Settings")
             },
             notification: bg.Notification(
-                title: "CoronaTrace",
+                title: "Zero",
                 text: AppLocalization.text("Location.Tray.Notification")),
             logLevel: bg.Config.LOG_LEVEL_OFF))
         .then((bg.State state) {
