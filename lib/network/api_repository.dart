@@ -1,10 +1,9 @@
 import 'dart:convert' as JSON;
 
+import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/notification/response_notification.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +49,15 @@ class ApiRepository {
 
   static Future<void> setUserSeverity(int severity) async {
     var instance = await SharedPreferences.getInstance();
+
+    var severity = await getUserSeverity();
+
+    if (severity == null || (severity != null && severity == -1)) {
+      CTAnalyticsManager.instance.setFirstSeverityCheck(severity);
+    } else {
+      CTAnalyticsManager.instance.setSeverityCheck(severity);
+    }
+
     await instance.setInt(SEVERITY, severity);
     try {
       var deviceID = await AppConstants.getDeviceId();
