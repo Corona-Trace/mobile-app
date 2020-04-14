@@ -22,7 +22,7 @@ class ApiRepository {
   static Dio _dio = Dio(dioOptions);
   static const TOKEN = "TOKEN";
   static const API_URL =
-      "http://coronatrace-env.eba-pq4gc2ry.us-east-2.elasticbeanstalk.com";
+      "https://api-yp2tme3siq-uc.a.run.app";
   static const TERMS_AND_CONDITIONS = "https://www.coronatrace.org/legal/terms-of-service";
   static const PRIVACY_POLICY = "https://www.coronatrace.org/legal/privacy-policy";
   static const LAT_CONST = "LAT";
@@ -37,9 +37,12 @@ class ApiRepository {
       return;
     }
     var deviceID = await AppConstants.getDeviceId();
+    var url = "$API_URL/users";
     var body = tokenRequestBody(token, deviceID);
     Response response =
-        await _dio.post("$API_URL/users", data: JSON.jsonEncode(body));
+        await _dio.post(url, data: JSON.jsonEncode(body));
+    var statusCode = response.statusCode;
+    debugPrint("$statusCode - $url");
     if (response.statusCode == 200) {
       await instance.setString(TOKEN, token);
     }
@@ -53,8 +56,11 @@ class ApiRepository {
     await instance.setInt(SEVERITY, severity);
     try {
       var deviceID = await AppConstants.getDeviceId();
+      var url = "$API_URL/users";
       var body = getSeverityBody(severity, deviceID);
-      await _dio.patch("$API_URL/users", data: JSON.jsonEncode(body));
+      Response response = await _dio.patch(url, data: JSON.jsonEncode(body));
+      var statusCode = response.statusCode;
+      debugPrint("$statusCode - $url");
     } catch (ex) {
       debugPrint('setUserSeverity Failed: $ex');
       throw ex;
@@ -64,9 +70,10 @@ class ApiRepository {
   Future<ResponseNotifications> getNotificationsList(int pageNo) async {
     try {
       var deviceID = await AppConstants.getDeviceId();
-      var url = "$API_URL/notification/$deviceID/?page=$pageNo&perPage=10";
+      var url = "$API_URL/notification/$deviceID?page=$pageNo&perPage=10";
       var response = await http.get(url);
-      debugPrint(url);
+      var statusCode = response.statusCode;
+      debugPrint("$statusCode - $url");
       return ResponseNotifications.map(JSON.json.decode(response.body));
     } catch (ex) {
       debugPrint('getNotificationsList Failed: $ex');
@@ -91,6 +98,7 @@ class ApiRepository {
       options: Options(contentType: "application/json"),
       data: JSON.jsonEncode(body),
     );
+    debugPrint('$response.statusCode');
     if (response.statusCode == 200) {
       await instance.setDouble(LAT_CONST, lat);
       await instance.setDouble(LNG_CONST, lng);
