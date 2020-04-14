@@ -1,4 +1,8 @@
+import 'package:corona_trace/location_updates.dart';
+import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/service/push_notifications/push_notifications.dart';
+import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
+import 'package:corona_trace/ui_v1_1/not_available_yet/home_not_available_dashboard.dart';
 import 'package:corona_trace/ui_v1_1/notification_location/onboarding_checkin_beresponsible.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -100,15 +104,36 @@ class OnboardingNotificationPermissionState
   }
 
   Future onPressedBtnAllowNotification(BuildContext context) async {
-    await PushNotifications.registerNotification();
-    navigateCheckinBeResponsible(context);
+    try {
+      await PushNotifications.registerNotification();
+      var denied =
+          await PushNotifications.arePermissionsDenied();
+      if (!denied) {
+        navigateCheckinBeResponsible(context);
+      } else {
+        PushNotifications.notifyUserDeniedPushPermissions(context);
+      }
+    } catch (ex) {
+      PushNotifications.notifyUserDeniedPushPermissions(context);
+    }
   }
 
-  void navigateCheckinBeResponsible(BuildContext context) {
+  void navigateCheckinBeResponsible(BuildContext context) async {
+    var isOnboardingDone = await ApiRepository.getIsOnboardingDone();
+    var insideLocationGate = await LocationUpdates.isWithinAvailableGeoLocation();
+    var shouldNotifyWhenAvailable = await ApiRepository.getDidAllowNotifyWhenAvailable();
+    var locationInfoDenied = await LocationUpdates.arePermissionsDenied();
+    Widget nextWidget = isOnboardingDone
+            ? insideLocationGate
+                  ? HomeCheckinDashboard()
+                  : HomeNotAvailableDashboard(
+                    notifyMeEnabled: shouldNotifyWhenAvailable, 
+                    locationInfoDenied: locationInfoDenied)
+            : OnboardingCheckinBeResponsible();
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => OnboardingCheckinBeResponsible()),
+            builder: (BuildContext context) => nextWidget),
         (route) => false);
   }
 }

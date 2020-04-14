@@ -6,16 +6,23 @@ import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/network/notification/response_notification_item.dart';
 import 'package:corona_trace/ui/notifications/ct_notification_map_detail.dart';
+import 'package:corona_trace/utils/app_localization.dart';
 import 'package:corona_trace/utils/app_surveys.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PushNotifications {
   static final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   static bool configuredPush = false;
+
+  static Future<bool> arePermissionsDenied() async =>
+      !await Permission.notification.isGranted ||
+      await Permission.notification.isDenied;
 
   static Future<void> initStuff() async {
     configLocalNotification();
@@ -152,5 +159,60 @@ class PushNotifications {
     var token = await firebaseMessaging.getToken();
     debugPrint(token);
     await ApiRepository.updateTokenForUser(token);
+  }
+
+  static Future<void> notifyUserDeniedPushPermissions(
+      BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        if (Platform.isIOS) {
+          return CupertinoAlertDialog(
+            title:
+              Text(AppLocalization.text("pushnotifications.off.title")),
+            content:
+                Text(AppLocalization.text("pushnotifications.off.description")),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text(AppLocalization.text("Settings")),
+                onPressed: () {
+                  openAppSettings();
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text(AppLocalization.text("cancel_camel")),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        } else {
+          return AlertDialog(
+            title:
+              Text(AppLocalization.text("pushnotifications.off.title")),
+            content:
+                Text(AppLocalization.text("pushnotifications.off.description")),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(AppLocalization.text("Settings")),
+                onPressed: () {
+                  openAppSettings();
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text(AppLocalization.text("cancel_camel")),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      },
+    );
   }
 }
