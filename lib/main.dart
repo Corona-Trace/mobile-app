@@ -1,5 +1,8 @@
 import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
+import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
+import 'package:corona_trace/ui_v1_1/not_available_yet/home_not_available_dashboard.dart';
 import 'package:corona_trace/ui_v1_1/onboarding_get_started.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +23,22 @@ void main() {
   Surveys.setAutoShowingEnabled(false);
 
   ApiRepository.getIsOnboardingDone().then((onboardingDone) {
-    ApiRepository.getUserSeverity().then((userSeverity) {
-      var isOnboardinDone = onboardingDone == null ? false : onboardingDone;
-      var severity = userSeverity == null ? -1 : userSeverity;
-      runApp(MyApp(isOnboardinDone, severity));
+    ApiRepository.getDidAllowNotifyWhenAvailable().then((shouldNotifyWhenAvailable) {
+      ApiRepository.getUserSeverity().then((userSeverity) {
+        LocationUpdates.arePermissionsDenied().then((locationInfoDenied) {
+          LocationUpdates.isWithinAvailableGeoLocation().then((insideLocationGate){
+            var isOnboardinDone = onboardingDone == null ? false : onboardingDone;
+            var severity = userSeverity == null ? -1 : userSeverity;
+            runApp(MyApp(
+              isOnboardinDone, 
+              severity,
+              shouldNotifyWhenAvailable,
+              locationInfoDenied,
+              insideLocationGate
+            ));
+          });
+        });
+      });
     });
   });
 }
@@ -46,10 +61,19 @@ MaterialColor appColor = MaterialColor(
 final GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
+  final bool insideLocationGate;
+  final bool locationInfoDenied;
+  final bool shouldNotifyWhenAvailable;
   final bool isOnboardinDone;
   final int severity;
 
-  MyApp(this.isOnboardinDone, this.severity);
+  MyApp(
+    this.isOnboardinDone, 
+    this.severity,
+    this.shouldNotifyWhenAvailable,
+    this.locationInfoDenied,
+    this.insideLocationGate
+  );
 
   // This widget is the root of your application.
   @override
@@ -92,7 +116,13 @@ class MyApp extends StatelessWidget {
           title: 'Zero',
           navigatorKey: globalKey,
           theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
-          home: OnboardingGetStarted()
+          home: isOnboardinDone
+            ? insideLocationGate
+                ? HomeCheckinDashboard()
+                : HomeNotAvailableDashboard(
+                  notifyMeEnabled: shouldNotifyWhenAvailable, 
+                  locationInfoDenied: locationInfoDenied)
+            : OnboardingGetStarted(),
           /* home: isOnboardinDone
             ? severity == -1
                 ? UserInfoCollectorScreen()

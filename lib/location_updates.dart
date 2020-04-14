@@ -82,10 +82,12 @@ class LocationUpdates {
   }
 
   static Future<bool> isWithinAvailableGeoLocation() async {
+    var permissionsDenied = await arePermissionsDenied();
     Location current = await bg.BackgroundGeolocation.getCurrentPosition();
+    //var insideLocationGate = await 
     // TODO: Implement when API is available, send current location
-    return false;
-  } 
+    return !permissionsDenied && false;
+  }
 
   static Future<bool> arePermissionsDenied() async =>
       !await Permission.locationAlways.isGranted ||

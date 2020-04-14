@@ -1,5 +1,5 @@
-import 'package:corona_trace/location_updates.dart';
-import 'package:corona_trace/ui_v1_1/home_checkin/home_atrisk_notificationdetail.dart';
+
+import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui_v1_1/privacy/privacy_screen.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
@@ -174,9 +174,6 @@ getAllSetWidget() {
             ),
           ),
           ListTile(
-            onTap: () {
-              //TODO: implement
-            },
             leading: SizedBox(
               child: Image.asset("assets/images/not_available_allset_circle.png"),
               width: 50,
@@ -209,9 +206,6 @@ getNotifyMeWidget(BuildContext context) {
             ),
           ),
           ListTile(
-            onTap: () {
-              //TODO: implement
-            },
             leading: SizedBox(
               child: Image.asset("assets/images/not_available_notify_circle.png"),
               width: 50,
@@ -237,7 +231,7 @@ getNotifyMeWidget(BuildContext context) {
                   style: TextStyle(color: Colors.white, fontSize: 17),
                 ),
                 onPressed: () {
-                  //TODO: Implmenet Logic to handle notify me
+                  ApiRepository.setDidAllowNotifyWhenAvailable(true);
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -273,9 +267,6 @@ getLocationInformationNotAvailableWidget(BuildContext context) {
             ),
           ),
           ListTile(
-            onTap: () {
-              //TODO: implement
-            },
             leading: SizedBox(
               child: Image.asset("assets/images/not_available_location_circle.png"),
               width: 50,
