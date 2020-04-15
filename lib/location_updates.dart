@@ -89,7 +89,7 @@ class LocationUpdates {
     Location current = await bg.BackgroundGeolocation.getCurrentPosition();
     //var insideLocationGate = await 
     // TODO: Implement when API is available, send current location
-    return false;
+    return true;
   }
 
   static Future<bool> arePermissionsDenied() async =>

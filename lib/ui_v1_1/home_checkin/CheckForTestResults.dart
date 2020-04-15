@@ -1,20 +1,21 @@
 import 'package:corona_trace/app_constants.dart';
+import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
 import 'package:corona_trace/ui_v1_1/common/ui/CTCommonRadioGroup.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/WatchForSymptomsWidget.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_confirm_not_sick.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
-class HomeCheckIsSick extends StatefulWidget {
+class CheckForTestResults extends StatefulWidget {
   final Function(Widget response) onNextScreen;
 
-  HomeCheckIsSick({this.onNextScreen});
+  CheckForTestResults({this.onNextScreen});
 
   @override
   _HomeCheckIsSickState createState() => _HomeCheckIsSickState();
 }
 
-class _HomeCheckIsSickState extends State<HomeCheckIsSick> {
+class _HomeCheckIsSickState extends State<CheckForTestResults> {
   int _selectedItem;
 
   @override
@@ -38,7 +39,7 @@ class _HomeCheckIsSickState extends State<HomeCheckIsSick> {
           height: 32,
         ),
         Text(
-          AppLocalization.text("are.feeling.sick"),
+          AppLocalization.text("what.covid.results"),
           style: TextStyle(
               fontSize: 28,
               color: Color(0xff1A1D4A),
@@ -48,8 +49,9 @@ class _HomeCheckIsSickState extends State<HomeCheckIsSick> {
           height: 32,
         ),
         CTCommonRadioGroup([
-          AppLocalization.text("yes.feel.sick"),
-          AppLocalization.text("not.feel.sick")
+          AppLocalization.text("Tested.Positive.COVID"),
+          AppLocalization.text("Tested.Negative.COVID"),
+          AppLocalization.text("Tested.Waiting.Results")
         ], (int selected) {
           _selectedItem = selected;
           setState(() {});
@@ -78,18 +80,20 @@ class _HomeCheckIsSickState extends State<HomeCheckIsSick> {
               ),
               onPressed: () {
                 if (_selectedItem != null) {
-                  if (_selectedItem == 0) {
+                  if (_selectedItem == 2) {
                     print("gone watch for symptoms");
                     widget.onNextScreen.call(WatchForSymptomsWidget(
                             showBottomButtons: true,
-                            status: AppConstants.NOT_TESTED_FEEL_SICK,
+                            status:AppConstants.WAITING,
                             onNextScreen: widget.onNextScreen,
                             needsScroll: true)
                         .get(context));
                   } else {
                     print("HomeConfirmProcessSick 1");
                     widget.onNextScreen.call(HomeConfirmProcessSick(
-                        status: AppConstants.NOT_TESTTED_NOT_SICK,
+                        status: _selectedItem == 0
+                            ? AppConstants.TESTED_POSITIVE
+                            : AppConstants.TESTED_NEGATIVE,
                         onNextScreen: widget.onNextScreen));
                   }
                 }

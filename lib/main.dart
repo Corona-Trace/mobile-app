@@ -21,25 +21,32 @@ void main() {
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
 
-  Instabug.start('d8d9d6c113ba17e5d515d3581726c9a0', [InvocationEvent.none]);
-  Surveys.setAutoShowingEnabled(false);
+  try {
+    Instabug.start('d8d9d6c113ba17e5d515d3581726c9a0', [InvocationEvent.none]);
+    Surveys.setAutoShowingEnabled(false);
+  } catch (ex) {
+    print(ex);
+  }
 
   ApiRepository.getIsOnboardingDone().then((onboardingDone) {
-    ApiRepository.getDidAllowNotifyWhenAvailable().then((shouldNotifyWhenAvailable) {
+    ApiRepository.getDidAllowNotifyWhenAvailable()
+        .then((shouldNotifyWhenAvailable) {
       ApiRepository.getUserSeverity().then((userSeverity) {
-        PushNotifications.arePermissionsDenied().then((pushNotificationsDenied) {
+        PushNotifications.arePermissionsDenied()
+            .then((pushNotificationsDenied) {
           LocationUpdates.arePermissionsDenied().then((locationInfoDenied) {
-            LocationUpdates.isWithinAvailableGeoLocation().then((insideLocationGate){
-              var isOnboardinDone = onboardingDone == null ? false : onboardingDone;
+            LocationUpdates.isWithinAvailableGeoLocation()
+                .then((insideLocationGate) {
+              var isOnboardinDone =
+                  onboardingDone == null ? false : onboardingDone;
               var severity = userSeverity == null ? -1 : userSeverity;
               runApp(MyApp(
-                isOnboardinDone, 
-                severity,
-                shouldNotifyWhenAvailable,
-                locationInfoDenied,
-                insideLocationGate,
-                pushNotificationsDenied
-              ));
+                  isOnboardinDone,
+                  severity,
+                  shouldNotifyWhenAvailable,
+                  locationInfoDenied,
+                  insideLocationGate,
+                  pushNotificationsDenied));
             });
           });
         });
@@ -74,13 +81,12 @@ class MyApp extends StatelessWidget {
   final int severity;
 
   MyApp(
-    this.isOnboardinDone, 
-    this.severity,
-    this.shouldNotifyWhenAvailable,
-    this.locationInfoDenied,
-    this.insideLocationGate,
-    this.pushNotificationsDenied
-  );
+      this.isOnboardinDone,
+      this.severity,
+      this.shouldNotifyWhenAvailable,
+      this.locationInfoDenied,
+      this.insideLocationGate,
+      this.pushNotificationsDenied);
 
   // This widget is the root of your application.
   @override
@@ -90,58 +96,53 @@ class MyApp extends StatelessWidget {
 
   Widget startScreen() {
     return isOnboardinDone
-            ? pushNotificationsDenied 
-              ? OnboardingNotificationPermission() 
-              : insideLocationGate
-                  ? HomeCheckinDashboard()
-                  : HomeNotAvailableDashboard(
-                    notifyMeEnabled: shouldNotifyWhenAvailable, 
+        ? pushNotificationsDenied
+            ? OnboardingNotificationPermission()
+            : insideLocationGate
+                ? HomeCheckinDashboard()
+                : HomeNotAvailableDashboard(
+                    notifyMeEnabled: shouldNotifyWhenAvailable,
                     locationInfoDenied: locationInfoDenied)
-            : OnboardingGetStarted();
+        : OnboardingGetStarted();
   }
 
   MediaQuery getMaterialApp() {
     return MediaQuery(
       child: MaterialApp(
-          navigatorObservers: [
-            CTAnalyticsManager.instance.getFBAnalyticsObserver(),
-          ],
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          supportedLocales: [
-            const Locale('en'),
-            const Locale('es'),
-            const Locale('it'),
-            const Locale('fr'),
-          ],
-          localeResolutionCallback:
-              (Locale locale, Iterable<Locale> supportedLocales) {
-            if (locale == null) {
-              debugPrint("*language locale is null!!!");
-              return supportedLocales.first;
-            }
-            for (Locale supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale.languageCode ||
-                  supportedLocale.countryCode == locale.countryCode) {
-                return supportedLocale;
-              }
-            }
+        navigatorObservers: [
+          CTAnalyticsManager.instance.getFBAnalyticsObserver(),
+        ],
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('en'),
+          const Locale('es'),
+          const Locale('it'),
+          const Locale('fr'),
+        ],
+        localeResolutionCallback:
+            (Locale locale, Iterable<Locale> supportedLocales) {
+          if (locale == null) {
+            debugPrint("*language locale is null!!!");
             return supportedLocales.first;
-          },
-          debugShowCheckedModeBanner: false,
-          title: 'Zero',
-          navigatorKey: globalKey,
-          theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
-          home: startScreen(),
-          /* home: isOnboardinDone
-            ? severity == -1
-                ? UserInfoCollectorScreen()
-                : NotificationsListScreen()
-            : OnboardingScreen(),*/
-          ),
+          }
+          for (Locale supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale.languageCode ||
+                supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
+            }
+          }
+          return supportedLocales.first;
+        },
+        debugShowCheckedModeBanner: false,
+        title: 'Zero',
+        navigatorKey: globalKey,
+        theme: ThemeData(primarySwatch: appColor, fontFamily: 'Montserrat'),
+        home: startScreen(),
+      ),
       data: MediaQueryData(),
     );
   }

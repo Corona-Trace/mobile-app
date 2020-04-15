@@ -1,6 +1,7 @@
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/service/push_notifications/push_notifications.dart';
+import 'package:corona_trace/ui/base_state.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
 import 'package:corona_trace/ui_v1_1/not_available_yet/home_not_available_dashboard.dart';
 import 'package:corona_trace/ui_v1_1/notification_location/onboarding_checkin_beresponsible.dart';
@@ -16,11 +17,18 @@ class OnboardingNotificationPermission extends StatefulWidget {
 }
 
 class OnboardingNotificationPermissionState
-    extends State<OnboardingNotificationPermission> {
+    extends BaseState<OnboardingNotificationPermission> {
+
   @override
-  Widget build(BuildContext context) {
+  String screenName() {
+    return "OnboardingNotificationPermissionState";
+  }
+
+  @override
+  Widget prepareWidget(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          key: scaffoldKey,
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,19 +1,33 @@
 import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/ui/base_state.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/thanks_doing_part_screen.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
-class HomeConfirmProcessSick extends StatelessWidget {
-  final bool isSick;
+class HomeConfirmProcessSick extends StatefulWidget {
+  final int status;
   final Function(Widget response) onNextScreen;
 
-  HomeConfirmProcessSick({this.isSick,this.onNextScreen});
+  HomeConfirmProcessSick({this.status, this.onNextScreen});
 
   @override
-  Widget build(BuildContext context) {
+  State<StatefulWidget> createState() {
+    return HomeConfirmProcessSickState();
+  }
+}
+
+class HomeConfirmProcessSickState extends BaseState<HomeConfirmProcessSick> {
+  @override
+  String screenName() {
+    return "HomeConfirmProcessSickState${widget.status}";
+  }
+
+  @override
+  Widget prepareWidget(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,13 +130,12 @@ class HomeConfirmProcessSick extends StatelessWidget {
                 width: 20,
               ),
               Text(
-                AppLocalization.text(
-                    !isSick ? "not.feel.sick" : "yes.feel.sick.message"),
+                AppLocalization.text(getTextForStatus(widget.status)),
                 style: TextStyle(fontSize: 17),
               )
             ],
           ),
-          isSick
+          widget.status == AppConstants.WAITING
               ? Padding(
                   padding:
                       EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 10),
@@ -152,8 +165,11 @@ class HomeConfirmProcessSick extends StatelessWidget {
                 ),
                 style: TextStyle(color: Colors.white, fontSize: 17),
               ),
-              onPressed: () {
-                onNextScreen.call(ThanksDoingPartScreen());
+              onPressed: () async {
+                showLoadingDialog();
+                await ApiRepository.setUserSeverity(widget.status);
+                hideLoadingDialog();
+                widget.onNextScreen.call(ThanksDoingPartScreen());
               },
             ),
           ),
@@ -173,7 +189,7 @@ class HomeConfirmProcessSick extends StatelessWidget {
               style: TextStyle(color: Color(0xff475DF3), fontSize: 17),
             ),
             onPressed: () {
-              onNextScreen.call(null);
+              widget.onNextScreen.call(null);
             },
           ),
           margin: EdgeInsets.only(bottom: 20),
@@ -181,4 +197,36 @@ class HomeConfirmProcessSick extends StatelessWidget {
       ],
     );
   }
+
+}
+
+String getTextForStatus(int status) {
+  switch (status) {
+    case AppConstants.TESTED_NEGATIVE:
+      {
+        return "Tested.Negative.COVID";
+      }
+      break;
+    case AppConstants.TESTED_POSITIVE:
+      {
+        return "Tested.Positive.COVID";
+      }
+      break;
+    case AppConstants.NOT_TESTED_FEEL_SICK:
+      {
+        return "not.tested.feeling.sick";
+      }
+      break;
+    case AppConstants.NOT_TESTTED_NOT_SICK:
+      {
+        return "not.feel.sick";
+      }
+      break;
+    case AppConstants.WAITING:
+      {
+        return "Tested.Waiting.Results";
+      }
+      break;
+  }
+  return "";
 }

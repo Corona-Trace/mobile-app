@@ -4,6 +4,12 @@ import 'package:device_info/device_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppConstants {
+  static const TESTED_POSITIVE = 1;
+  static const TESTED_NEGATIVE = 2;
+  static const WAITING = 3;
+  static const NOT_TESTED_FEEL_SICK = 4;
+  static const NOT_TESTTED_NOT_SICK = 5;
+
   static const DISTANCE_DISPLACEMENT_FACTOR = "DISTANCE_DISPLACEMENT_FACTOR";
 
   static const String TESTED_URL =
