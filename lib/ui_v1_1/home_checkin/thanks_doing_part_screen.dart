@@ -1,4 +1,4 @@
-import 'package:corona_trace/ui_v1_1/home_checkin/home_atrisk_notificationdetail.dart';
+
 import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:corona_trace/utils/app_surveys.dart';

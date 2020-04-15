@@ -1,4 +1,5 @@
 import 'package:corona_trace/location_updates.dart';
+import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui_v1_1/not_available_yet/home_not_available_dashboard.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +118,7 @@ class OnboardingNotAvailableYetState
 
   void onPressedBtn(BuildContext context, bool shouldNotify) async {
     bool locationInfoDenied = await LocationUpdates.arePermissionsDenied();
-    //TODO: Implmenet Logic to handle notify me
+    ApiRepository.setDidAllowNotifyWhenAvailable(shouldNotify);
     print("next button clicked");
     Navigator.pushAndRemoveUntil(
         context,

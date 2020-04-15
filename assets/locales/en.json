@@ -142,5 +142,7 @@
   "stay.safe.while.wait.description": "Check back often to find out when CoronaTrace is available in your area.",
   "location.information.notavailable": "CoronaTrace requires location information to keep you informed about your risk. ",
   "location.information.notavailable.description": "When you are ready to allow access to location go to your device settings.",
-  "go.to.settings": "Go to Settings"
+  "go.to.settings": "Go to Settings",
+  "pushnotifications.off.title": "Push Notifications are turned off!",
+  "pushnotifications.off.description": "Please enable push notifications in Settings"
 }

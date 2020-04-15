@@ -15,7 +15,7 @@ class ApiRepository {
 
   static ApiRepository get instance => _instance;
 
-  ApiRepository._internal() {}
+  ApiRepository._internal();
 
   static BaseOptions dioOptions = new BaseOptions(connectTimeout: 15000, receiveTimeout: 30000);
   static Dio _dio = Dio(dioOptions);
@@ -28,6 +28,7 @@ class ApiRepository {
   static const SEVERITY = "SEVERITY";
   static const USER_LOCATION_URL = "$API_URL/usersLocationHistory";
   static const String IS_ONBOARDING_DONE = "IS_ONBOARDING_DONE";
+  static const String DID_ALLOW_NOTIFY_WHEN_AVAILABLE = "DID_ALLOW_NOTIFY_WHEN_AVAILABLE";
 
   static Future<void> updateTokenForUser(String token) async {
     var instance = await SharedPreferences.getInstance();
@@ -134,5 +135,15 @@ class ApiRepository {
   static setOnboardingDone(bool isDone) async {
     var sharedPrefs = await SharedPreferences.getInstance();
     await sharedPrefs.setBool(IS_ONBOARDING_DONE, isDone);
+  }
+
+  static Future<bool> getDidAllowNotifyWhenAvailable() async {
+    var sharedPrefs = await SharedPreferences.getInstance();
+    return sharedPrefs.getBool(DID_ALLOW_NOTIFY_WHEN_AVAILABLE) ?? false;
+  }
+
+  static setDidAllowNotifyWhenAvailable(bool shouldNotify) async {
+    var sharedPrefs = await SharedPreferences.getInstance();
+    await sharedPrefs.setBool(DID_ALLOW_NOTIFY_WHEN_AVAILABLE, shouldNotify);
   }
 }

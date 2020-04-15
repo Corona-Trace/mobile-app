@@ -1,5 +1,4 @@
 import 'package:corona_trace/network/notification/response_notification_item.dart';
-import 'package:flutter/material.dart';
 
 /// data : [{"_id":"5e7c92e36394cd10e8e7c508","userId":"614714e56498ea8e","timestamp":"2020-03-26T11:32:51.491Z","address":"qwertyuio"},{"_id":"5e7c92e36394cd10e8e7c508","userId":"614714e56498ea8e","timestamp":"2020-03-26T11:32:51.491Z","address":"qwertyuio"}]
 /// message : ""

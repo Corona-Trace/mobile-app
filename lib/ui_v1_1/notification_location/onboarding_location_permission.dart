@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/location_updates.dart';
-import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui/base_state.dart';
 import 'package:corona_trace/ui_v1_1/notification_location/onboarding_notification_permission.dart';
 import 'package:corona_trace/utils/app_localization.dart';
@@ -136,7 +135,6 @@ class OnboardingLocationPermissionState
 
   Future onPremissionAvailable(BuildContext context) async {
     showLoadingDialog(tapDismiss: false);
-    await ApiRepository.setOnboardingDone(true);
     hideLoadingDialog();
     navigateNotificationPermission(context);
   }
