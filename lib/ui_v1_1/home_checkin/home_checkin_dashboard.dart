@@ -1,6 +1,7 @@
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_atrisk_notificationdetail.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_confirm_not_sick.dart';
+import 'package:corona_trace/ui_v1_1/home_checkin/home_first_checkin.dart';
 import 'package:corona_trace/ui_v1_1/privacy/privacy_screen.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
@@ -102,22 +103,25 @@ class HomeCheckinDashboard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: FutureBuilder(
-                    future: ApiRepository.getUserSeverity(),
-                    builder: (context, snapshot) {
-                      print(snapshot);
-                      if (snapshot.hasData) {
-                        return Text(
-                          AppLocalization.text(getTextForStatus(snapshot.data as int)),
-                          style: TextStyle(
-                              fontSize: 17, fontWeight: FontWeight.bold),
-                        );
-                      } else {
-                        return Text("");
-                      }
-                    },
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: FutureBuilder(
+                      future: ApiRepository.getUserSeverity(),
+                      builder: (context, snapshot) {
+                        print(snapshot);
+                        if (snapshot.hasData) {
+                          return Text(
+                            AppLocalization.text(
+                                getTextForStatus(snapshot.data as int)),
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold),
+                          );
+                        } else {
+                          return Text("");
+                        }
+                      },
+                    ),
                   ),
                 ),
                 Padding(
@@ -134,7 +138,13 @@ class HomeCheckinDashboard extends StatelessWidget {
                           fontSize: 17,
                           fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  HomeFirstTimeCheckInScreen()));
+                    },
                   ),
                   padding: EdgeInsets.only(right: 20),
                 )
