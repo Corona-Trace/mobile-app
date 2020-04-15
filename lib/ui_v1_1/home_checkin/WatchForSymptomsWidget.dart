@@ -5,11 +5,15 @@ import 'home_confirm_not_sick.dart';
 
 class WatchForSymptomsWidget {
   final bool showBottomButtons;
+  final int status;
   final Function(Widget response) onNextScreen;
   final bool needsScroll;
 
   WatchForSymptomsWidget(
-      {this.showBottomButtons, this.onNextScreen, this.needsScroll});
+      {this.showBottomButtons,
+      this.status,
+      this.onNextScreen,
+      this.needsScroll});
 
   Widget get(context) {
     if (needsScroll) {
@@ -222,7 +226,7 @@ class WatchForSymptomsWidget {
               ),
               onPressed: () {
                 onNextScreen.call(HomeConfirmProcessSick(
-                  isSick: true,
+                  status: status,
                   onNextScreen: onNextScreen,
                 ));
               },

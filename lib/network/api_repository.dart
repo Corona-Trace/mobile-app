@@ -53,15 +53,16 @@ class ApiRepository {
   static Future<void> setUserSeverity(int severity) async {
     var instance = await SharedPreferences.getInstance();
 
-    var severity = await getUserSeverity();
+    var oldSeverity = await getUserSeverity();
 
-    if (severity == null || (severity != null && severity == -1)) {
-      CTAnalyticsManager.instance.setFirstSeverityCheck(severity);
+    if (oldSeverity == null || (oldSeverity != null && oldSeverity == -1)) {
+      CTAnalyticsManager.instance.setFirstSeverityCheck(oldSeverity);
     } else {
-      CTAnalyticsManager.instance.setSeverityCheck(severity);
+      CTAnalyticsManager.instance.setSeverityCheck(oldSeverity);
     }
 
     await instance.setInt(SEVERITY, severity);
+    print("user severity ${await ApiRepository.getUserSeverity()}");
     try {
       var deviceID = await AppConstants.getDeviceId();
       var url = "$API_URL/users";

@@ -1,5 +1,6 @@
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/ui/base_state.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_first_checkin.dart';
 import 'package:corona_trace/ui_v1_1/not_available_yet/onboarding_not_available_yet.dart';
 import 'package:corona_trace/utils/app_localization.dart';
@@ -14,11 +15,12 @@ class OnboardingCheckinBeResponsible extends StatefulWidget {
 }
 
 class OnboardingCheckinBeResponsibleState
-    extends State<OnboardingCheckinBeResponsible> {
+    extends BaseState<OnboardingCheckinBeResponsible> {
   @override
-  Widget build(BuildContext context) {
+  Widget prepareWidget(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          key: scaffoldKey,
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,28 +31,26 @@ class OnboardingCheckinBeResponsibleState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  color: Color.fromRGBO(237, 239, 254, 0.4),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Align(
-                        child: Image(
-                          image: AssetImage(
-                            "assets/images/onboarding_checkin_beresponsible.png",
+                    color: Color.fromRGBO(237, 239, 254, 0.4),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 50,
                           ),
-                        ),
-                        alignment: Alignment.center,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      )
-                    ]
-                  )
-                ),
+                          Align(
+                            child: Image(
+                              image: AssetImage(
+                                "assets/images/onboarding_checkin_beresponsible.png",
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          )
+                        ])),
               ],
             ),
           ),
@@ -60,7 +60,8 @@ class OnboardingCheckinBeResponsibleState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  AppLocalization.text("onboarding.checkin.beresponsible.title"),
+                  AppLocalization.text(
+                      "onboarding.checkin.beresponsible.title"),
                   style: TextStyle(
                       fontSize: 28,
                       color: Color(0xff1A1D4A),
@@ -69,7 +70,9 @@ class OnboardingCheckinBeResponsibleState
                 SizedBox(
                   height: 8,
                 ),
-                Text(AppLocalization.text("onboarding.checkin.beresponsible.subtitle"),
+                Text(
+                    AppLocalization.text(
+                        "onboarding.checkin.beresponsible.subtitle"),
                     style: TextStyle(fontSize: 17))
               ],
             ),
@@ -103,19 +106,27 @@ class OnboardingCheckinBeResponsibleState
 
   void onPressedBtnGetStarted(BuildContext context) async {
     print("permission button clicked");
+    showLoadingDialog();
     await ApiRepository.setOnboardingDone(true);
-    if(await LocationUpdates.isWithinAvailableGeoLocation()) {
+    var isWithingArea = await LocationUpdates.isWithinAvailableGeoLocation();
+    hideLoadingDialog();
+    if (isWithingArea) {
       Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => HomeFirstTimeCheckInScreen()),
-        (route) => false);
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => HomeFirstTimeCheckInScreen()),
+          (route) => false);
     } else {
       Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => OnboardingNotAvailableYet()),
-        (route) => false);
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => OnboardingNotAvailableYet()),
+          (route) => false);
     }
+  }
+
+  @override
+  String screenName() {
+    return "onboarding_checking_beresponsible";
   }
 }
