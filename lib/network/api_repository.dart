@@ -4,6 +4,7 @@ import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/notification/response_notification.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -29,26 +30,34 @@ class ApiRepository {
   static const USER_LOCATION_URL = "$API_URL/usersLocationHistory";
   static const String IS_ONBOARDING_DONE = "IS_ONBOARDING_DONE";
   static const String DID_ALLOW_NOTIFY_WHEN_AVAILABLE = "DID_ALLOW_NOTIFY_WHEN_AVAILABLE";
+  static const String CURRENT_LAT = "CURRENT_LAT";
+  static const String CURRENT_LONG = "CURRENT_LONG";
 
-  static Future<void> updateTokenForUser(String token) async {
+  static Future<bool> updateUser(String token, Location currentLocation) async {
     var instance = await SharedPreferences.getInstance();
-    if (instance.get(TOKEN) != null && instance.get(TOKEN) == token) {
-      return;
-    }
     var deviceID = await AppConstants.getDeviceId();
     var url = "$API_URL/users";
-    var body = tokenRequestBody(token, deviceID);
+    var body = tokenRequestBody(token, deviceID, currentLocation);
     Response response =
         await _dio.post(url, data: JSON.jsonEncode(body));
     var statusCode = response.statusCode;
     debugPrint("$statusCode - $url");
     if (response.statusCode == 200) {
       await instance.setString(TOKEN, token);
+      return true;
     }
+    return false;
   }
 
-  static Map<String, String> tokenRequestBody(String token, String deviceID) =>
-      {"token": token, "userId": deviceID};
+  static Map<String, dynamic> tokenRequestBody(String token, String deviceID, Location location) =>
+      { 
+        "token": token, 
+        "userId": deviceID,
+        "location": {
+          "latitude": location.coords.latitude,
+          "longitude": location.coords.longitude
+        }
+      };
 
   static Future<void> setUserSeverity(int severity) async {
     var instance = await SharedPreferences.getInstance();
