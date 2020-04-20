@@ -15,34 +15,12 @@ class AtRiskNotificationDetail extends StatelessWidget {
               SizedBox(height: 20),
               getRiskListTile(context, showTrailing: false),
               SizedBox(height: 10),
-              topListTileWithMap(),
-              SizedBox(height: 20),
               getNextSteps(),
               WatchForSymptomsWidget(
                       showBottomButtons: false, needsScroll: false)
                   .get(context),
               SizedBox(
                 height: 30,
-              ),
-              Container(
-                child: MaterialButton(
-                  height: 50,
-                  minWidth: MediaQuery.of(context).size.width * 0.85,
-                  color: Color(0xff475DF3),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: Text(
-                    AppLocalization.text(
-                      "notify.someone",
-                    ),
-                    style: TextStyle(
-                        color: Color(0xffDFE3FF),
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () {},
-                ),
-                margin: EdgeInsets.only(bottom: 20),
               )
             ],
           ),

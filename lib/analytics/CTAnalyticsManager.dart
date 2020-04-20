@@ -48,4 +48,12 @@ class CTAnalyticsManager {
   void setSeverityCheck(int severity) {
     _logEventInternal(CTAnalyticsEvents.EVENT_update_check_in);
   }
+
+  void logClickResources() {
+    _logEventInternal(CTAnalyticsEvents.EVENT_resources_url);
+  }
+
+  void logClickHowItWorks() {
+    _logEventInternal(CTAnalyticsEvents.EVENT_how_it_works_url);
+  }
 }
