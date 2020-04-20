@@ -16,6 +16,8 @@ class AppConstants {
       "https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/testing.html";
   static const String DOCUMENTATION_URL =
       "https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html";
+  static const String CARE_FOR_SOMEONE = "https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/care-for-someone.html";
+  static const String STEPS_WHEN_SICK = "https://www.cdc.gov/coronavirus/2019-ncov/if-you-are-sick/steps-when-sick.html";
 
   static Future<String> getDeviceId() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
