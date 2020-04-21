@@ -55,7 +55,7 @@ class LocationUpdates {
             maxDaysToPersist: 3,
             debug: false,
             autoSync: true,
-            triggerActivities: 'on_foot, walking, running',
+            triggerActivities: 'on_foot, walking, running, on_bicycle',
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
             stopOnTerminate: false,
             allowIdenticalLocations: false,
