@@ -14,7 +14,7 @@ import 'package:instabug_flutter/Surveys.dart';
 
 import 'utils/app_localization.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Crashlytics.instance.enableInDevMode = true;
 
@@ -28,31 +28,18 @@ void main() {
     print(ex);
   }
 
-  ApiRepository.getIsOnboardingDone().then((onboardingDone) {
-    ApiRepository.getDidAllowNotifyWhenAvailable()
-        .then((shouldNotifyWhenAvailable) {
-      ApiRepository.getUserSeverity().then((userSeverity) {
-        PushNotifications.arePermissionsDenied()
-            .then((pushNotificationsDenied) {
-          LocationUpdates.arePermissionsDenied().then((locationInfoDenied) {
-            LocationUpdates.isWithinAvailableGeoLocation()
-                .then((insideLocationGate) {
-              var isOnboardinDone =
-                  onboardingDone == null ? false : onboardingDone;
-              var severity = userSeverity == null ? -1 : userSeverity;
-              runApp(MyApp(
-                  isOnboardinDone,
-                  severity,
-                  shouldNotifyWhenAvailable,
-                  locationInfoDenied,
-                  insideLocationGate,
-                  pushNotificationsDenied));
-            });
-          });
-        });
-      });
-    });
-  });
+  var onboardingDone = await ApiRepository.getIsOnboardingDone();
+  var shouldNotifyWhenAvailable =
+      await ApiRepository.getDidAllowNotifyWhenAvailable();
+  var userSeverity = await ApiRepository.getUserSeverity();
+  var pushNotificationsDenied = await PushNotifications.arePermissionsDenied();
+  var locationInfoDenied = await LocationUpdates.arePermissionsDenied();
+  var insideLocationGate = await LocationUpdates.isWithinAvailableGeoLocation();
+
+  var isOnboardinDone = onboardingDone == null ? false : onboardingDone;
+  var severity = userSeverity == null ? -1 : userSeverity;
+  runApp(MyApp(isOnboardinDone, severity, shouldNotifyWhenAvailable,
+      locationInfoDenied, insideLocationGate, pushNotificationsDenied));
 }
 
 MaterialColor appColor = MaterialColor(

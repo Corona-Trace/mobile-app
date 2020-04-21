@@ -18,7 +18,6 @@ class OnboardingNotificationPermission extends StatefulWidget {
 
 class OnboardingNotificationPermissionState
     extends BaseState<OnboardingNotificationPermission> {
-
   @override
   String screenName() {
     return "OnboardingNotificationPermissionState";
@@ -28,7 +27,7 @@ class OnboardingNotificationPermissionState
   Widget prepareWidget(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          key: scaffoldKey,
+      key: scaffoldKey,
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,28 +38,26 @@ class OnboardingNotificationPermissionState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  color: Color.fromRGBO(237, 239, 254, 0.4),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Align(
-                        child: Image(
-                          image: AssetImage(
-                            "assets/images/onboarding_notification_permission.png",
+                    color: Color.fromRGBO(237, 239, 254, 0.4),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 50,
                           ),
-                        ),
-                        alignment: Alignment.center,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      )
-                    ]
-                  )
-                ),
+                          Align(
+                            child: Image(
+                              image: AssetImage(
+                                "assets/images/onboarding_notification_permission.png",
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          )
+                        ])),
               ],
             ),
           ),
@@ -70,7 +67,8 @@ class OnboardingNotificationPermissionState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  AppLocalization.text("onboarding.permissions.notification.title"),
+                  AppLocalization.text(
+                      "onboarding.permissions.notification.title"),
                   style: TextStyle(
                       fontSize: 28,
                       color: Color(0xff1A1D4A),
@@ -79,7 +77,9 @@ class OnboardingNotificationPermissionState
                 SizedBox(
                   height: 8,
                 ),
-                Text(AppLocalization.text("onboarding.permissions.notification.subtitle"),
+                Text(
+                    AppLocalization.text(
+                        "onboarding.permissions.notification.subtitle"),
                     style: TextStyle(fontSize: 17))
               ],
             ),
@@ -112,36 +112,38 @@ class OnboardingNotificationPermissionState
   }
 
   Future onPressedBtnAllowNotification(BuildContext context) async {
+    showLoadingDialog();
     try {
       await PushNotifications.registerNotification();
-      var denied =
-          await PushNotifications.arePermissionsDenied();
+      var denied = await PushNotifications.arePermissionsDenied();
       if (!denied) {
-        navigateCheckinBeResponsible(context);
+        await navigateCheckinBeResponsible(context);
       } else {
         PushNotifications.notifyUserDeniedPushPermissions(context);
       }
     } catch (ex) {
       PushNotifications.notifyUserDeniedPushPermissions(context);
     }
+    hideLoadingDialog();
   }
 
   void navigateCheckinBeResponsible(BuildContext context) async {
     var isOnboardingDone = await ApiRepository.getIsOnboardingDone();
-    var insideLocationGate = await LocationUpdates.isWithinAvailableGeoLocation();
-    var shouldNotifyWhenAvailable = await ApiRepository.getDidAllowNotifyWhenAvailable();
+    var insideLocationGate =
+        await LocationUpdates.isWithinAvailableGeoLocation();
+    var shouldNotifyWhenAvailable =
+        await ApiRepository.getDidAllowNotifyWhenAvailable();
     var locationInfoDenied = await LocationUpdates.arePermissionsDenied();
     Widget nextWidget = isOnboardingDone
-            ? insideLocationGate
-                  ? HomeCheckinDashboard()
-                  : HomeNotAvailableDashboard(
-                    notifyMeEnabled: shouldNotifyWhenAvailable, 
-                    locationInfoDenied: locationInfoDenied)
-            : OnboardingCheckinBeResponsible();
+        ? insideLocationGate
+            ? HomeCheckinDashboard()
+            : HomeNotAvailableDashboard(
+                notifyMeEnabled: shouldNotifyWhenAvailable,
+                locationInfoDenied: locationInfoDenied)
+        : OnboardingCheckinBeResponsible();
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => nextWidget),
+        MaterialPageRoute(builder: (BuildContext context) => nextWidget),
         (route) => false);
   }
 }

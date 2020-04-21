@@ -4,9 +4,9 @@ import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/notification/response_notification.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
 
 class ApiRepository {
   static final ApiRepository _instance = ApiRepository._internal();
@@ -17,18 +17,24 @@ class ApiRepository {
 
   ApiRepository._internal();
 
-  static BaseOptions dioOptions = new BaseOptions(connectTimeout: 15000, receiveTimeout: 30000);
+  static BaseOptions dioOptions =
+      new BaseOptions(connectTimeout: 15000, receiveTimeout: 30000);
   static Dio _dio = Dio(dioOptions);
   static const TOKEN = "TOKEN";
   static const API_URL = "https://api-yp2tme3siq-uc.a.run.app";
-  static const TERMS_AND_CONDITIONS = "https://www.tracetozero.org/legal/terms-of-service";
-  static const PRIVACY_POLICY = "https://www.tracetozero.org/legal/privacy-policy";
+  static const TERMS_AND_CONDITIONS =
+      "https://www.tracetozero.org/legal/terms-of-service";
+  static const PRIVACY_POLICY =
+      "https://www.tracetozero.org/legal/privacy-policy";
+  static const RESOURCES_URL = "https://www.TraceToZero.org/resources";
+  static const HOW_IT_WORKS_URL = "https://www.TraceToZero.org/how-it-works";
   static const LAT_CONST = "LAT";
   static const LNG_CONST = "LNG";
   static const SEVERITY = "SEVERITY";
   static const USER_LOCATION_URL = "$API_URL/usersLocationHistory";
   static const String IS_ONBOARDING_DONE = "IS_ONBOARDING_DONE";
-  static const String DID_ALLOW_NOTIFY_WHEN_AVAILABLE = "DID_ALLOW_NOTIFY_WHEN_AVAILABLE";
+  static const String DID_ALLOW_NOTIFY_WHEN_AVAILABLE =
+      "DID_ALLOW_NOTIFY_WHEN_AVAILABLE";
 
   static Future<void> updateTokenForUser(String token) async {
     var instance = await SharedPreferences.getInstance();
@@ -38,8 +44,7 @@ class ApiRepository {
     var deviceID = await AppConstants.getDeviceId();
     var url = "$API_URL/users";
     var body = tokenRequestBody(token, deviceID);
-    Response response =
-        await _dio.post(url, data: JSON.jsonEncode(body));
+    Response response = await _dio.post(url, data: JSON.jsonEncode(body));
     var statusCode = response.statusCode;
     debugPrint("$statusCode - $url");
     if (response.statusCode == 200) {

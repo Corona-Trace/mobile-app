@@ -5,4 +5,6 @@ class CTAnalyticsEvents {
 
   static const EVENT_first_check_in = "first_check_in";
   static const EVENT_update_check_in = "update_check_in";
+  static const EVENT_resources_url = "resources_url";
+  static const EVENT_how_it_works_url = "how_it_works_url";
 }
