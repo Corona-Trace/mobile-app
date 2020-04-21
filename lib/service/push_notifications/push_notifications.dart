@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert' as JSON;
 import 'dart:io';
 
+import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/network/notification/response_notification_item.dart';
@@ -11,6 +12,7 @@ import 'package:corona_trace/utils/app_surveys.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -27,7 +29,7 @@ class PushNotifications {
   static Future<void> initStuff() async {
     configLocalNotification();
     registerNotification();
-    await saveTokenForLoggedInUser();
+    await updateLoggedInUser();
     if (!configuredPush) {
       configuredPush = true;
       firebaseMessaging.configure(
@@ -151,14 +153,19 @@ class PushNotifications {
           sound: true, badge: true, alert: true, provisional: false),
     );
     firebaseMessaging.onTokenRefresh.listen((event) async {
-      await saveTokenForLoggedInUser();
+      await updateLoggedInUser();
     });
   }
 
-  static Future<void> saveTokenForLoggedInUser() async {
+  static Future<bool> updateLoggedInUser() async {
     var token = await firebaseMessaging.getToken();
+    if (await LocationUpdates.arePermissionsDenied()) {
+      return false;
+    }
+    Location current = await LocationUpdates.currentLocation();
     debugPrint(token);
-    await ApiRepository.updateTokenForUser(token);
+    debugPrint(current.toString());
+    return ApiRepository.updateUser(token, current);
   }
 
   static Future<void> notifyUserDeniedPushPermissions(

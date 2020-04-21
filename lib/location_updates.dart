@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/service/push_notifications/push_notifications.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class LocationUpdates {
             maxDaysToPersist: 3,
             debug: false,
             autoSync: true,
-            triggerActivities: 'on_foot, walking, running',
+            triggerActivities: 'on_foot, walking, running, on_bicycle',
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
             stopOnTerminate: false,
             allowIdenticalLocations: false,
@@ -81,15 +82,11 @@ class LocationUpdates {
     });
   }
 
+  static Future<Location> currentLocation() async => bg.BackgroundGeolocation.getCurrentPosition();
+
   static Future<bool> isWithinAvailableGeoLocation() async {
-    var permissionsDenied = await arePermissionsDenied();
-    if (permissionsDenied) {
-      return false;
-    }
-    Location current = await bg.BackgroundGeolocation.getCurrentPosition();
-    //var insideLocationGate = await 
-    // TODO: Implement when API is available, send current location
-    return true;
+    var success = await PushNotifications.updateLoggedInUser();
+    return success;
   }
 
   static Future<bool> arePermissionsDenied() async =>
