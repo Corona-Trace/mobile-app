@@ -1,3 +1,4 @@
+import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -5,11 +6,15 @@ import 'home_confirm_not_sick.dart';
 
 class WatchForSymptomsWidget {
   final bool showBottomButtons;
+  final int status;
   final Function(Widget response) onNextScreen;
   final bool needsScroll;
 
   WatchForSymptomsWidget(
-      {this.showBottomButtons, this.onNextScreen, this.needsScroll});
+      {this.showBottomButtons,
+      this.status,
+      this.onNextScreen,
+      this.needsScroll});
 
   Widget get(context) {
     if (needsScroll) {
@@ -161,8 +166,11 @@ class WatchForSymptomsWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         ListTile(
+          onTap: () {
+            AppConstants.launchUrl(AppConstants.DOCUMENTATION_URL);
+          },
           title: Text(
-            "Learn how to protect yourself",
+            AppLocalization.text("learn.protect.yourself"),
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
           trailing: Icon(Icons.arrow_forward_ios),
@@ -176,7 +184,10 @@ class WatchForSymptomsWidget {
           height: 10,
         ),
         ListTile(
-          title: Text("How to care for someone who is sick",
+          onTap: (){
+            AppConstants.launchUrl(AppConstants.CARE_FOR_SOMEONE);
+          },
+          title: Text(AppLocalization.text("how.tocareforsomeone"),
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
           trailing: Icon(Icons.arrow_forward_ios),
         ),
@@ -189,7 +200,10 @@ class WatchForSymptomsWidget {
           height: 10,
         ),
         ListTile(
-          title: Text("What to do if you are sick",
+          onTap: (){
+            AppConstants.launchUrl(AppConstants.STEPS_WHEN_SICK);
+          },
+          title: Text(AppLocalization.text("todo.whensick"),
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
           trailing: Icon(Icons.arrow_forward_ios),
         ),
@@ -222,7 +236,7 @@ class WatchForSymptomsWidget {
               ),
               onPressed: () {
                 onNextScreen.call(HomeConfirmProcessSick(
-                  isSick: true,
+                  status: status,
                   onNextScreen: onNextScreen,
                 ));
               },

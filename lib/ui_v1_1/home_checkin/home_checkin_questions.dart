@@ -1,4 +1,5 @@
 import 'package:corona_trace/ui_v1_1/common/ui/CTCommonRadioGroup.dart';
+import 'package:corona_trace/ui_v1_1/home_checkin/CheckForTestResults.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_check_issick.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/material.dart';
@@ -76,12 +77,12 @@ class HomeCheckinQuestionsState extends State<HomeCheckinQuestions> {
             if (_selectedItem != null) {
               print(_selectedItem);
               if (_selectedItem == 0) {
-                //TODO (API ? or LOCAL)
+                widget.onNextScreen(
+                    CheckForTestResults(onNextScreen: widget.onNextScreen));
               } else {
-                //TODO (API ? or LOCAL)
+                widget.onNextScreen
+                    .call(HomeCheckIsSick(onNextScreen: widget.onNextScreen));
               }
-              widget.onNextScreen
-                  .call(HomeCheckIsSick(onNextScreen: widget.onNextScreen));
             }
           },
         ),

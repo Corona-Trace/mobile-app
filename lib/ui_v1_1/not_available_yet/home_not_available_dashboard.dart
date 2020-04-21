@@ -1,4 +1,5 @@
-
+import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
+import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui_v1_1/privacy/privacy_screen.dart';
 import 'package:corona_trace/utils/app_localization.dart';
@@ -6,11 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomeNotAvailableDashboard extends StatelessWidget {
-  
   final bool notifyMeEnabled;
   final bool locationInfoDenied;
   HomeNotAvailableDashboard({this.notifyMeEnabled, this.locationInfoDenied});
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,7 +22,8 @@ class HomeNotAvailableDashboard extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: SingleChildScrollView(
-                  child: topContent(context, locationInfoDenied, notifyMeEnabled),
+                  child:
+                      topContent(context, locationInfoDenied, notifyMeEnabled),
                 ),
               ),
             ],
@@ -32,12 +33,14 @@ class HomeNotAvailableDashboard extends StatelessWidget {
     );
   }
 
-  topContent(BuildContext context, bool locationInfoDenied, bool allowedNotify) {
-    dynamic locationWidget = locationInfoDenied ? 
-      getLocationInformationNotAvailableWidget(context) : SizedBox(height: 0);
-    dynamic notifyWidget = locationInfoDenied ?
-      SizedBox(height: 0) : (allowedNotify ? 
-      getAllSetWidget() : getNotifyMeWidget(context));
+  topContent(
+      BuildContext context, bool locationInfoDenied, bool allowedNotify) {
+    dynamic locationWidget = locationInfoDenied
+        ? getLocationInformationNotAvailableWidget(context)
+        : SizedBox(height: 0);
+    dynamic notifyWidget = locationInfoDenied
+        ? SizedBox(height: 0)
+        : (allowedNotify ? getAllSetWidget() : getNotifyMeWidget(context));
     return Column(
       children: <Widget>[
         Container(
@@ -69,14 +72,16 @@ class HomeNotAvailableDashboard extends StatelessWidget {
                         padding: EdgeInsets.only(left: 20),
                         child: Text(
                           AppLocalization.text("manual.contact.tracing"),
-                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(
                         child: MaterialButton(
                           color: Color(0xffDFE3FF),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
                           child: Text(
                             AppLocalization.text(
                               "View",
@@ -102,11 +107,15 @@ class HomeNotAvailableDashboard extends StatelessWidget {
           ),
         ),
         ListTile(
+          onTap: () {
+            CTAnalyticsManager.instance.logClickResources();
+            AppConstants.launchUrl(ApiRepository.RESOURCES_URL);
+          },
           title: Text(
-            "Resources",
+            AppLocalization.text("checking.Resources"),
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
-          subtitle: Text("Learn more about how to stay safe",
+          subtitle: Text(AppLocalization.text("learn.howto.staysafe"),
               style: TextStyle(fontSize: 15)),
           trailing: Icon(Icons.arrow_forward_ios),
         ),
@@ -119,9 +128,13 @@ class HomeNotAvailableDashboard extends StatelessWidget {
           height: 30,
         ),
         ListTile(
-          title: Text("How CoronaTrace Works",
+          onTap: () {
+            CTAnalyticsManager.instance.logClickHowItWorks();
+            AppConstants.launchUrl(ApiRepository.HOW_IT_WORKS_URL);
+          },
+          title: Text(AppLocalization.text("how.tracetozero.works"),
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-          subtitle: Text("Learn about Contact Tracing",
+          subtitle: Text(AppLocalization.text("learn.about.contacttracing"),
               style: TextStyle(fontSize: 15)),
           trailing: Icon(Icons.arrow_forward_ios),
         ),
@@ -141,9 +154,9 @@ class HomeNotAvailableDashboard extends StatelessWidget {
                     builder: (BuildContext context) =>
                         PrivacyTermsAndConditionsScreen()));
           },
-          title: Text("Privacy Settings",
+          title: Text(AppLocalization.text("privacy.settings"),
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-          subtitle: Text("Manage how your information is used",
+          subtitle: Text(AppLocalization.text("how.information.used"),
               style: TextStyle(fontSize: 15)),
           trailing: Icon(Icons.arrow_forward_ios),
         ),
@@ -160,159 +173,155 @@ class HomeNotAvailableDashboard extends StatelessWidget {
 getAllSetWidget() {
   return Container(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.fromLTRB(28, 10, 10, 16),
-            child: Text(
-              AppLocalization.text("all.set"),
-              style: TextStyle(
-                  fontSize: 28,
-                  color: Color(0xff1A1D4A),
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          ListTile(
-            leading: SizedBox(
-              child: Image.asset("assets/images/not_available_allset_circle.png"),
-              width: 50,
-              height: 50,
-            ),
-            title: Text(
-              AppLocalization.text("all.set.description"),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
-            ),
-          )
-        ],
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Container(
+        margin: EdgeInsets.fromLTRB(28, 10, 10, 16),
+        child: Text(
+          AppLocalization.text("all.set"),
+          style: TextStyle(
+              fontSize: 28,
+              color: Color(0xff1A1D4A),
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      ListTile(
+        leading: SizedBox(
+          child: Image.asset("assets/images/not_available_allset_circle.png"),
+          width: 50,
+          height: 50,
+        ),
+        title: Text(
+          AppLocalization.text("all.set.description"),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+        ),
       )
-    );
+    ],
+  ));
 }
 
 getNotifyMeWidget(BuildContext context) {
   return Container(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.fromLTRB(28, 10, 10, 16),
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Container(
+        margin: EdgeInsets.fromLTRB(28, 10, 10, 16),
+        child: Text(
+          AppLocalization.text("stay.safe.while.wait"),
+          style: TextStyle(
+              fontSize: 28,
+              color: Color(0xff1A1D4A),
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      ListTile(
+        leading: SizedBox(
+          child: Image.asset("assets/images/not_available_notify_circle.png"),
+          width: 50,
+          height: 50,
+        ),
+        title: Text(
+          AppLocalization.text("stay.safe.while.wait.description"),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+        ),
+      ),
+      Container(
+        child: Material(
+          child: MaterialButton(
+            height: 50,
+            minWidth: MediaQuery.of(context).size.width,
+            color: Color(0xff475DF3),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8))),
             child: Text(
-              AppLocalization.text("stay.safe.while.wait"),
-              style: TextStyle(
-                  fontSize: 28,
-                  color: Color(0xff1A1D4A),
-                  fontWeight: FontWeight.bold),
+              AppLocalization.text(
+                "notify.me",
+              ),
+              style: TextStyle(color: Colors.white, fontSize: 17),
             ),
-          ),
-          ListTile(
-            leading: SizedBox(
-              child: Image.asset("assets/images/not_available_notify_circle.png"),
-              width: 50,
-              height: 50,
-            ),
-            title: Text(
-              AppLocalization.text("stay.safe.while.wait.description"),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
-            ),
-          ),
-          Container(
-            child: Material(
-              child: MaterialButton(
-                height: 50,
-                minWidth: MediaQuery.of(context).size.width,
-                color: Color(0xff475DF3),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Text(
-                  AppLocalization.text(
-                    "notify.me",
-                  ),
-                  style: TextStyle(color: Colors.white, fontSize: 17),
-                ),
-                onPressed: () {
-                  ApiRepository.setDidAllowNotifyWhenAvailable(true);
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => 
-                            HomeNotAvailableDashboard(
+            onPressed: () {
+              ApiRepository.setDidAllowNotifyWhenAvailable(true);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          HomeNotAvailableDashboard(
                               notifyMeEnabled: true,
                               locationInfoDenied: false)),
-                      (route) => false);
-                },
-              ),
-            ),
-            margin: EdgeInsets.all(20),
+                  (route) => false);
+            },
           ),
-        ],
-      )
-    );
+        ),
+        margin: EdgeInsets.all(20),
+      ),
+    ],
+  ));
 }
 
 getLocationInformationNotAvailableWidget(BuildContext context) {
   return Container(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.fromLTRB(28, 10, 10, 16),
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Container(
+        margin: EdgeInsets.fromLTRB(28, 10, 10, 16),
+        child: Text(
+          AppLocalization.text("location.information.notavailable"),
+          style: TextStyle(
+              fontSize: 22,
+              color: Color(0xff1A1D4A),
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      ListTile(
+        leading: SizedBox(
+          child: Image.asset("assets/images/not_available_location_circle.png"),
+          width: 50,
+          height: 50,
+        ),
+        title: Text(
+          AppLocalization.text("location.information.notavailable.description"),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+        ),
+      ),
+      Container(
+        child: Material(
+          child: MaterialButton(
+            height: 50,
+            minWidth: MediaQuery.of(context).size.width,
+            color: Color(0xff475DF3),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8))),
             child: Text(
-              AppLocalization.text("location.information.notavailable"),
-              style: TextStyle(
-                  fontSize: 22,
-                  color: Color(0xff1A1D4A),
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          ListTile(
-            leading: SizedBox(
-              child: Image.asset("assets/images/not_available_location_circle.png"),
-              width: 50,
-              height: 50,
-            ),
-            title: Text(
-              AppLocalization.text("location.information.notavailable.description"),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
-            ),
-          ),
-          Container(
-            child: Material(
-              child: MaterialButton(
-                height: 50,
-                minWidth: MediaQuery.of(context).size.width,
-                color: Color(0xff475DF3),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Text(
-                  AppLocalization.text(
-                    "go.to.settings",
-                  ),
-                  style: TextStyle(color: Colors.white, fontSize: 17),
-                ),
-                onPressed: () {
-                  openAppSettings();
-                },
+              AppLocalization.text(
+                "go.to.settings",
               ),
+              style: TextStyle(color: Colors.white, fontSize: 17),
             ),
-            margin: EdgeInsets.all(20),
+            onPressed: () {
+              openAppSettings();
+            },
           ),
-        ],
-      )
-    );
+        ),
+        margin: EdgeInsets.all(20),
+      ),
+    ],
+  ));
 }
 
 ListTile meanwhileManualGuideListTile() {
   return ListTile(
-    leading: SizedBox(
-      child: Image.asset(
-        "assets/images/checkin_dash.png",
+      leading: SizedBox(
+        child: Image.asset(
+          "assets/images/checkin_dash.png",
+        ),
+        width: 50,
+        height: 50,
       ),
-      width: 50,
-      height: 50,
-    ),
-    title: Text(AppLocalization.text("meanwhile.guide.waiting"),
-        style: TextStyle(fontSize: 17, fontWeight: FontWeight.normal))
-  );
+      title: Text(AppLocalization.text("meanwhile.guide.waiting"),
+          style: TextStyle(fontSize: 17, fontWeight: FontWeight.normal)));
 }

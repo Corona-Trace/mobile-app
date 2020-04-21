@@ -5,9 +5,9 @@ import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/notification/response_notification.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
 
 class ApiRepository {
   static final ApiRepository _instance = ApiRepository._internal();
@@ -18,12 +18,17 @@ class ApiRepository {
 
   ApiRepository._internal();
 
-  static BaseOptions dioOptions = new BaseOptions(connectTimeout: 15000, receiveTimeout: 30000);
+  static BaseOptions dioOptions =
+      new BaseOptions(connectTimeout: 15000, receiveTimeout: 30000);
   static Dio _dio = Dio(dioOptions);
   static const TOKEN = "TOKEN";
   static const API_URL = "https://api-yp2tme3siq-uc.a.run.app";
-  static const TERMS_AND_CONDITIONS = "https://www.tracetozero.org/legal/terms-of-service";
-  static const PRIVACY_POLICY = "https://www.tracetozero.org/legal/privacy-policy";
+  static const TERMS_AND_CONDITIONS =
+      "https://www.tracetozero.org/legal/terms-of-service";
+  static const PRIVACY_POLICY =
+      "https://www.tracetozero.org/legal/privacy-policy";
+  static const RESOURCES_URL = "https://www.TraceToZero.org/resources";
+  static const HOW_IT_WORKS_URL = "https://www.TraceToZero.org/how-it-works";
   static const LAT_CONST = "LAT";
   static const LNG_CONST = "LNG";
   static const SEVERITY = "SEVERITY";
@@ -62,15 +67,16 @@ class ApiRepository {
   static Future<void> setUserSeverity(int severity) async {
     var instance = await SharedPreferences.getInstance();
 
-    var severity = await getUserSeverity();
+    var oldSeverity = await getUserSeverity();
 
-    if (severity == null || (severity != null && severity == -1)) {
-      CTAnalyticsManager.instance.setFirstSeverityCheck(severity);
+    if (oldSeverity == null || (oldSeverity != null && oldSeverity == -1)) {
+      CTAnalyticsManager.instance.setFirstSeverityCheck(oldSeverity);
     } else {
-      CTAnalyticsManager.instance.setSeverityCheck(severity);
+      CTAnalyticsManager.instance.setSeverityCheck(oldSeverity);
     }
 
     await instance.setInt(SEVERITY, severity);
+    print("user severity ${await ApiRepository.getUserSeverity()}");
     try {
       var deviceID = await AppConstants.getDeviceId();
       var url = "$API_URL/users";
