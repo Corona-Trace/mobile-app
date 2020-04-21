@@ -2,13 +2,19 @@ import 'dart:async';
 import 'dart:convert' as JSON;
 import 'dart:io';
 
+import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/main.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/network/notification/response_notification_item.dart';
 import 'package:corona_trace/ui/notifications/ct_notification_map_detail.dart';
+import 'package:corona_trace/utils/app_localization.dart';
+import 'package:corona_trace/utils/app_surveys.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PushNotifications {
   static final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
@@ -16,10 +22,14 @@ class PushNotifications {
       FlutterLocalNotificationsPlugin();
   static bool configuredPush = false;
 
+  static Future<bool> arePermissionsDenied() async =>
+      !await Permission.notification.isGranted ||
+      await Permission.notification.isDenied;
+
   static Future<void> initStuff() async {
     configLocalNotification();
     registerNotification();
-    await saveTokenForLoggedInUser();
+    await updateLoggedInUser();
     if (!configuredPush) {
       configuredPush = true;
       firebaseMessaging.configure(
@@ -63,8 +73,10 @@ class PushNotifications {
     try {
       var item = ResponseNotificationItem.map(obj);
       globalKey.currentState.push(MaterialPageRoute(
-          builder: (BuildContext context) =>
-              CTNotificationMapDetail(crossedPaths: true, notification: item)));
+          builder: (BuildContext context) {
+            AppSurveys.triggerCrossedPathsNotificationSurvey();
+            return CTNotificationMapDetail(crossedPaths: true, notification: item);
+          }));
     } catch (ex) {
       debugPrint('navigateToMapDetail Failed: $ex');
     }
@@ -132,6 +144,7 @@ class PushNotifications {
           platformChannelSpecifics,
           payload: JSON.jsonEncode(message));
     }
+    AppSurveys.triggerCrossedPathsNotificationSurvey();
   }
 
   static Future<void> registerNotification() async {
@@ -140,13 +153,73 @@ class PushNotifications {
           sound: true, badge: true, alert: true, provisional: false),
     );
     firebaseMessaging.onTokenRefresh.listen((event) async {
-      await saveTokenForLoggedInUser();
+      await updateLoggedInUser();
     });
   }
 
-  static Future<void> saveTokenForLoggedInUser() async {
+  static Future<bool> updateLoggedInUser() async {
     var token = await firebaseMessaging.getToken();
+    if (await LocationUpdates.arePermissionsDenied()) {
+      return false;
+    }
+    Location current = await LocationUpdates.currentLocation();
     debugPrint(token);
-    await ApiRepository.updateTokenForUser(token);
+    debugPrint(current.toString());
+    return ApiRepository.updateUser(token, current);
+  }
+
+  static Future<void> notifyUserDeniedPushPermissions(
+      BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        if (Platform.isIOS) {
+          return CupertinoAlertDialog(
+            title:
+              Text(AppLocalization.text("pushnotifications.off.title")),
+            content:
+                Text(AppLocalization.text("pushnotifications.off.description")),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text(AppLocalization.text("Settings")),
+                onPressed: () {
+                  openAppSettings();
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text(AppLocalization.text("cancel_camel")),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        } else {
+          return AlertDialog(
+            title:
+              Text(AppLocalization.text("pushnotifications.off.title")),
+            content:
+                Text(AppLocalization.text("pushnotifications.off.description")),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(AppLocalization.text("Settings")),
+                onPressed: () {
+                  openAppSettings();
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text(AppLocalization.text("cancel_camel")),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      },
+    );
   }
 }

@@ -128,6 +128,10 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.2):
     - GoogleUtilities/Logger
+  - Instabug (9.1)
+  - instabug_flutter (0.0.1):
+    - Flutter
+    - Instabug (= 9.1)
   - location_permissions (2.0.5):
     - Flutter
   - nanopb (0.3.9011):
@@ -175,6 +179,7 @@ DEPENDENCIES:
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - google_api_availability (from `.symlinks/plugins/google_api_availability/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
+  - instabug_flutter (from `.symlinks/plugins/instabug_flutter/ios`)
   - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
@@ -207,6 +212,7 @@ SPEC REPOS:
     - GoogleDataTransportCCTSupport
     - GoogleMaps
     - GoogleUtilities
+    - Instabug
     - nanopb
     - PromisesObjC
     - Protobuf
@@ -241,6 +247,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_api_availability/ios"
   google_maps_flutter:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
+  instabug_flutter:
+    :path: ".symlinks/plugins/instabug_flutter/ios"
   location_permissions:
     :path: ".symlinks/plugins/location_permissions/ios"
   path_provider:
@@ -297,6 +305,8 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 32f75fbe904c82772fcbb6b6bd4525bfb6f2a862
   GoogleMaps: 7c8d66d70e4e8c300f43a7219d8fdaad7b325a9a
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
+  Instabug: d2510b312611d954a47ddae7a7e950d38111342b
+  instabug_flutter: 866b03bf6633cbb183f73d651426c379f98c289d
   location_permissions: 4a49d4e5bec5b653643e551ab77963cc99bb0e4a
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d

@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+4
+version: 1.1.0+1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -43,6 +43,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   connectivity: ^0.4.8+2
+  instabug_flutter: ^9.1.0
 
 dev_dependencies:
   image_res: ^0.2.3
@@ -74,6 +75,14 @@ flutter:
     - assets/images/bell1.png
     - assets/images/Illustration_GetNotified.png
     - assets/images/Illustration_ClearStatus.png
+    - assets/images/onboarding_location_permission.png
+    - assets/images/onboarding_checkin_beresponsible.png
+    - assets/images/onboarding_notification_permission.png
+    - assets/images/checkin_dash.png
+    - assets/images/status.png
+    - assets/images/not_available_allset_circle.png
+    - assets/images/not_available_location_circle.png
+    - assets/images/not_available_notify_circle.png
     - assets/locales/en.json
     - assets/locales/es.json
     - assets/locales/it.json

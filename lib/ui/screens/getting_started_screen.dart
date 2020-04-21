@@ -8,6 +8,7 @@ import 'package:corona_trace/ui/base_state.dart';
 import 'package:corona_trace/ui/screens/onboarding.dart';
 import 'package:corona_trace/ui/screens/user_info_collector_screen.dart';
 import 'package:corona_trace/utils/app_localization.dart';
+import 'package:corona_trace/utils/app_surveys.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -155,6 +156,7 @@ class _GettingStartedState extends BaseState<GettingStarted> {
     LocationUpdates
         .showLocationPermissionsNotAvailableDialog(
             context);
+    AppSurveys.triggerRejectedPermissionsSurvey();
   }
 
   Future onPremissionAvailable(BuildContext context) async {

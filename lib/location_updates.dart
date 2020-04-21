@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/service/push_notifications/push_notifications.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
     as bg;
+import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'app_constants.dart';
@@ -53,7 +55,7 @@ class LocationUpdates {
             maxDaysToPersist: 3,
             debug: false,
             autoSync: true,
-            triggerActivities: 'on_foot, walking, running',
+            triggerActivities: 'on_foot, walking, running, on_bicycle',
             desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
             stopOnTerminate: false,
             allowIdenticalLocations: false,
@@ -78,6 +80,13 @@ class LocationUpdates {
         bg.BackgroundGeolocation.start();
       }
     });
+  }
+
+  static Future<Location> currentLocation() async => bg.BackgroundGeolocation.getCurrentPosition();
+
+  static Future<bool> isWithinAvailableGeoLocation() async {
+    var success = await PushNotifications.updateLoggedInUser();
+    return success;
   }
 
   static Future<bool> arePermissionsDenied() async =>
