@@ -69,7 +69,7 @@ android {
         release {
             signingConfig signingConfigs.release
             shrinkResources false
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles "${background_geolocation.projectDir}/proguard-rules.pro"
         }
         debug {
