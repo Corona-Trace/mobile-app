@@ -10,8 +10,6 @@ class AppConstants {
   static const NOT_TESTED_FEEL_SICK = 4;
   static const NOT_TESTTED_NOT_SICK = 5;
 
-  static const API_KEY_GEOCODING = "put the api key here";
-
   static const DISTANCE_DISPLACEMENT_FACTOR = "DISTANCE_DISPLACEMENT_FACTOR";
 
   static const String TESTED_URL =

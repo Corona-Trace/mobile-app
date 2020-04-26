@@ -2,10 +2,12 @@ import 'dart:convert' as JSON;
 
 import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/app_constants.dart';
+import 'package:corona_trace/network/airtable/airtable_repository.dart';
 import 'package:corona_trace/network/notification/response_notification.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_geocoding/google_geocoding.dart' as GoogleGeo;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,13 +61,13 @@ class ApiRepository {
   static Future<bool> isExistsInLocationGate(Location fromLocation) async {
     try {
       GoogleGeo.GoogleGeocoding googleGeocoding =
-      GoogleGeo.GoogleGeocoding(AppConstants.API_KEY_GEOCODING);
+      GoogleGeo.GoogleGeocoding(DotEnv().env['API_KEY_GEOCODING']);
       var geocodingResponse = await googleGeocoding.geocoding.getReverse(
           GoogleGeo.LatLon(
               fromLocation.coords.latitude, fromLocation.coords.longitude));
       var address = geocodingResponse.results.first.addressComponents;
       Triple csc = extractCSC(address);
-      return true;
+      return await AirtableRepository.checkIfAvailableInCitiesList(csc.c);
     } catch (ex) {
       print(ex);
     }
