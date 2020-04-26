@@ -16,7 +16,7 @@ class AirtableRecord {
 
   AirtableRecord.map(dynamic obj) {
     _id = obj["id"];
-    _fields = obj["fields"];
+    _fields = AirtableRecordFields.map(obj["fields"]);
     _createdTime = obj["createdTime"];
   }
 

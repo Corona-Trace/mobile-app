@@ -30,17 +30,17 @@ class AirtableRepository {
   static Dio _dio = Dio(dioOptions);
 
   static const AIRTABLE_API_BASE_URL = "https://api.airtable.com/v0/appeeTR6FdXwMaHYo";
-  static const STATES_URL = "$AIRTABLE_API_BASE_URL/States";
-  static const COUNTRIES_URL = "$AIRTABLE_API_BASE_URL/Countries";
-  static const CITIES_URL = "$AIRTABLE_API_BASE_URL/Cities";
+  static const AIRTABLE_QUERY = "?fields%5B%5D=Name&filterByFormula=%7BAvailability%7D";
+  static const STATES_URL = "$AIRTABLE_API_BASE_URL/States$AIRTABLE_QUERY";
+  static const COUNTRIES_URL = "$AIRTABLE_API_BASE_URL/Countries$AIRTABLE_QUERY";
+  static const CITIES_URL = "$AIRTABLE_API_BASE_URL/Cities$AIRTABLE_QUERY";
 
   static Future<Iterable<String>> getAvailableStatesList() async {
     try {
       Response response = await _dio.get(STATES_URL);
       var statusCode = response.statusCode;
       debugPrint("$statusCode - $STATES_URL");
-      return AirtableResponse.map(JSON.json.decode(response.data)).records
-        .where((record) => record.fields.availability)
+      return AirtableResponse.map(response.data).records
         .map((record) => record.fields.name);
     } catch (ex) {
       debugPrint('getAvailableStatesList Failed: $ex');
@@ -53,8 +53,7 @@ class AirtableRepository {
       Response response = await _dio.get(COUNTRIES_URL);
       var statusCode = response.statusCode;
       debugPrint("$statusCode - $STATES_URL");
-      return AirtableResponse.map(JSON.json.decode(response.data)).records
-        .where((record) => record.fields.availability)
+      return AirtableResponse.map(response.data).records
         .map((record) => record.fields.name);
     } catch (ex) {
       debugPrint('getAvailableStatesList Failed: $ex');
@@ -67,8 +66,7 @@ class AirtableRepository {
       Response response = await _dio.get(CITIES_URL);
       var statusCode = response.statusCode;
       debugPrint("$statusCode - $STATES_URL");
-      return AirtableResponse.map(JSON.json.decode(response.data)).records
-        .where((record) => record.fields.availability)
+      return AirtableResponse.map(response.data).records
         .map((record) => record.fields.name);
     } catch (ex) {
       debugPrint('getAvailableStatesList Failed: $ex');
