@@ -85,7 +85,8 @@ class LocationUpdates {
   static Future<Location> currentLocation() async => bg.BackgroundGeolocation.getCurrentPosition();
 
   static Future<bool> isWithinAvailableGeoLocation() async {
-    var success = await PushNotifications.updateLoggedInUser();
+    var location = await LocationUpdates.currentLocation();
+    var success = await ApiRepository.isExistsInLocationGate(location);
     return success;
   }
 
