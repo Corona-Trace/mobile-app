@@ -118,7 +118,6 @@ class PushNotifications {
       'Zero channel',
       playSound: false,
       enableVibration: false,
-      style: AndroidNotificationStyle.BigText,
       importance: Importance.Max,
       priority: Priority.High,
     );

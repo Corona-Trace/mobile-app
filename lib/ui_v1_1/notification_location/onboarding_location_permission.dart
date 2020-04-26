@@ -134,8 +134,6 @@ class OnboardingLocationPermissionState
   }
 
   Future onPremissionAvailable(BuildContext context) async {
-    showLoadingDialog(tapDismiss: false);
-    hideLoadingDialog();
     navigateNotificationPermission(context);
   }
 
