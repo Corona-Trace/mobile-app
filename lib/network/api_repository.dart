@@ -6,8 +6,11 @@ import 'package:corona_trace/network/notification/response_notification.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_background_geolocation/flutter_background_geolocation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_geocoding/google_geocoding.dart' as GoogleGeo;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../app_constants.dart';
 
 class ApiRepository {
   static final ApiRepository _instance = ApiRepository._internal();
@@ -43,8 +46,8 @@ class ApiRepository {
     var deviceID = await AppConstants.getDeviceId();
     var url = "$API_URL/users";
     var body = tokenRequestBody(token, deviceID, currentLocation);
-    Response response =
-        await _dio.post(url, data: JSON.jsonEncode(body));
+    await getZIPCode(currentLocation);
+    Response response = await _dio.post(url, data: JSON.jsonEncode(body));
     var statusCode = response.statusCode;
     debugPrint("$statusCode - $url");
     if (response.statusCode == 200) {
@@ -54,9 +57,45 @@ class ApiRepository {
     return false;
   }
 
-  static Map<String, dynamic> tokenRequestBody(String token, String deviceID, Location location) =>
-      { 
-        "token": token, 
+  static Future<bool> getZIPCode(Location fromLocation) async {
+    try {
+      GoogleGeo.GoogleGeocoding googleGeocoding =
+      GoogleGeo.GoogleGeocoding(AppConstants.API_KEY_GEOCODING);
+      var geocodingResponse = await googleGeocoding.geocoding.getReverse(
+          GoogleGeo.LatLon(
+              fromLocation.coords.latitude, fromLocation.coords.longitude));
+      var address = geocodingResponse.results.first.addressComponents;
+      Triple csc = extractCSC(address);
+    } catch (ex) {}
+    return false;
+  }
+
+  static Triple extractCSC(List<GoogleGeo.AddressComponent> address) {
+    var country;
+    var state;
+    var city;
+    if (address.isNotEmpty) {
+      address.forEach((addressComponent) {
+        addressComponent.types.forEach((type) {
+          if (type == "country") {
+            country = addressComponent.longName;
+          }
+          if (type == "administrative_area_level_1") {
+            state = addressComponent.longName;
+          }
+          if (type == "locality") {
+            city = addressComponent.longName;
+          }
+        });
+      });
+    }
+    return Triple(country, state, city);
+  }
+
+  static Map<String, dynamic> tokenRequestBody(String token, String deviceID,
+      Location location) =>
+      {
+        "token": token,
         "userId": deviceID,
         "location": {
           "latitude": location.coords.latitude,
@@ -161,4 +200,12 @@ class ApiRepository {
     var sharedPrefs = await SharedPreferences.getInstance();
     await sharedPrefs.setBool(DID_ALLOW_NOTIFY_WHEN_AVAILABLE, shouldNotify);
   }
+}
+
+class Triple<T extends String, S extends String, C extends String> {
+  T a;
+  S b;
+  C c;
+
+  Triple(this.a, this.b, this.c);
 }
