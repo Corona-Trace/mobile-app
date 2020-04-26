@@ -161,8 +161,10 @@ class PushNotifications {
     if (await LocationUpdates.arePermissionsDenied()) {
       return false;
     }
+    Location current = await LocationUpdates.currentLocation();
     debugPrint(token);
-    return ApiRepository.updateUser(token);
+    debugPrint(current.toString());
+    return ApiRepository.updateUser(token, current);
   }
 
   static Future<void> notifyUserDeniedPushPermissions(
