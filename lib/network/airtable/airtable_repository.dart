@@ -35,7 +35,7 @@ class AirtableRepository {
   static const CITIES_URL = "$AIRTABLE_API_BASE_URL/Cities";
 
   static String getAirtableQueryURL(String url, String name) {
-    return "$url?fields%5B%5D=Name&filterByFormula=AND(%7BAvailability%7D%2C%7BName%3D%22$name%22%7D)";
+    return "$url?fields%5B%5D=Name&filterByFormula=AND(%7BAvailability%7D%2C%7BName%7D%3D%22$name%22)";
   }
 
   static Future<bool> checkIfAvailableInStatesList(String state) async {
