@@ -8,6 +8,7 @@ import 'package:corona_trace/ui_v1_1/notification_location/onboarding_notificati
 import 'package:corona_trace/ui_v1_1/onboarding_get_started.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:instabug_flutter/Instabug.dart';
 import 'package:instabug_flutter/Surveys.dart';
@@ -15,6 +16,7 @@ import 'package:instabug_flutter/Surveys.dart';
 import 'utils/app_localization.dart';
 
 void main() async {
+  await DotEnv().load('.env');
   WidgetsFlutterBinding.ensureInitialized();
   Crashlytics.instance.enableInDevMode = true;
 
