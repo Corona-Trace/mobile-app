@@ -41,12 +41,11 @@ class ApiRepository {
   static const String CURRENT_LAT = "CURRENT_LAT";
   static const String CURRENT_LONG = "CURRENT_LONG";
 
-  static Future<bool> updateUser(String token, Location currentLocation) async {
+  static Future<bool> updateUser(String token) async {
     var instance = await SharedPreferences.getInstance();
     var deviceID = await AppConstants.getDeviceId();
     var url = "$API_URL/users";
-    var body = tokenRequestBody(token, deviceID, currentLocation);
-    await getZIPCode(currentLocation);
+    var body = tokenRequestBody(token, deviceID);
     Response response = await _dio.post(url, data: JSON.jsonEncode(body));
     var statusCode = response.statusCode;
     debugPrint("$statusCode - $url");
@@ -57,7 +56,7 @@ class ApiRepository {
     return false;
   }
 
-  static Future<bool> getZIPCode(Location fromLocation) async {
+  static Future<bool> isExistsInLocationGate(Location fromLocation) async {
     try {
       GoogleGeo.GoogleGeocoding googleGeocoding =
       GoogleGeo.GoogleGeocoding(AppConstants.API_KEY_GEOCODING);
@@ -66,6 +65,7 @@ class ApiRepository {
               fromLocation.coords.latitude, fromLocation.coords.longitude));
       var address = geocodingResponse.results.first.addressComponents;
       Triple csc = extractCSC(address);
+      return true;
     } catch (ex) {}
     return false;
   }
@@ -92,15 +92,10 @@ class ApiRepository {
     return Triple(country, state, city);
   }
 
-  static Map<String, dynamic> tokenRequestBody(String token, String deviceID,
-      Location location) =>
+  static Map<String, dynamic> tokenRequestBody(String token, String deviceID) =>
       {
         "token": token,
-        "userId": deviceID,
-        "location": {
-          "latitude": location.coords.latitude,
-          "longitude": location.coords.longitude
-        }
+        "userId": deviceID
       };
 
   static Future<void> setUserSeverity(int severity) async {
