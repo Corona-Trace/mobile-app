@@ -30,46 +30,52 @@ class AirtableRepository {
   static Dio _dio = Dio(dioOptions);
 
   static const AIRTABLE_API_BASE_URL = "https://api.airtable.com/v0/appeeTR6FdXwMaHYo";
-  static const AIRTABLE_QUERY = "?fields%5B%5D=Name&filterByFormula=%7BAvailability%7D";
-  static const STATES_URL = "$AIRTABLE_API_BASE_URL/States$AIRTABLE_QUERY";
-  static const COUNTRIES_URL = "$AIRTABLE_API_BASE_URL/Countries$AIRTABLE_QUERY";
-  static const CITIES_URL = "$AIRTABLE_API_BASE_URL/Cities$AIRTABLE_QUERY";
+  static const STATES_URL = "$AIRTABLE_API_BASE_URL/States";
+  static const COUNTRIES_URL = "$AIRTABLE_API_BASE_URL/Countries";
+  static const CITIES_URL = "$AIRTABLE_API_BASE_URL/Cities";
 
-  static Future<Iterable<String>> getAvailableStatesList() async {
+  static String getAirtableQueryURL(String url, String name) {
+    return "$url?fields%5B%5D=Name&filterByFormula=AND(%7BAvailability%7D%2C%7BName%3D%22$name%22%7D)";
+  }
+
+  static Future<bool> checkIfAvailableInStatesList(String state) async {
     try {
-      Response response = await _dio.get(STATES_URL);
+      var url = getAirtableQueryURL(STATES_URL, state);
+      Response response = await _dio.get(url);
       var statusCode = response.statusCode;
-      debugPrint("$statusCode - $STATES_URL");
-      return AirtableResponse.map(response.data).records
-        .map((record) => record.fields.name);
+      debugPrint("$statusCode - $url");
+      var records = AirtableResponse.map(response.data).records;
+      return records.isNotEmpty;
     } catch (ex) {
-      debugPrint('getAvailableStatesList Failed: $ex');
+      debugPrint('checkIfAvailableInStatesList Failed: $ex');
       throw ex;
     }
   }
 
-  static Future<Iterable<String>> getAvailableCountriesList() async {
+  static Future<bool> checkIfAvailableInCountriesList(String country) async {
     try {
-      Response response = await _dio.get(COUNTRIES_URL);
+      var url = getAirtableQueryURL(COUNTRIES_URL, country);
+      Response response = await _dio.get(url);
       var statusCode = response.statusCode;
-      debugPrint("$statusCode - $STATES_URL");
-      return AirtableResponse.map(response.data).records
-        .map((record) => record.fields.name);
+      debugPrint("$statusCode - $url");
+      var records = AirtableResponse.map(response.data).records;
+      return records.isNotEmpty;
     } catch (ex) {
-      debugPrint('getAvailableStatesList Failed: $ex');
+      debugPrint('checkIfAvailableInCountriesList Failed: $ex');
       throw ex;
     }
   }
 
-  static Future<Iterable<String>> getAvailableCitiesList() async {
+  static Future<bool> checkIfAvailableInCitiesList(String city) async {
     try {
-      Response response = await _dio.get(CITIES_URL);
+      var url = getAirtableQueryURL(CITIES_URL, city);
+      Response response = await _dio.get(url);
       var statusCode = response.statusCode;
-      debugPrint("$statusCode - $STATES_URL");
-      return AirtableResponse.map(response.data).records
-        .map((record) => record.fields.name);
+      debugPrint("$statusCode - $url");
+      var records = AirtableResponse.map(response.data).records;
+      return records.isNotEmpty;
     } catch (ex) {
-      debugPrint('getAvailableStatesList Failed: $ex');
+      debugPrint('checkIfAvailableInCitiesList Failed: $ex');
       throw ex;
     }
   }
