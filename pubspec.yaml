@@ -44,6 +44,7 @@ dependencies:
   cupertino_icons: ^0.1.3
   connectivity: ^0.4.8+2
   instabug_flutter: ^9.1.0
+  flutter_dotenv: ^2.1.0
 
 dev_dependencies:
   image_res: ^0.2.3
@@ -64,6 +65,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - assets/images/combined_shape.png
     - assets/images/oval_notification.png
     - assets/images/map_pin.png
