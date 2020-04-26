@@ -36,10 +36,10 @@ class AirtableRepository {
 
   static Future<Iterable<String>> getAvailableStatesList() async {
     try {
-      Response<AirtableResponse> response = await _dio.get(STATES_URL);
+      Response response = await _dio.get(STATES_URL);
       var statusCode = response.statusCode;
       debugPrint("$statusCode - $STATES_URL");
-      return response.data.records
+      return AirtableResponse.map(JSON.json.decode(response.data)).records
         .where((record) => record.fields.availability)
         .map((record) => record.fields.name);
     } catch (ex) {
@@ -50,10 +50,10 @@ class AirtableRepository {
 
   static Future<Iterable<String>> getAvailableCountriesList() async {
     try {
-      Response<AirtableResponse> response = await _dio.get(COUNTRIES_URL);
+      Response response = await _dio.get(COUNTRIES_URL);
       var statusCode = response.statusCode;
       debugPrint("$statusCode - $STATES_URL");
-      return response.data.records
+      return AirtableResponse.map(JSON.json.decode(response.data)).records
         .where((record) => record.fields.availability)
         .map((record) => record.fields.name);
     } catch (ex) {
@@ -64,10 +64,10 @@ class AirtableRepository {
 
   static Future<Iterable<String>> getAvailableCitiesList() async {
     try {
-      Response<AirtableResponse> response = await _dio.get(CITIES_URL);
+      Response response = await _dio.get(CITIES_URL);
       var statusCode = response.statusCode;
       debugPrint("$statusCode - $STATES_URL");
-      return response.data.records
+      return AirtableResponse.map(JSON.json.decode(response.data)).records
         .where((record) => record.fields.availability)
         .map((record) => record.fields.name);
     } catch (ex) {
