@@ -2,10 +2,10 @@ import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/service/push_notifications/push_notifications.dart';
+import 'package:corona_trace/ui_return_safe_demo/onboarding/onboarding_work_together.dart';
+import 'package:corona_trace/ui_return_safe_demo/onboarding/onboarding_notification_permission.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_checkin_dashboard.dart';
 import 'package:corona_trace/ui_v1_1/not_available_yet/home_not_available_dashboard.dart';
-import 'package:corona_trace/ui_v1_1/notification_location/onboarding_notification_permission.dart';
-import 'package:corona_trace/ui_v1_1/onboarding_get_started.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
                 : HomeNotAvailableDashboard(
                     notifyMeEnabled: shouldNotifyWhenAvailable,
                     locationInfoDenied: locationInfoDenied)
-        : OnboardingGetStarted();
+        : OnboardingWorkTogether();
   }
 
   MediaQuery getMaterialApp() {
