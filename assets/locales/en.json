@@ -178,5 +178,29 @@
   "testing.contact.tracing.title":"Testing & Contact Tracing",
   "testing.contact.tracing.description":"If your employer suspects that you or a coworker might be infected with COVID-19, they will quickly respond with testing resources, set up an interview with a Contact Tracer, and keep your workplace informed without compromising privacy.",
 
-  "checkin.getstarted.title":"Get Started by\nChecking In"
+  "checkin.getstarted.title":"Get Started by\nChecking In",
+
+  "today":"Today",
+  "today.checkin.tabbar.today":"Today",
+  "today.checkin.tabbar.atwork":"At Work",
+  "today.checkin.tabbar.help":"Help",
+  "today.checkin.subtitle":"Check-in for today’s\n recommendation.",
+  "start":"Start",
+
+  "see.why":"See Why",
+  "today.checkin.cometowork":"Come to Work",
+  "today.checkin.cometowork.subtitle":"We’ve determined that you can come to work today.",
+
+  "today.checkin.workfromhome":"Work from Home",
+  "today.checkin.workfromhome.subtitle":"We recommend that you work from home to minimize risk to yourself and your coworkers.",
+
+  "today.checkin.seeyourdoctor":"See Your Doctor",
+  "today.checkin.seeyourdoctor.subtitle":"We recommend that you stay home and visit your doctor.",
+
+  "today.checkin.speakwithcontacttracer":"Speak with a Contact Tracer",
+  "today.checkin.speakwithcontacttracer.subtitle":"We recommend that you stay home and set up an interview with a Contact Tracer.",
+  "setup.interview":"Setup Interview",
+
+  "no.symptoms":"No Symptoms",
+  "experiencing.symptoms":"Experiencing Symptoms"
 }

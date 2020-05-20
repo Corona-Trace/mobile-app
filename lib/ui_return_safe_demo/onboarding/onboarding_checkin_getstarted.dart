@@ -1,7 +1,7 @@
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui/base_state.dart';
-import 'package:corona_trace/ui_v1_1/home_checkin/home_first_checkin.dart';
+import 'package:corona_trace/ui_return_safe_demo/home_checkin/home_first_checkin.dart';
 import 'package:corona_trace/ui_v1_1/not_available_yet/onboarding_not_available_yet.dart';
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -127,6 +127,6 @@ class OnboardingCheckinGetStartedState
 
   @override
   String screenName() {
-    return "onboarding_checking_beresponsible";
+    return "onboarding_checking_getstarted";
   }
 }

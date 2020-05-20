@@ -83,6 +83,17 @@ flutter:
     - assets/images/not_available_allset_circle.png
     - assets/images/not_available_location_circle.png
     - assets/images/not_available_notify_circle.png
+    - assets/images/tabbar_today_icon.png
+    - assets/images/tabbar_atwork_icon.png
+    - assets/images/tabbar_help_icon.png
+    - assets/images/your_office_example.png
+    - assets/images/today_clipboard_icon.png
+    - assets/images/today_coffee_icon.png
+    - assets/images/today_home_icon.png
+    - assets/images/today_doctor_icon.png
+    - assets/images/today_contacttracer_icon.png
+    - assets/images/meh_icon.png
+    - assets/images/smile_icon.png
     - assets/locales/en.json
     - assets/locales/es.json
     - assets/locales/it.json
