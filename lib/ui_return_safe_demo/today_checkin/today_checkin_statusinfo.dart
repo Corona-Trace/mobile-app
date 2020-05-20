@@ -2,7 +2,6 @@ import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/ui_return_safe_demo/home_checkin/home_first_checkin.dart';
-import 'package:corona_trace/ui_return_safe_demo/today_checkin/today_checkin_statusinfo.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_atrisk_notificationdetail.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_confirm_not_sick.dart';
 import 'package:corona_trace/ui_v1_1/privacy/privacy_screen.dart';
@@ -11,63 +10,54 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class TodayCheckinDashboard extends StatelessWidget {
+class TodayCheckinStatusInfo extends StatelessWidget {
   final int severity;
-  TodayCheckinDashboard({this.severity});
+  TodayCheckinStatusInfo({this.severity});
   
   @override
   Widget build(BuildContext context) {
     CheckedInStatus status = getCheckedInStatus(severity);
+    Image image;
+    switch(status) {
+    case CheckedInStatus.notCheckedIn:
+      return checkinCard(context);
+    case CheckedInStatus.comeToWork:
+      image = Image.asset("assets/images/come_to_work.png", fit: BoxFit.fitWidth);
+      break;
+    case CheckedInStatus.workFromHome:
+      image = Image.asset("assets/images/work_from_home.png", fit: BoxFit.fitWidth);
+      break;
+    case CheckedInStatus.seeYourDoctor:
+      image = Image.asset("assets/images/see_your_doctor.png", fit: BoxFit.fitWidth);
+      break;
+    case CheckedInStatus.speakWithContactTracer:
+      image = Image.asset("assets/images/see_your_doctor.png", fit: BoxFit.fitWidth);
+      break;
+  }
     return Container(
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Color(0xffE5E5E5),
+          backgroundColor: Colors.white,
           body: Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: EdgeInsets.all(24),
-                    child: topContent(context, status, severity),
+                    padding: EdgeInsets.all(20),
+                    child: Container(
+                      child: image,
+                      width: MediaQuery.of(context).size.width,
+                    ),
                   ),
                 ),
-                tabBar()
               ],
             ),
           ),
         ),
       )
     );
-  }
-
-  tabBar() {
-    return CupertinoTabBar(
-        backgroundColor: Colors.white,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Image.asset("assets/images/tabbar_today_icon.png"),
-                title: Text(
-                  AppLocalization.text("today.checkin.tabbar.today")
-                ),
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset("assets/images/tabbar_atwork_icon.png"),
-                title: Text(
-                  AppLocalization.text("today.checkin.tabbar.atwork")
-                ),
-              ),
-              BottomNavigationBarItem(
-                icon: Image.asset("assets/images/tabbar_help_icon.png"),
-                title: Text(
-                  AppLocalization.text("today.checkin.tabbar.help")
-                ),
-              ),
-            ],
-            currentIndex: 0,
-            activeColor: Color(0xff379FFF),
-          );
   }
 
   topContent(BuildContext context, CheckedInStatus checkedInStatus, int severity) {
@@ -291,7 +281,7 @@ Card checkedInStatusCard(BuildContext context, CheckedInStatus checkedInStatus, 
                         ),
                         builder: (context) {
                           return FractionallySizedBox(
-                            child: TodayCheckinStatusInfo(severity: severity),
+                            child: AtRiskNotificationDetail(),
                             heightFactor: 0.85,
                           );
                         });

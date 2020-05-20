@@ -96,6 +96,14 @@ flutter:
     - assets/images/smile_icon.png
     - assets/images/ey_logo.jpg
     - assets/images/powered_by_returnsafe.png
+    - assets/images/see_your_doctor.png
+    - assets/images/work_from_home.png
+    - assets/images/onboarding_checkin_getstarted.png
+    - assets/images/onboarding_daily_recommendations.png
+    - assets/images/onboarding_physical_distancing_alerts.png
+    - assets/images/onboarding_testing.png
+    - assets/images/onboarding_work_together.png
+    - assets/images/come_to_work.png
     - assets/locales/en.json
     - assets/locales/es.json
     - assets/locales/it.json

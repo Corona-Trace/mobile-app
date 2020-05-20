@@ -49,7 +49,7 @@ class OnboardingTestingContactTracingState
                       Align(
                         child: Image(
                           image: AssetImage(
-                            "assets/images/onboarding_location_permission.png",
+                            "assets/images/onboarding_testing.png",
                           ),
                         ),
                         alignment: Alignment.center,

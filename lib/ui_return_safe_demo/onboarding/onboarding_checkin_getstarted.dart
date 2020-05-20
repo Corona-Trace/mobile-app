@@ -42,7 +42,7 @@ class OnboardingCheckinGetStartedState
                           Align(
                             child: Image(
                               image: AssetImage(
-                                "assets/images/onboarding_checkin_beresponsible.png",
+                                "assets/images/onboarding_checkin_getstarted.png",
                               ),
                             ),
                             alignment: Alignment.center,
