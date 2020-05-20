@@ -94,6 +94,8 @@ flutter:
     - assets/images/today_contacttracer_icon.png
     - assets/images/meh_icon.png
     - assets/images/smile_icon.png
+    - assets/images/ey_logo.jpg
+    - assets/images/powered_by_returnsafe.png
     - assets/locales/en.json
     - assets/locales/es.json
     - assets/locales/it.json

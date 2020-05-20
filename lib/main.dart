@@ -2,6 +2,7 @@ import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/network/api_repository.dart';
 import 'package:corona_trace/service/push_notifications/push_notifications.dart';
+import 'package:corona_trace/ui_return_safe_demo/login/login.dart';
 import 'package:corona_trace/ui_return_safe_demo/onboarding/onboarding_work_together.dart';
 import 'package:corona_trace/ui_return_safe_demo/onboarding/onboarding_notification_permission.dart';
 import 'package:corona_trace/ui_return_safe_demo/today_checkin/today_checkin_dashboard.dart';
@@ -91,7 +92,7 @@ class MyApp extends StatelessWidget {
                 : HomeNotAvailableDashboard(
                     notifyMeEnabled: shouldNotifyWhenAvailable,
                     locationInfoDenied: locationInfoDenied)
-        : OnboardingWorkTogether();
+        : Login();
   }
 
   MediaQuery getMaterialApp() {

@@ -202,5 +202,9 @@
   "setup.interview":"Setup Interview",
 
   "no.symptoms":"No Symptoms",
-  "experiencing.symptoms":"Experiencing Symptoms"
+  "experiencing.symptoms":"Experiencing Symptoms",
+  
+  "get.started": "Get Started",
+  "sign.in.subtitle": "Sign in with your employee credentials",
+  "sign.in": "Sign In"
 }
