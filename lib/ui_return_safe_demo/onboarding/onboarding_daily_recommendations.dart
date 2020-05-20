@@ -29,7 +29,7 @@ class OnboardingDailyWorkplaceRecommendationsState
 
   Container topContent(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double topPadding = screenHeight*504/812; //Ratio from Figma Design
+    double topPadding = screenHeight*454/812; //Ratio from Figma Design
     double minBtnWidth = MediaQuery.of(context).size.width;
     return Container(
           child: Column(

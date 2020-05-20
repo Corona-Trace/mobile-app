@@ -24,12 +24,12 @@ class LoginState
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: Colors.black,
-          body: Column(
+          body: SingleChildScrollView(child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.only(left:20, right:20),
                 color: Colors.black,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +42,7 @@ class LoginState
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               SizedBox(
-                                height: 50,
+                                height: 10,
                               ),
                               Align(
                                 child: Image(
@@ -53,7 +53,7 @@ class LoginState
                                 alignment: Alignment.center,
                               ),
                               SizedBox(
-                                height: 30,
+                                height: 10,
                               )
                             ]
                         )
@@ -88,7 +88,7 @@ class LoginState
             ],
           ),
         )
-      );
+      ));
   }
 
   Card loginCard(BuildContext context) {

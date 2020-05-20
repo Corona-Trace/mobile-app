@@ -29,7 +29,7 @@ class OnboardingTestingContactTracingState
       child: Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
-      body: Column(
+      body: SingleChildScrollView(child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
@@ -107,7 +107,7 @@ class OnboardingTestingContactTracingState
           ),
         ],
       ),
-    ));
+    )));
   }
 
   Future onPressedBtnAllowLocation(BuildContext context) async {

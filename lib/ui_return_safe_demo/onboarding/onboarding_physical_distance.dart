@@ -31,7 +31,7 @@ class OnboardingPhysicalDistanceAlertsState
       child: Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
-      body: Column(
+      body: SingleChildScrollView(child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
@@ -46,7 +46,7 @@ class OnboardingPhysicalDistanceAlertsState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        height: 70,
+                        height: 0,
                       ),
                       Align(
                         child: Image(
@@ -57,7 +57,7 @@ class OnboardingPhysicalDistanceAlertsState
                         alignment: Alignment.center,
                       ),
                       SizedBox(
-                        height: 50,
+                        height: 0,
                       )
                     ]
                   )
@@ -109,7 +109,7 @@ class OnboardingPhysicalDistanceAlertsState
           ),
         ],
       ),
-    ));
+    )));
   }
 
   Future onPressedBtnAllowLocation(BuildContext context) async {
