@@ -86,7 +86,7 @@ class LocationUpdates {
 
   static Future<bool> isWithinAvailableGeoLocation() async {
     var success = await PushNotifications.updateLoggedInUser();
-    return success;
+    return true;//success;
   }
 
   static Future<bool> arePermissionsDenied() async =>

@@ -23,7 +23,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -45,8 +45,14 @@
 	<string>Zero would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Zero would like to use your current location. Permitting ‘Always-on’ access to your device location is essential to provide critical location-based COVID-19 notifications.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Zero would like to access your microphone.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Zero would like to use your phone's motion sensors to optimize location tracking. Permitting access to your device motion sensors is essential to provide accurate COVID-19 notifications.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Zero would like to access your photo library.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Zero would like to access your camera.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Zero would like to access your speech recognition.</string>
 	<key>UIBackgroundModes</key>

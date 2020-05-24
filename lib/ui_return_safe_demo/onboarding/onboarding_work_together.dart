@@ -17,19 +17,54 @@ class OnboardingWorkTogetherState
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
+      body: SingleChildScrollView(child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           topContent(context),
+          middleContent(context),
+          bottomContent(context)
         ],
       ),
-    ));
+    )));
   }
 
   Container topContent(BuildContext context) {
+    return Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  color: Color.fromRGBO(237, 239, 254, 0.4),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 0,
+                      ),
+                      Align(
+                        child: Image(
+                          image: AssetImage(
+                            "assets/images/onboarding_work_together.png",
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                      ),
+                      SizedBox(
+                        height: 0,
+                      )
+                    ]
+                  )
+                ),
+              ],
+            ),
+          );
+  }
+
+  Container middleContent(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    double topPadding = screenHeight*518/812; //Ratio from Figma Design
-    double minBtnWidth = MediaQuery.of(context).size.width;
+    double topPadding = screenHeight*10/812; //Ratio from Figma Design
     return Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -48,12 +83,28 @@ class OnboardingWorkTogetherState
               SizedBox(
                   height: 10,
                 ),
-                Text(
-                    AppLocalization.text(
-                        "work.together.safely.description"),
-                    style: TextStyle(fontSize: 17)),
+              Text(
+                  AppLocalization.text(
+                      "work.together.safely.description"),
+                  style: TextStyle(fontSize: 17)
+              ),
+            ],
+          ),
+          margin: EdgeInsets.all(20),
+        );
+  }
+
+  Container bottomContent(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double topPadding = screenHeight*80/812; //Ratio from Figma Design
+    double minBtnWidth = MediaQuery.of(context).size.width;
+    return Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
               SizedBox(
-                height: 24,
+                height: topPadding,
               ),
               Material(
                 child: MaterialButton(

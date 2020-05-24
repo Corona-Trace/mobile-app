@@ -43,7 +43,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   connectivity: ^0.4.8+2
-  instabug_flutter: ^9.1.0
+  # instabug_flutter: ^9.1.0
+  image_picker: ^0.6.6+4
+  path_provider: ^1.6.9
 
 dev_dependencies:
   image_res: ^0.2.3
@@ -104,6 +106,7 @@ flutter:
     - assets/images/onboarding_testing.png
     - assets/images/onboarding_work_together.png
     - assets/images/come_to_work.png
+    - assets/images/return_safe_logo.png
     - assets/locales/en.json
     - assets/locales/es.json
     - assets/locales/it.json

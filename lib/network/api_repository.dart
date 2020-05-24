@@ -1,4 +1,5 @@
 import 'dart:convert' as JSON;
+import 'dart:io';
 
 import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/app_constants.dart';
@@ -43,15 +44,20 @@ class ApiRepository {
     var deviceID = await AppConstants.getDeviceId();
     var url = "$API_URL/users";
     var body = tokenRequestBody(token, deviceID, currentLocation);
+    try {
     Response response =
         await _dio.post(url, data: JSON.jsonEncode(body));
-    var statusCode = response.statusCode;
-    debugPrint("$statusCode - $url");
-    if (response.statusCode == 200) {
-      await instance.setString(TOKEN, token);
-      return true;
+        var statusCode = response.statusCode;
+      debugPrint("$statusCode - $url");
+      if (response.statusCode == 200) {
+        await instance.setString(TOKEN, token);
+        return true;
+      }
+      return false;
+    } catch(e) {
+      return false;
     }
-    return false;
+    
   }
 
   static Map<String, dynamic> tokenRequestBody(String token, String deviceID, Location location) =>
@@ -116,6 +122,7 @@ class ApiRepository {
       double lat, double lng, SharedPreferences instance) async {
     var deviceID = await AppConstants.getDeviceId();
     var body = getLocationRequestBody(lat, lng, deviceID);
+    try {
     Response response = await _dio.post(
       USER_LOCATION_URL,
       options: Options(contentType: "application/json"),
@@ -125,6 +132,9 @@ class ApiRepository {
     if (response.statusCode == 200) {
       await instance.setDouble(LAT_CONST, lat);
       await instance.setDouble(LNG_CONST, lng);
+    }
+    } catch(e) {
+      
     }
   }
 

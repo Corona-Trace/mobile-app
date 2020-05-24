@@ -1,7 +1,9 @@
 import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/app_constants.dart';
 import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/service/demo_settings/demo_settings.dart';
 import 'package:corona_trace/ui_return_safe_demo/home_checkin/home_first_checkin.dart';
+import 'package:corona_trace/ui_return_safe_demo/login/login.dart';
 import 'package:corona_trace/ui_return_safe_demo/today_checkin/today_checkin_statusinfo.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_atrisk_notificationdetail.dart';
 import 'package:corona_trace/ui_v1_1/home_checkin/home_confirm_not_sick.dart';
@@ -33,7 +35,7 @@ class TodayCheckinDashboard extends StatelessWidget {
                     child: topContent(context, status, severity),
                   ),
                 ),
-                tabBar()
+                tabBar(context)
               ],
             ),
           ),
@@ -42,7 +44,7 @@ class TodayCheckinDashboard extends StatelessWidget {
     );
   }
 
-  tabBar() {
+  tabBar(BuildContext context) {
     return CupertinoTabBar(
         backgroundColor: Colors.white,
             items: <BottomNavigationBarItem>[
@@ -67,6 +69,14 @@ class TodayCheckinDashboard extends StatelessWidget {
             ],
             currentIndex: 0,
             activeColor: Color(0xff379FFF),
+            onTap: (tabIndex) async {
+              var logoImage = await DemoSettings.getLogoImage();
+              ApiRepository.setOnboardingDone(false);
+              Navigator.pushAndRemoveUntil(
+                context, 
+                MaterialPageRoute(builder: (context) => Login(logoImage: logoImage)),
+                (route) => false);
+            },
           );
   }
 

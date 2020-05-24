@@ -1,6 +1,7 @@
 import 'package:corona_trace/analytics/CTAnalyticsManager.dart';
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/service/demo_settings/demo_settings.dart';
 import 'package:corona_trace/service/push_notifications/push_notifications.dart';
 import 'package:corona_trace/ui_return_safe_demo/login/login.dart';
 import 'package:corona_trace/ui_return_safe_demo/onboarding/onboarding_work_together.dart';
@@ -11,8 +12,8 @@ import 'package:corona_trace/ui_v1_1/not_available_yet/home_not_available_dashbo
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:instabug_flutter/Instabug.dart';
-import 'package:instabug_flutter/Surveys.dart';
+// import 'package:instabug_flutter/Instabug.dart';
+// import 'package:instabug_flutter/Surveys.dart';
 
 import 'utils/app_localization.dart';
 
@@ -23,12 +24,12 @@ void main() async {
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
 
-  try {
-    Instabug.start('d8d9d6c113ba17e5d515d3581726c9a0', [InvocationEvent.none]);
-    Surveys.setAutoShowingEnabled(false);
-  } catch (ex) {
-    print(ex);
-  }
+  // try {
+  //   Instabug.start('d8d9d6c113ba17e5d515d3581726c9a0', [InvocationEvent.none]);
+  //   Surveys.setAutoShowingEnabled(false);
+  // } catch (ex) {
+  //   print(ex);
+  // }
 
   var onboardingDone = await ApiRepository.getIsOnboardingDone();
   var shouldNotifyWhenAvailable =
@@ -40,8 +41,9 @@ void main() async {
 
   var isOnboardinDone = onboardingDone == null ? false : onboardingDone;
   var severity = userSeverity == null ? -1 : userSeverity;
+  var logo = await DemoSettings.getLogoImage();
   runApp(MyApp(isOnboardinDone, severity, shouldNotifyWhenAvailable,
-      locationInfoDenied, insideLocationGate, pushNotificationsDenied));
+      locationInfoDenied, insideLocationGate, pushNotificationsDenied, logo));
 }
 
 MaterialColor appColor = MaterialColor(
@@ -68,6 +70,7 @@ class MyApp extends StatelessWidget {
   final bool shouldNotifyWhenAvailable;
   final bool isOnboardinDone;
   final int severity;
+  final Image logo;
 
   MyApp(
       this.isOnboardinDone,
@@ -75,7 +78,8 @@ class MyApp extends StatelessWidget {
       this.shouldNotifyWhenAvailable,
       this.locationInfoDenied,
       this.insideLocationGate,
-      this.pushNotificationsDenied);
+      this.pushNotificationsDenied,
+      this.logo);
 
   // This widget is the root of your application.
   @override
@@ -92,7 +96,7 @@ class MyApp extends StatelessWidget {
                 : HomeNotAvailableDashboard(
                     notifyMeEnabled: shouldNotifyWhenAvailable,
                     locationInfoDenied: locationInfoDenied)
-        : Login();
+        : Login(logoImage: logo);
   }
 
   MediaQuery getMaterialApp() {

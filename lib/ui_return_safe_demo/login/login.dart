@@ -1,5 +1,6 @@
 import 'package:corona_trace/location_updates.dart';
 import 'package:corona_trace/network/api_repository.dart';
+import 'package:corona_trace/service/demo_settings/demo_settings.dart';
 import 'package:corona_trace/ui/base_state.dart';
 import 'package:corona_trace/ui_return_safe_demo/home_checkin/home_first_checkin.dart';
 import 'package:corona_trace/ui_return_safe_demo/onboarding/onboarding_work_together.dart';
@@ -8,16 +9,26 @@ import 'package:corona_trace/ui_v1_1/not_available_yet/onboarding_not_available_
 import 'package:corona_trace/utils/app_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Login extends StatefulWidget {
+  final Image logoImage;
+  Login({this.logoImage});
+
   @override
   State<StatefulWidget> createState() {
-    return LoginState();
+    return LoginState(logoImage: logoImage);
   }
 }
 
 class LoginState
     extends BaseState<Login> {
+      Image logoImage = Image(image: AssetImage(
+                              "assets/images/ey_logo.jpg",
+                            ),
+                          );
+  LoginState({this.logoImage});
+
   @override
   Widget prepareWidget(BuildContext context) {
     return SafeArea(
@@ -45,10 +56,15 @@ class LoginState
                                 height: 10,
                               ),
                               Align(
-                                child: Image(
-                                  image: AssetImage(
-                                    "assets/images/ey_logo.jpg",
-                                  ),
+                                child: InkWell (
+                                  child: logoImage,
+                                  onTap: () async {
+                                    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                    DemoSettings.setLogoImage(image);
+                                    setState(() {
+                                      logoImage = Image.file(image);
+                                    });
+                                  }
                                 ),
                                 alignment: Alignment.center,
                               ),

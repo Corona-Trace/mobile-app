@@ -392,6 +392,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.4"
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.6+4"
+  image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: image_picker_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   image_res:
     dependency: "direct dev"
     description:
@@ -399,13 +413,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.3"
-  instabug_flutter:
-    dependency: "direct main"
-    description:
-      name: instabug_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "9.1.0"
   intl:
     dependency: transitive
     description:
@@ -512,12 +519,12 @@ packages:
     source: hosted
     version: "1.7.0"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.5"
+    version: "1.6.9"
   path_provider_macos:
     dependency: transitive
     description:

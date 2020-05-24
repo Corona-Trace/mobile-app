@@ -128,10 +128,8 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.2):
     - GoogleUtilities/Logger
-  - Instabug (9.1)
-  - instabug_flutter (0.0.1):
+  - image_picker (0.0.1):
     - Flutter
-    - Instabug (= 9.1)
   - location_permissions (2.0.5):
     - Flutter
   - nanopb (0.3.9011):
@@ -179,7 +177,7 @@ DEPENDENCIES:
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
   - google_api_availability (from `.symlinks/plugins/google_api_availability/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
-  - instabug_flutter (from `.symlinks/plugins/instabug_flutter/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
@@ -212,7 +210,6 @@ SPEC REPOS:
     - GoogleDataTransportCCTSupport
     - GoogleMaps
     - GoogleUtilities
-    - Instabug
     - nanopb
     - PromisesObjC
     - Protobuf
@@ -247,8 +244,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_api_availability/ios"
   google_maps_flutter:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
-  instabug_flutter:
-    :path: ".symlinks/plugins/instabug_flutter/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
   location_permissions:
     :path: ".symlinks/plugins/location_permissions/ios"
   path_provider:
@@ -305,11 +302,10 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 32f75fbe904c82772fcbb6b6bd4525bfb6f2a862
   GoogleMaps: 7c8d66d70e4e8c300f43a7219d8fdaad7b325a9a
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
-  Instabug: d2510b312611d954a47ddae7a7e950d38111342b
-  instabug_flutter: 866b03bf6633cbb183f73d651426c379f98c289d
+  image_picker: 66aa71bc96850a90590a35d4c4a2907b0d823109
   location_permissions: 4a49d4e5bec5b653643e551ab77963cc99bb0e4a
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   permission_handler: 496f0ca3b9af54bbba8ecb8c734cb694903536e5
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
