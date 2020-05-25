@@ -26,16 +26,18 @@ class OnboardingNotificationPermissionState
 
   @override
   Widget prepareWidget(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
-      body: Column(
+      body: SingleChildScrollView(child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
@@ -52,6 +54,9 @@ class OnboardingNotificationPermissionState
                               image: AssetImage(
                                 "assets/images/onboarding_notification_permission.png",
                               ),
+                              height: screenHeight/2 - 130,
+                              width: screenWidth * 0.85,
+                              fit: BoxFit.fitHeight,
                             ),
                             alignment: Alignment.center,
                           ),
@@ -90,7 +95,7 @@ class OnboardingNotificationPermissionState
             child: Material(
               child: MaterialButton(
                 height: 50,
-                minWidth: MediaQuery.of(context).size.width * 0.85,
+                minWidth: MediaQuery.of(context).size.width,
                 color: Color(0xff379FFF),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
@@ -105,10 +110,10 @@ class OnboardingNotificationPermissionState
                 },
               ),
             ),
-            margin: EdgeInsets.only(bottom: 20),
+            margin: EdgeInsets.all(20),
           ),
         ],
-      ),
+      ),),
     ));
   }
 

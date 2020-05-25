@@ -29,6 +29,7 @@ class OnboardingWorkTogetherState
   }
 
   Container topContent(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -48,6 +49,8 @@ class OnboardingWorkTogetherState
                           image: AssetImage(
                             "assets/images/onboarding_work_together.png",
                           ),
+                          height: screenHeight/2,
+                          fit: BoxFit.fitHeight,
                         ),
                         alignment: Alignment.center,
                       ),
@@ -63,15 +66,13 @@ class OnboardingWorkTogetherState
   }
 
   Container middleContent(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double topPadding = screenHeight*10/812; //Ratio from Figma Design
     return Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: topPadding,
+                height: 10,
               ),
               Text(
                 AppLocalization.text("work.together.safely.title"),
@@ -95,16 +96,14 @@ class OnboardingWorkTogetherState
   }
 
   Container bottomContent(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double topPadding = screenHeight*80/812; //Ratio from Figma Design
     double minBtnWidth = MediaQuery.of(context).size.width;
     return Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: topPadding,
+                height: 10,
               ),
               Material(
                 child: MaterialButton(

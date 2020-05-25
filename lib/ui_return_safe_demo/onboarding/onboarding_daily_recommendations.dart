@@ -18,7 +18,7 @@ class OnboardingDailyWorkplaceRecommendationsState
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
+      body: SingleChildScrollView(child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           topContent(context),
@@ -26,10 +26,11 @@ class OnboardingDailyWorkplaceRecommendationsState
           bottomContent(context)
         ],
       ),
-    ));
+    )));
   }
 
   Container topContent(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -42,13 +43,15 @@ class OnboardingDailyWorkplaceRecommendationsState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        height: 50,
+                        height: 70,
                       ),
                       Align(
                         child: Image(
                           image: AssetImage(
                             "assets/images/onboarding_daily_recommendations.png",
                           ),
+                          height: screenHeight/2 - 70,
+                          fit: BoxFit.fitHeight,
                         ),
                         alignment: Alignment.center,
                       ),
@@ -64,15 +67,13 @@ class OnboardingDailyWorkplaceRecommendationsState
   }
 
   Container middleContent(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double topPadding = screenHeight*10/812; //Ratio from Figma Design
     return Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: topPadding,
+                height: 10,
               ),
               Text(
                 AppLocalization.text("daily.workplace.recommendations.title"),
@@ -96,8 +97,6 @@ class OnboardingDailyWorkplaceRecommendationsState
   }
 
   Container bottomContent(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double topPadding = screenHeight*30/812; //Ratio from Figma Design
     double minBtnWidth = MediaQuery.of(context).size.width;
     return Container(
           child: Column(
@@ -105,7 +104,7 @@ class OnboardingDailyWorkplaceRecommendationsState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: topPadding,
+                height: 10,
               ),
               Material(
                 child: MaterialButton(

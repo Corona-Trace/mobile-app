@@ -37,6 +37,8 @@
 	<string>Zero would like to access your music library.</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Zero would like to access your calendar.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Zero would like to access your camera.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Zero would like to access your contacts.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -51,8 +53,6 @@
 	<string>Zero would like to use your phone's motion sensors to optimize location tracking. Permitting access to your device motion sensors is essential to provide accurate COVID-19 notifications.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Zero would like to access your photo library.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Zero would like to access your camera.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Zero would like to access your speech recognition.</string>
 	<key>UIBackgroundModes</key>

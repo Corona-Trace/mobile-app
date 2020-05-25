@@ -25,6 +25,7 @@ class OnboardingTestingContactTracingState
   
   @override
   Widget prepareWidget(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
       key: scaffoldKey,
@@ -51,6 +52,8 @@ class OnboardingTestingContactTracingState
                           image: AssetImage(
                             "assets/images/onboarding_testing.png",
                           ),
+                          height: screenHeight/2 - 130,
+                          fit: BoxFit.fitHeight,
                         ),
                         alignment: Alignment.center,
                       ),
@@ -88,7 +91,7 @@ class OnboardingTestingContactTracingState
             child: Material(
               child: MaterialButton(
                 height: 50,
-                minWidth: MediaQuery.of(context).size.width * 0.85,
+                minWidth: MediaQuery.of(context).size.width,
                 color: Color(0xff379FFF),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
@@ -103,7 +106,7 @@ class OnboardingTestingContactTracingState
                 },
               ),
             ),
-            margin: EdgeInsets.only(bottom: 20),
+            margin: EdgeInsets.all(20),
           ),
         ],
       ),

@@ -27,6 +27,7 @@ class OnboardingPhysicalDistanceAlertsState
   
   @override
   Widget prepareWidget(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
       key: scaffoldKey,
@@ -53,6 +54,8 @@ class OnboardingPhysicalDistanceAlertsState
                           image: AssetImage(
                             "assets/images/onboarding_physical_distancing_alerts.png",
                           ),
+                          height: screenHeight/2,
+                          fit: BoxFit.fitHeight,
                         ),
                         alignment: Alignment.center,
                       ),
@@ -90,7 +93,7 @@ class OnboardingPhysicalDistanceAlertsState
             child: Material(
               child: MaterialButton(
                 height: 50,
-                minWidth: MediaQuery.of(context).size.width * 0.85,
+                minWidth: MediaQuery.of(context).size.width,
                 color: Color(0xff379FFF),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
@@ -105,7 +108,7 @@ class OnboardingPhysicalDistanceAlertsState
                 },
               ),
             ),
-            margin: EdgeInsets.only(bottom: 20),
+            margin: EdgeInsets.all(20),
           ),
         ],
       ),

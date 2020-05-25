@@ -18,11 +18,13 @@ class OnboardingCheckinGetStartedState
     extends BaseState<OnboardingCheckinGetStarted> {
   @override
   Widget prepareWidget(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
           key: scaffoldKey,
       backgroundColor: Colors.white,
-      body: Column(
+      body: SingleChildScrollView(child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
@@ -44,6 +46,9 @@ class OnboardingCheckinGetStartedState
                               image: AssetImage(
                                 "assets/images/onboarding_checkin_getstarted.png",
                               ),
+                              height: screenHeight/2 - 130,
+                              width: screenWidth * 0.85,
+                              fit: BoxFit.fitHeight,
                             ),
                             alignment: Alignment.center,
                           ),
@@ -82,7 +87,7 @@ class OnboardingCheckinGetStartedState
             child: Material(
               child: MaterialButton(
                 height: 50,
-                minWidth: MediaQuery.of(context).size.width * 0.85,
+                minWidth: MediaQuery.of(context).size.width,
                 color: Color(0xff379FFF),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8))),
@@ -97,10 +102,10 @@ class OnboardingCheckinGetStartedState
                 },
               ),
             ),
-            margin: EdgeInsets.only(bottom: 20),
+            margin: EdgeInsets.all(20),
           ),
         ],
-      ),
+      ),),
     ));
   }
 
